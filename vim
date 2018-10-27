@@ -6,7 +6,7 @@ Buffers
     
 Regex
     \w\W\a\s\<\d\D\p\_s\S\x   # vim \s is different with Perl \s
-    
+        
     
 Format
     :set texwitdth = 120
@@ -32,7 +32,8 @@ Configuration:
     :echo $HOME
     :echo $VIM
     
-
+    :echo @%   # get current file name
+   
 Shell command for vim
     set -o emacs
     set -o vim
