@@ -28,6 +28,13 @@ Configuration:
     :echo $VIM
     
     :echo @%   # get current file name
+    
+Marks & Jumps
+    :marks
+    :marks aA
+    :delm aAbB
+    :jumps
+
    
 Shell command for vim
     set -o emacs
