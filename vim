@@ -46,9 +46,19 @@ Buffers
     :bn
     :bprev
     :b2
+    :ls
+
+Tabs
+    :tabnew
+    :tabedit <filename>
+    gt      # go to the next tab
+    gT      # go to he previous tab
+    Ctrl +w T       # break the current window to a new tab
     
 Windows
     File operations
+    :new            # open a file above the current window
+    :vnew           # open a file beside the current window
     :sp filename
     :vsp filename
     
@@ -58,6 +68,9 @@ Windows
     Ctrl + ww       # switch widnows
     Ctrl + wq       # quit the window
     Ctrl + wv       # split the window vertically
+    
+    Switch operations
+    Ctrl +w h,j,k,l
     
     Resize operations
     :resize 60
