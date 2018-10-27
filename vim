@@ -32,3 +32,10 @@ Configuration:
     :echo $HOME
     :echo $VIM
     
+
+Shell command for vim
+    set -o emacs
+    set -o vim
+    # When you enter a line in vim mode, you are already placed in "insertion" mode, press ESC switches into "command" mode.
+    # Move to previous hsitroy line with 'k' and subsequent line with 'j', and so forth in "command" mode.
+    
