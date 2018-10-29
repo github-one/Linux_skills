@@ -3,7 +3,7 @@ Configuration:
     :version            # get vimrc file location besides vim version information
     :echo $HOME         # get current work directory
     :echo $VIM          # get the vim binary name
-    :echo @%            # get current file name
+    :echo @%            # get current file name which you're editting on
 
 
 Format
