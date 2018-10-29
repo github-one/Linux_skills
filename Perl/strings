@@ -38,3 +38,33 @@ Special characters:
     \Q      # add the non-word character with '\', until encounter \E
     \E      # nullify \L, \U, and \Q
     
+
+String vs Number
+    Equality    Numeric     String
+     Equal	    ==	        eq
+    Not Equal   !=          ne
+    Comparison	<=>	        cmp
+    
+    Relational              Numeric     String
+    Less than	            <	        lt
+    Greater than	        >	        gt
+    Less than or equal	    <=	        le
+    Greater than or equal	>=	        ge
+    
+    In Perl, The logical AND operator is && and logical OR is ||.
+    
+    To check if a valid number exist in a variable $var you could do:
+    (Note: Perl evaluates any string to 0 if is not a number. )
+
+        if ( ($var ne "0") && ($var == 0))
+          { 
+                # $var is a number
+          }
+
+
+
+    
+
+    
+
+
