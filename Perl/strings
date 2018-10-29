@@ -1,5 +1,5 @@
 
-Function for string: lc, uc, lc, ucfirst, index, rindex, length, sprintf, pack, unpack
+Function for string: lc, uc, lcfirst, ucfirst, index, rindex, length, sprintf, pack, unpack
 
 print skills
 
