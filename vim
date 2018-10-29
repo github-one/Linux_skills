@@ -1,4 +1,11 @@
 
+Configuration:
+    :version            # get vimrc file location besides vim version information
+    :echo $HOME         # get current work directory
+    :echo $VIM          # get the vim binary name
+    :echo @%            # get current file name
+
+
 Format
     :set texwitdth = 120
     :set tw = 120
@@ -22,12 +29,7 @@ Format
     :set textwidth=0 wrapmargin=0           # to turn off physical line wrapping, i.e. automatic insertion of newlines
     :verbose set textwidth? wrapmargin?     # to check the current values
     
-Configuration:
-    :version
-    :echo $HOME
-    :echo $VIM
-    
-    :echo @%   # get current file name
+
     
 Marks & Jumps
     :marks
