@@ -1,0 +1,24 @@
+
+Function for string: lc, uc, lc, ucfirst, index, rindex, length, sprintf, pack, unpack
+
+print skills
+
+    print "Perl" x 4;
+    print $mystr x 4;
+    
+    print join ",", "hello", "world"
+    print join "\n", @str_array;
+    print join "\n", @str_array, $mystr;
+    
+    @result = grep(/on/, @array);
+    
+Special characters:
+    \n \r \t \f \b \a \e \007(bell, oct) \x7f(hex)  \cC(Ctrl+c)
+    \\ \"  
+    \l      # let the next character to be lower-case
+    \L      # let the next characters to be lower-case, until encounter \E
+    \u      # let the next charatcter to be upper-case
+    \U      # let the next characters to be upper-case, until encounter \E
+    \Q      # add the non-word character with '\', until encounter \E
+    \E      # nullify \L, \U, and \Q
+    
