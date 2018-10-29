@@ -16,6 +16,18 @@ Function skills
     @fields = split(/:/, "1:2:3:4:5");
     
     
+Function sort
+    my @words = qw(foo bar Zorg moo);
+    print join ", ", sort @words;
+    print join ", ", sort { lc($a) cmp lc($b) } @words;
+    
+    my @numbers = (14, 2, 33, 25, 7);
+    print join ", ", sort @numbers;
+    print join ", ", sort { $a <=> $b } @numbers;
+    
+    # Note: cmp is for strings, while <=> is for numbers;
+    
+    
 Special characters:
     \n \r \t \f \b \a \e \007(bell, oct) \x7f(hex)  \cC(Ctrl+c)
     \\ \"  
