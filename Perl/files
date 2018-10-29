@@ -23,5 +23,12 @@
     -c  File is a character special file.
     -t  Filehandle is opened to a tty.
     
+File::Find
+
+    use File::Find;
+    my $dir = "/root/myname";
+    find(sub { print if -d }, $dir);
+    
+    
     
     
