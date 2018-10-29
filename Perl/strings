@@ -10,7 +10,11 @@ print skills
     print join "\n", @str_array;
     print join "\n", @str_array, $mystr;
     
+    
+Function skills
     @result = grep(/on/, @array);
+    @fields = split(/:/, "1:2:3:4:5");
+    
     
 Special characters:
     \n \r \t \f \b \a \e \007(bell, oct) \x7f(hex)  \cC(Ctrl+c)
