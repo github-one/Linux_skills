@@ -1,0 +1,8 @@
+
+Question: How could I separate a big number with commas, like 123456789=123,456,789
+    
+    $number = 123456789.123;
+    $number =~ s/(\d)(?=(\d{3})+(\D|$))/$1\,/g;
+    print $number;
+    
+    
