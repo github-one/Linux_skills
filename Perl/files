@@ -28,7 +28,38 @@ File::Find
     use File::Find;
     my $dir = "/root/myname";
     find(sub { print if -d }, $dir);
+    find(sub { print $FILE::Find::name if -d}, $dir);
+       
+    # print the 10 largest files found in the tree under the directory
+    #!/usr/bin/perl -w
+    
+    ($#ARGV == 0) or die "Usage: $0 [directory]\n";
+    
+    use File::Find;
+    
+    find(sub {$size{$File::Find::name} = -s if -f;}, @ARGV);
+    @sorted = sort {$size{$b} <=> $size{$a}} keys %size;
+    
+    splice @sorted, 10 if @sorted > 10;
+    
+    foreach (@sorted)
+    {
+        printf "%10d %s\n", $size{$_}, $_;
+    }
+    
+
+File path separator
+    Different Operating Systems sue different characters as their path separator:
+    foo/bar/baz     # *nix
+    foo\bar\baz     # Windows
+    foo:bar:baz     # Mac OS 9
+    foo/bar/baz     # Mac OS X
+    
+    In Perl you can generally just use a '/' as your path separtor( except on MAC OS 9 ?) because Perl will automagically convert 
+    the '/' to the correct path separator for the system it is running on.
     
     
-    
+   
+        
+        
     
