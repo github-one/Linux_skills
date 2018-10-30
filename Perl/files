@@ -22,11 +22,20 @@
     -b  File is a block special file.
     -c  File is a character special file.
     -t  Filehandle is opened to a tty.
+
+Directory operations
+    $mydir = "/root/mypath/*";      # note: "/root/mypath" will get only one result.
+    my @files = glob( $mydir );
+    print join "\n", @files;        # note: the result is sorted.  
     
+    opendir (DIR, "/root/mypath") or die "Error, $!";       # note: "/root/mypath" vs "/root/mypath/*"
+    @files = readdir DIR;
+    print join "\n", @fiels;        # note: the result is unsorted and includes hidden files.
+
 File::Find
 
     use File::Find;
-    my $dir = "/root/myname";
+    my $dir = "/root/mypath";
     find(sub { print if -d }, $dir);
     find(sub { print $FILE::Find::name if -d}, $dir);
        
@@ -45,8 +54,7 @@ File::Find
     foreach (@sorted)
     {
         printf "%10d %s\n", $size{$_}, $_;
-    }
-    
+    } 
 
 File path separator
     Different Operating Systems sue different characters as their path separator:
@@ -59,7 +67,4 @@ File path separator
     the '/' to the correct path separator for the system it is running on.
     
     
-   
-        
-        
     
