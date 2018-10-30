@@ -5,4 +5,6 @@ Question: How could I separate a big number with commas, like 123456789=123,456,
     $number =~ s/(\d)(?=(\d{3})+(\D|$))/$1\,/g;
     print $number;
     
-    
+    use Number::Format 'format_number';
+    say foramt_number(123456789.123);
+            
