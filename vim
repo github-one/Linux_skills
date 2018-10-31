@@ -5,6 +5,14 @@ Configuration:
     :echo $VIM          # get the vim binary name
     :echo @%            # get current file name which you're editting on
 
+Color scheme:
+    :color              # view current color scheme
+    :hi                 # list all color groups
+    :hi Statement       # view color definations for Statement.
+    
+    To get the list of installed color schemes
+    Type :colorscheme then press "Space" followed by "Tab" 
+    Type :colorscheme then press "Space" followed by "Ctrl-d"
 
 Format
     :set texwitdth = 120
@@ -32,11 +40,22 @@ Format
 
     
 Marks & Jumps
+    Two types of mark jumps, bactick(`<mark>) and single quote('<mark>).
+    Three types of mark: 
+        lowercase marks,    set for a single file
+        uppercase maskes,   set for multiple files
+        numbered marks,     revserved for vim
+    
+    mx          # add a mark called x
+    `x          # return to the line and column for mark x
+    'x          # return to the beginning of the line where marks x is set
+    `.          # move the cursor to the line and column where the last edit was make    
+    '.          # move the cursor to the line where the last edit was make
+    '"          # move the cursor to the las position for the cursor when you exited the previous session(file)
     :marks
     :marks aA
     :delm aAbB
     :jumps
-
    
 Shell command for vim
     set -o emacs
@@ -73,6 +92,8 @@ Windows
     
     Switch operations
     Ctrl +w h,j,k,l
+    Ctrl +w r           switch two windows but keep the window layout the same
+    Ctrl +w w           move the cursor between the two windows/buffers
     
     Resize operations
     :resize 60
