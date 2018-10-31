@@ -37,7 +37,8 @@ Format
     :set textwidth=0 wrapmargin=0           # to turn off physical line wrapping, i.e. automatic insertion of newlines
     :verbose set textwidth? wrapmargin?     # to check the current values
     
-
+    :set splitbelow     # open new split panes to bottom, which feels more natural than Vim's default
+    :set splitright
     
 Marks & Jumps
     Two types of mark jumps, bactick(`<mark>) and single quote('<mark>).
