@@ -1,0 +1,6 @@
+PDO
+    A Pod bolock starts with ANY command paragraph, so a "=pod" command is usually just when you want to start a Pod block with
+    and ordinary paragraph or verbatim paragraph.
+    To end a Pod block, use a blank line, then a lien beginning with "=cut", and a blank line after it.
+    
+    
