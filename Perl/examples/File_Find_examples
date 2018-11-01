@@ -1,0 +1,44 @@
+
+To find ".pl" files in some directory
+
+        my @file_list;
+        find ( sub {
+            return unless -f;       #Must be a file
+            return unless /\.pl$/;  #Must end with `.pl` suffix
+            push @file_list, $File::Find::name;
+        }, $directory );
+
+        # At this point, @file_list contains all of the files I found.
+
+This is exactly the same as:
+
+        my @file_list;
+
+        find ( \&wanted, $directory );
+
+        sub wanted {
+            return unless -f;
+            return unless /\.pl$/;
+            push @file_list, $File::Find::name;
+        }
+
+        # At this point, @file_list contains all of the files I found.
+
+In lining just looks nicer. And, it keep my code together. 
+
+I also like taking advantage of the shorter syntax in this particular way. 
+
+        sub wanted {
+            my $file_name = $_;
+            if ( -f $file_name and $file_name =~ /\.pl$/ ) {
+                push @file_list, $File::Find::name;
+            }
+        }
+        
+
+When you find a file you don't want, you use return to go to the next file.
+$_ contains the file name without the directory, and you can use that for testing the file.
+The file's full name is $File::Find::name.
+The file's directory is $File::Find::dir.
+And, the easiest way is to push the files you want into an array, and then use that array later in your program.
+
