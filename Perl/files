@@ -62,8 +62,23 @@ File::Find
     for my $file (File::Find::Rule->in($dir)) {
         print $file . "\n";
     }
-        
-
+    
+    use File::Find::Rule;
+    # find all the subdirectories of a gvie directory
+    my @subdir = File::Find::Rule->directory->( $directory );
+    
+    # find all the .pm files in @INC
+    my @files = File::Find::Rule->file()
+                                ->name( '*.pm' )
+                                ->in( @INC );
+                                
+    # find all the .pm file in @INC, but without method chaining
+    my $rule = File::Find::Rule-new;
+    $rule->file;
+    $rule->name( '*.pm' );
+    my @files = $rule-in( @INC );
+    
+    
 File path separator
     Different Operating Systems sue different characters as their path separator:
     foo/bar/baz     # *nix
