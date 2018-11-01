@@ -1,0 +1,196 @@
+三种遍历文件夹方法比较(PERL)
+
+本贴对三种遍历文件夹方法比较。 
+1. 使用File::Find; 
+2. 递归遍历。(遍历函数为lsr) 
+3. 使用队列或栈遍历。(遍历函数为lsr_s) 
+
+1.use File::Find 
+#!/usr/bin/perl -W 
+# 
+# File: find.pl 
+# Author: 路小佳 
+# License: GPL-2 
+
+use strict; 
+use warnings; 
+use File::Find; 
+
+my ($size, $dircnt, $filecnt) = (0, 0, 0); 
+
+sub process { 
+my $file = $File::Find::name; 
+#print $file, /"n/"; 
+if (-d $file) { 
+$dircnt++; 
+} 
+else { 
+$filecnt++; 
+$size += -s $file; 
+} 
+} 
+
+find(&process, /'./'); 
+print /"$filecnt files, $dircnt directory. $size bytes.n/"; 
+
+2. lsr递归遍历 
+#!/usr/bin/perl -W 
+# 
+# File: lsr.pl 
+# Author: 路小佳 
+# License: GPL-2 
+
+use strict; 
+use warnings; 
+
+sub lsr($) { 
+sub lsr; 
+my $cwd = shift; 
+
+local *DH; 
+if (!opendir(DH, $cwd)) { 
+warn /"Cannot opendir $cwd: $! $^E/"; 
+return undef; 
+} 
+foreach (readdir(DH)) { 
+if ($_ eq /'./' || $_ eq /'../') { 
+next; 
+} 
+my $file = $cwd./'//'.$_; 
+if (!-l $file && -d _) { 
+$file .= /'//'; 
+lsr($file); 
+} 
+process($file, $cwd); 
+} 
+closedir(DH); 
+} 
+
+my ($size, $dircnt, $filecnt) = (0, 0, 0); 
+
+sub process($$) { 
+my $file = shift; 
+#print $file, /"n/"; 
+if (substr($file, length($file)-1, 1) eq /'//') { 
+$dircnt++; 
+} 
+else { 
+$filecnt++; 
+$size += -s $file; 
+} 
+} 
+
+lsr(/'./'); 
+print /"$filecnt files, $dircnt directory. $size bytes.n/"; 
+
+3. lsr_s栈遍历 
+#!/usr/bin/perl -W 
+# 
+# File: lsr_s.pl 
+# Author: 路小佳 
+# License: GPL-2 
+
+use strict; 
+use warnings; 
+
+sub lsr_s($) { 
+my $cwd = shift; 
+my @dirs = ($cwd./'//'); 
+
+my ($dir, $file); 
+while ($dir = pop(@dirs)) { 
+local *DH; 
+if (!opendir(DH, $dir)) { 
+warn /"Cannot opendir $dir: $! $^E/"; 
+next; 
+} 
+foreach (readdir(DH)) { 
+if ($_ eq /'./' || $_ eq /'../') { 
+next; 
+} 
+$file = $dir.$_; 
+if (!-l $file && -d _) { 
+$file .= /'//'; 
+push(@dirs, $file); 
+} 
+process($file, $dir); 
+} 
+closedir(DH); 
+} 
+} 
+
+my ($size, $dircnt, $filecnt) = (0, 0, 0); 
+
+sub process($$) { 
+my $file = shift; 
+print $file, /"n/"; 
+if (substr($file, length($file)-1, 1) eq /'//') { 
+$dircnt++; 
+} 
+else { 
+$filecnt++; 
+$size += -s $file; 
+} 
+} 
+
+lsr_s(/'./'); 
+print /"$filecnt files, $dircnt directory. $size bytes.n/"; 
+
+对我的硬盘/dev/hda6的测试结果。 
+1: File::Find 
+26881 files, 1603 directory. 9052479946 bytes. 
+
+real 0m9.140s 
+user 0m3.124s 
+sys 0m5.811s 
+
+2: lsr 
+26881 files, 1603 directory. 9052479946 bytes. 
+
+real 0m8.266s 
+user 0m2.686s 
+sys 0m5.405s 
+
+3: lsr_s 
+26881 files, 1603 directory. 9052479946 bytes. 
+
+real 0m6.532s 
+user 0m2.124s 
+sys 0m3.952s 
+
+测试时考虑到cache所以要多测几次取平均, 也不要同时打印文件名， 因为控制台是慢设备， 会形成瓶颈。 
+lsr_s之所以用栈而不是队列来遍历，是因为Perl的push shift pop操作是基于数组的， push pop这样成对操作可能有优化。内存和cpu占用大小顺序也是1>2>3. 
+CPU load memory 
+use File::Find 97% 4540K 
+lsr 95% 3760K 
+lsr_s 95% 3590K 
+
+结论: 强烈推荐使用lsr_s来遍历文件夹。 
+
+=============再罗嗦几句====================== 
+从执行效率上来看，find.pl比lsr.pl的差距主要在user上， 原因是File::Find模块选项较多，条件判断费时较多，而 lsr_s.pl比lsr.pl在作系统调用用时较少， 是因为递归时程序还在保存原有的文件句柄和函数恢复现场的信息，所以sys费时较多。 所以 lsr_s在sys与user上同时胜出是不无道理的。 
+
+#!/usr/bin/perl -w 
+#读取目录下的目录，并且去除..和.目录以及隐藏的目录 
+opendir (DIR,/"/root/") or die /"could not open /root/"; 
+@dots=grep {/^[^.]/ && -d /"/root/$_/" } readdir(DIR); 
+foreach (@dots) { 
+print /"$_n/"; 
+} 
+closedir DIR; 
+
+#!/usr/bin/perl 
+
+# A small program to read the contents 
+# of a directory and print them to screen 
+
+@dir_contents; 
+$dir_to_open=/"/home/sant/dcs/Teaching/Internet_Systems/Lectures/"; 
+
+# open file with handle DIR 
+
+opendir(DIR,$dir_to_open) || die(/"Cannot open directory !n/"); 
+
+# Get contents of directory 
+
+@dir_contents= readdir(DIR);
