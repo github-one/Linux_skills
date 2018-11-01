@@ -55,6 +55,14 @@ File::Find
     {
         printf "%10d %s\n", $size{$_}, $_;
     } 
+    
+    
+    use File::Find::Rule;
+    my $dir = "/root/mypath";
+    for my $file (File::Find::Rule->in($dir)) {
+        print $file . "\n";
+    }
+        
 
 File path separator
     Different Operating Systems sue different characters as their path separator:
