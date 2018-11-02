@@ -40,22 +40,24 @@ File::Find
     find(sub { print $FILE::Find::name if -d}, $dir);
        
     # print the 10 largest files found in the tree under the directory
+    #---------------------------------------------------------------------------
     #!/usr/bin/perl -w
     
     ($#ARGV == 0) or die "Usage: $0 [directory]\n";
     
     use File::Find;
     
-    find(sub {$size{$File::Find::name} = -s if -f;}, @ARGV);
+    find(sub { -l && return; $size{$File::Find::name} = -s if -f;}, @ARGV);
     @sorted = sort {$size{$b} <=> $size{$a}} keys %size;
     
     splice @sorted, 10 if @sorted > 10;
     
     foreach (@sorted)
-    {
+    {        
         printf "%10d %s\n", $size{$_}, $_;
     } 
-    
+    #---------------------------------------------------------------------------
+        
     
     use File::Find::Rule;
     my $dir = "/root/mypath";
