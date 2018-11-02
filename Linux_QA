@@ -1,0 +1,8 @@
+Q:  Why is the size of “/proc/kcore” file so bigger than the physical memory size?
+A:  kcore is the virtual allocation of your RAM for the kernel. 
+    On 64 bit systems that size can be an absolute limit of 128T since that is the most the system can allocate.
+    A range of pseudo and virtual filesystems exists which exposes information about processes and other system information 
+    in a hierarchical file-like structure. These are mounted into the single file hierarchy.
+    An example of this purely virtual filesystem is under /proc that exposes many system properties as files.
+    
+    
