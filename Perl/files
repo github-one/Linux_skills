@@ -91,5 +91,9 @@ File path separator
     In Perl you can generally just use a '/' as your path separtor( except on MAC OS 9 ?) because Perl will automagically convert 
     the '/' to the correct path separator for the system it is running on.
     
+$#ARGV
+    The special variable $#array tells you the index of the last element of an array(that means n-1).
+    If you pass 0 arguments, $#ARGV will be -1, since there are no elements in the array.
+    If you pass 1 argument, $#ARGV will be 0.
     
     
