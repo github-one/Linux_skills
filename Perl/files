@@ -96,4 +96,17 @@ $#ARGV
     If you pass 0 arguments, $#ARGV will be -1, since there are no elements in the array.
     If you pass 1 argument, $#ARGV will be 0.
     
+    $perl -E 'say for @ARGV' file1 file2
+    file1
+    file2
+    
+    Be careful if your arguments start with a hyphen, e.g. the -file1 and -file2. Perl will take it as an option.
+    $perl -E 'say for @ARGV' -file1 -file2
+    -i used with no filenames on th command line, reading from STDIN.
+    They look like option(to both Perl and humans). Seperate options and other(non-option)arguments with '--'
+    $perl -E 'say for @ARGV' -- -file1 -file2
+    -file1
+    -file2
+    
+    
     
