@@ -1,0 +1,10 @@
+Print
+    %hash = ('foo'=>1, 'bar'=>3);
+    print %hash;                    # result: bar3fool1
+    print "%hash";                  # result: %hash
+    print join ",", %hash;          # result: bar,3,foo,1
+    
+Length
+    print scalar keys %hash;
+    print scalar(keys %hash);
+    
