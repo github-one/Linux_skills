@@ -147,7 +147,11 @@ Regular expression for the commmand line
     # This regex will match things like "-a", "-abc", but it won't match "--xzy" or "abc".
     
     my (@witharg)   = ($args =~ /(\S)\s*:/g);
-    my (@rest)      = ($args =~ /([^\s:](?!\s*:)/g);
+    my (@rest)      = ($args =~ /([^\s:])(?!\s*:)/g);
+    
+    If $args ='a:b :cde: +:-', the @witharg will be ('a','b','e','+'), the @rest will be ('c','d','-').
+    The group (?!\s*:) is a zero-width negative look-ahead assertion.
+    
     
     
     
