@@ -121,5 +121,16 @@ Single-character and bundling feature
         perl test.pl -mtr                       =>  Value "r" invalid for option t (number expected)/Usage: ...
         
         
+Negatable boolean arguments
+    Negatable boolean argument is the exclamation mark "!" at the end of the flag.
+    
+    my $verbose;
+    GetOptions( 'verbose!' => \$verbose);
+    
+    Input and output
+        (none input)    =>      $verbose is undef
+        --verbose       =>      $verbose is 1
+        --noverbose     =>      $verbose is 0
+        
         
         
