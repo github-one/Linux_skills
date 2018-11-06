@@ -90,7 +90,7 @@ Getopt::Long
         
         Note: --machine or -m flag will set $machine value to "true".
         
-Bundling feature
+Single-character and bundling feature
     ##################  test.pl #############################################################
     ...
     Getopt::Long::Configure("bundling");
