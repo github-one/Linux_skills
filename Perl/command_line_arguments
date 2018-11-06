@@ -131,6 +131,26 @@ Negatable boolean arguments
         (none input)    =>      $verbose is undef
         --verbose       =>      $verbose is 1
         --noverbose     =>      $verbose is 0
+        --nove          =>      $verbose is 0
+        --nov           =>      $verbose is 0
+        -noverbose      =>      error
+        --nov --ver     =>      $verbose is 1
+
+Optional value
+    Using :s at the end of the option name.
+    GetOptions( 'logfile:s' => \$logfile);
+
+
+        
+Regular expression for the commmand line    
+    while (@ARGV && ($_ = $ARGV[0]) =~ /^-(.)(.*)/) { ... }
+    # This regex will match things like "-a", "-abc", but it won't match "--xzy" or "abc".
+    
+    my (@witharg)   = ($args =~ /(\S)\s*:/g);
+    my (@rest)      = ($args =~ /([^\s:](?!\s*:)/g);
+    
+    
+    
         
         
         
