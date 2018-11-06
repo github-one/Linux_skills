@@ -32,3 +32,58 @@ $0 and @ARGV
     # There is on minor bug in the above code. If the user supplies '0' as the name of the file. 
     But it doesn't matter, since we can live with the fact. 
     
+Getopt::Long
+    "Long" is relatvie here, it just means more than one character.
+    
+    Types of the command line arguments:
+        -Long name with values
+        -Long name without value: We would accept flags by their mere existence.
+        -Short name(or single-character names) with values
+        -Short name without value
+        -combining short names, -vd should be understood as -v -d. The difference here is that "long names"
+            start with double-dash "--" while short names, even if several of them were combined together
+            start with a single dash "-".
+        - Non-affiliated values, values without any name starting with a dash in front of them.
+
+    ##########################################################################################
+    #!/usr/bin/perl
+    use strict;
+    use 5.010;
+    use Getopt::Long qw(GetOptions);
+    
+    my ($trace, $machine) = (0);
+    GetOptions(
+            'machine'             => \$machine,
+            'trace=i'             => \$trace,
+    ) or die "Usage: $0 [--trace NUMBER] [--machine NAME]\n";
+
+    if (defined $machine) {
+            say $machine;
+    } else {
+            say 'undef';
+    }
+    say $trace;
+    say join ", ", $0, @ARGV;   
+    ##########################################################################################
+    
+    Input and output (note: "/" stands for a new line)
+        perl test.pl                            =>  undef/0/test.pl
+        perl test.pl --machine                  =>  1/0/test.pl
+        perl test.pl --machine --trace 3        =>  1/3/test.pl
+        perl test.pl --machine --trace          =>  Option trace requires an argument/Usage: ...
+        perl test.pl --ma --tr 3                =>  1/3/test.pl
+        perl test.pl --m --t 3                  =>  1/3/test.pl
+        perl test.pl -m -t 3                    =>  1/3/test.pl
+        perl test.pl -m -tr 3                   =>  1/3/test.pl
+        perl test.pl -m --tr 3                  =>  1/3/test.pl
+        perl test.pl -m --tr=3                  =>  1/3/test.pl
+        perl test.pl -m -t=3                    =>  1/3/test.pl
+        
+        perl test.pl -mt 3                      =>  Unknown option: mt/Usage: ...
+        perl test.pl -mt3                       =>  Unknown option: mt3/Usage: ...
+        perl test.pl -m -t3                     =>  Unknown option: t3/Usage: ...
+        
+        
+        
+        
+    
