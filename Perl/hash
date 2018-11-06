@@ -8,3 +8,17 @@ Length
     print scalar keys %hash;
     print scalar(keys %hash);
     
+%$var
+     $days               # the simple scalar value "days"
+     $days[28]           # the 29th element of array @days
+     $days{'Feb'}        # the 'Feb' value from hash %days
+     $#days              # the last index of array @days
+     %$arg_ref           # hash dereferenced from the value "arg_ref", another way to write it is %{$arg_ref}.
+     
+     note:
+     Scalar values are always named with '$', even when referring to a scalar that is part of an array or a hash.
+     The '$' symbol works semantically like the English word "the" in that it indicates a single value is expected.
+     To create a hash reference you could start with a hash, or with an anonymous hash reference:
+            soem_sub(\%hash);
+            som_sub( {pi => 3.14, C => 4});
+     
