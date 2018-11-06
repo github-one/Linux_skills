@@ -91,40 +91,4 @@ File path separator
     In Perl you can generally just use a '/' as your path separtor( except on MAC OS 9 ?) because Perl will automagically convert 
     the '/' to the correct path separator for the system it is running on.
     
-$#ARGV
-    The special variable $#array tells you the index of the last element of an array(that means n-1).
-    If you pass 0 arguments, $#ARGV will be -1, since there are no elements in the array.
-    If you pass 1 argument, $#ARGV will be 0.
-    
-    $perl -E 'say for @ARGV' file1 file2
-    file1
-    file2
-    
-    Be careful if your arguments start with a hyphen, e.g. the -file1 and -file2. Perl will take it as an option.
-    $perl -E 'say for @ARGV' -file1 -file2
-    -i used with no filenames on th command line, reading from STDIN.
-    They look like option(to both Perl and humans). Seperate options and other(non-option)arguments with '--'
-    $perl -E 'say for @ARGV' -- -file1 -file2
-    -file1
-    -file2
-    
-$0 and @ARGV
-    The name of the program being executed is always in the $0 variable of Perl. (but $1, $2, etc are note related)
-    
-    C prgrogram: the name of the program being executed is in argv[0], the number of arguments is argc.
-    
-    Unix/Linux shell program: $0 is the name of the script being executed. $1, $2, etc. hold the rest of the commmand
-    line parameters.
-    
-    Extract the command line argumets from @ARGV
-    my ($name, $number) = @ARGV;
-    if (not defined $name) { die "Nedd name\n" }
-    ...
-    
-    my $filename = shift or die "usage: $0 FILENAME\n";
-    # There is on minor bug in the above code. If the user supplies '0' as the name of the file. 
-    But it doesn't matter, since we can live with the fact. 
-    
-    
-    
-    
+   
