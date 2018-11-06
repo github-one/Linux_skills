@@ -88,6 +88,7 @@ Getopt::Long
         perl test.pl -m -one                    =>  Unknown option: o/.../.../Usage: ...
         perl test.pl -m -- -one                 =>  1/0/test.pl, -one        
         
+        Note: --machine or -m flag will set $machine value to "true".
         
 Bundling feature
     ##################  test.pl #############################################################
