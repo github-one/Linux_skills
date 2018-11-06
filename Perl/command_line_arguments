@@ -90,6 +90,13 @@ Getopt::Long
         
         Note: --machine or -m flag will set $machine value to "true".
         
+Non-affiliated values
+    The GetOptions function only handles the parameters that start with a dash and their corresponding values,
+    when they are relevant. Once it processed the options it will remove them from @ARGV. (Both the option name
+    and the option value will be removed.) Any other, non-affiliated values on the command line will stay
+    in @ARGV.
+   
+        
 Single-character and bundling feature
     ##################  test.pl #############################################################
     ...
