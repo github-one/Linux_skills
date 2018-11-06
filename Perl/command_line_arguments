@@ -73,6 +73,8 @@ Getopt::Long
         perl test.pl --machine --trace          =>  Option trace requires an argument/Usage: ...
         perl test.pl --ma --tr 3                =>  1/3/test.pl
         perl test.pl --m --t 3                  =>  1/3/test.pl
+        perl test.pl --M --T 3                  =>  1/3/test.pl
+        perl test.pl --Ma --tR 3                =>  1/3/test.pl
         perl test.pl -m -t 3                    =>  1/3/test.pl
         perl test.pl -m -tr 3                   =>  1/3/test.pl
         perl test.pl -m --tr 3                  =>  1/3/test.pl
@@ -139,6 +141,7 @@ Negatable boolean arguments
 Optional value
     Using :s at the end of the option name.
     GetOptions( 'logfile:s' => \$logfile);
+    # $logfile will take a value only when the value for 'logfile' is present.
 
         
 Regular expression for the commmand line    
@@ -151,6 +154,33 @@ Regular expression for the commmand line
     #If $args ='a:b :cde: +:-', the @witharg will be ('a','b','e','+'), the @rest will be ('c','d','-').
     #The group (?!\s*:) is a zero-width negative look-ahead assertion.
     
+Advance destination
+    You do not need to specified the option destination. If no destination is specified, GetOptions will define
+    variables $opt_xxx where xxx is the name of the option. GetOptions will also accept a reference
+    to a hash as its first argument and deliver the option values there.
+    
+Subroutine for option
+    GetOptions ('x=i' => \$x, '<>' => \&sub_proc);
+    # Here '<>' is a special option to be used to connect a subroutine to handle non-option arguments.
+    # When you execute this program with command line arguments '-x 1 foo -x 2 bar', this will call subroutine
+    # 'sub_proc' with argument 'foo' (and $x equal to 1), and then call 'sub_proc' with argument 'bar' (and $x
+    # equal to 2).
+    
+    
+summary of option expressions
+    GetOptions ('foo' => \$foo_value);
+    GetOptions ('foo|bar' => \$foo_value);
+    GetOptions ('foo=s' => \$foo_string_value);   
+    GetOptions ('foo:s' => \$foo_string_value);    # optional value
+    GetOptions ('foo=f' => \$foo_float_value);
+    GetOptions ('foo=i' => \$foo_integer_value);
+    GetOptions ('foo!' => \$foo_value);
+    GetOptions ('f|foo' => \$foo_value);
+    GetOptions ('foo|f' => \$foo_value);
+    GetOptions ('foo=i' => \@foo_value);
+    GetOptions ('foo=i' => \%foo_value);
+    GetOptions ('foo' => \$foo_value, '<>' => \$sub_proc);    
+        
     
     
     
