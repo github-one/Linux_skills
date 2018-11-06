@@ -160,6 +160,15 @@ Advance destination
     to a hash as its first argument and deliver the option values there.
     
 Subroutine for option
+    GetOptions ("foo=i" => \$handler);
+    sub handler {
+        my ($opt_name, $opt_value) = @_;
+        print "Option name is $opt_name and value is $opt_value.\n";
+    }
+    
+    Input and output
+        perl test.pl --opt 3        => Option name is opt and value is 3.
+
     GetOptions ('x=i' => \$x, '<>' => \&sub_proc);
     # Here '<>' is a special option to be used to connect a subroutine to handle non-option arguments.
     # When you execute this program with command line arguments '-x 1 foo -x 2 bar', this will call subroutine
@@ -179,11 +188,6 @@ summary of option expressions
     GetOptions ('foo|f' => \$foo_value);
     GetOptions ('foo=i' => \@foo_value);
     GetOptions ('foo=i' => \%foo_value);
-    GetOptions ('foo' => \$foo_value, '<>' => \$sub_proc);    
-        
+    GetOptions ('foo' => \$foo_value, '<>' => \$sub_proc);           
     
-    
-    
-        
-        
         
