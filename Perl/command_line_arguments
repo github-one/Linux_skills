@@ -78,13 +78,17 @@ Getopt::Long
         perl test.pl -m --tr 3                  =>  1/3/test.pl
         perl test.pl -m --tr=3                  =>  1/3/test.pl
         perl test.pl -m -t=3                    =>  1/3/test.pl
-        perl test.pl -m -t=3 hello              =>  1/3/test.pl, hello
-        perl test.pl -m -t=3 one two            =>  1/3/test.pl, one, two
         
         perl test.pl -mt 3                      =>  Unknown option: mt/Usage: ...
         perl test.pl -mt3                       =>  Unknown option: mt3/Usage: ...
         perl test.pl -m -t3                     =>  Unknown option: t3/Usage: ...
 
+        perl test.pl -m -t 3 hello              =>  1/3/test.pl, hello
+        perl test.pl -m -t 3 one two            =>  1/3/test.pl, one, two
+        perl test.pl -m -one                    =>  Unknown option: o/.../.../Usage: ...
+        perl test.pl -m -- -one                 =>  1/0/test.pl, -one        
+        
+        
 Bundling feature
     ##################  test.pl #############################################################
     ...
