@@ -182,6 +182,14 @@ Options with multiple values
     Input:   --coordinates 52.2 16.4 --rgbcolor 255 255 149
     GetOption ("coordinates=f{2}' => \@coor, 'rgbcolor=i{3}' => \@color);
     
+Options with hash values
+    Input:   --define os=linux --define vendor=redhat
+    GetOptions ("define=s" => \%defines);
+    GetOptions ("define=s%" => \$defines);
+    
+    # The hash %defines (or %$defines) will contain two keys, "os" with value "linux" and "vendor" with value "redhat".
+    # The key are always taken to be strings.
+    
     
 Option specification and destination
     The option name as specified to the GetOptions() function is called option specification. The reference
@@ -206,8 +214,7 @@ Subroutine for option
     # When you execute this program with command line arguments '-x 1 foo -x 2 bar', this will call subroutine
     # 'sub_proc' with argument 'foo' (and $x equal to 1), and then call 'sub_proc' with argument 'bar' (and $x
     # equal to 2).
-    
-  
+      
     
 summary of option expressions
     GetOptions ('foo' => \$foo_value);
@@ -226,6 +233,8 @@ summary of option expressions
     GetOptions ('foo=i{1,}' => \@foo_value);        # take one or more values
     GetOptions ('foo=i{,}' => \@foo_value);         # take zero or more values
     GetOptions ('foo=i' => \%foo_value);
+    GetOptions ('foo=i@' => \$foo_value);
+    GetOptions ('foo=i%' => \$foo_value);           # the key are always taken to be string.
     GetOptions ('foo' => \$foo_value, '<>' => \$sub_proc);           
     
         
