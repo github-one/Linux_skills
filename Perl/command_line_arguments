@@ -295,4 +295,6 @@ summary of option expressions
     GetOptions ('verbose' => \$verbose, 'quiet' => sub { $verbbose=0 });
     GetOptions ('' => \$Stdio);                     #  a lone dash '-' will set variable $stdio.     
     GetOptions (\%hash, 'foo=i', 'bar=i');          # values will be stored in $hash{foo}, $hash{bar}
+    GetOptions ("help|?" => \$help);                # -?, -help, --help will set $help to value "1"
+    
         
