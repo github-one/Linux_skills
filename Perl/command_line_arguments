@@ -197,6 +197,21 @@ Options with multiple names
     The first name is called the primary name, the other names( a list of alternative names) are called aliases. 
     When using a hash to store options, the key will always be the primary name.
     
+    
+The lonesome dash "-"
+    Normally GetOptions will ignore the lone dash "-" on the command line and it will be left in @ARGV.
+    
+    GetOptions ('' => \$Stdio);
+    Now a lone dash will now be a legal option and using it will set variable $stdio.    
+    
+Shells and the command line
+    The command line is not split by GetOptions, but by the commmand line interpreter(CLI).
+    On Unix/Linux, this is shell. On Windows, it is COMMAND.COM or COMMMAND.EXE.
+    In Unix/Linux, you can use single quote and double quote to group words together.
+        "tow words"
+        'two words'
+        two\ words    
+    
 Option specification and destination
     The option name as specified to the GetOptions() function is called option specification. The reference
     to the variable is called the option destination.
@@ -278,6 +293,6 @@ summary of option expressions
     GetOptions ('foo=i%' => \$foo_value);           # the key are always taken to be string.
     GetOptions ('foo' => \$foo_value, '<>' => \$sub_proc);
     GetOptions ('verbose' => \$verbose, 'quiet' => sub { $verbbose=0 });
-    
-    
+    GetOptions ('' => \$Stdio);                     #  a lone dash '-' will set variable $stdio.     
+    GetOptions (\%hash, 'foo=i', 'bar=i');          # values will be stored in $hash{foo}, $hash{bar}
         
