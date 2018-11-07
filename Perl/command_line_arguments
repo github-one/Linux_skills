@@ -32,6 +32,18 @@ $0 and @ARGV
     # There is on minor bug in the above code. If the user supplies '0' as the name of the file. 
     But it doesn't matter, since we can live with the fact. 
     
+    
+Regular expression for the commmand line    
+    while (@ARGV && ($_ = $ARGV[0]) =~ /^-(.)(.*)/) { ... }
+    # This regex will match things like "-a", "-abc", but it won't match "--xzy" or "abc".
+    
+    my (@witharg)   = ($args =~ /(\S)\s*:/g);
+    my (@rest)      = ($args =~ /([^\s:])(?!\s*:)/g);
+    
+    #If $args ='a:b :cde: +:-', the @witharg will be ('a','b','e','+'), the @rest will be ('c','d','-').
+    #The group (?!\s*:) is a zero-width negative look-ahead assertion.
+    
+    
 Getopt::Long
     "Long" is relatvie here, it just means more than one character.
     
@@ -77,6 +89,7 @@ Getopt::Long
         perl test.pl --Ma --tR 3                =>  1/3/test.pl
         perl test.pl -m -t 3                    =>  1/3/test.pl
         perl test.pl -m -tr 3                   =>  1/3/test.pl
+        perl test.pl -tr 3 -m                   =>  1/3/test.pl
         perl test.pl -m --tr 3                  =>  1/3/test.pl
         perl test.pl -m --tr=3                  =>  1/3/test.pl
         perl test.pl -m -t=3                    =>  1/3/test.pl
@@ -87,17 +100,26 @@ Getopt::Long
 
         perl test.pl -m -t 3 hello              =>  1/3/test.pl, hello
         perl test.pl -m -t 3 one two            =>  1/3/test.pl, one, two
+        perl test.pl -m one two -t 3            =>  1/3/test.pl, one, two        
         perl test.pl -m -one                    =>  Unknown option: o/.../.../Usage: ...
         perl test.pl -m -- -one                 =>  1/0/test.pl, -one        
         
-        Note: --machine or -m flag will set $machine value to "true".
+        Note1: --machine or -m flag will set $machine value to "true".
+        Note2: In the default configuration, options names may be abbreviated to uniqueness, case does not matter,
+        and a single dash is sufficient, even for long options names. Also, options may be placed between
+        non-option arguments.
+        Note3: A double dash "--" will stop Getopt::Long from processing further arguments.
+
+GetOptions()
+    The call to GetOptions() parses the command line arguments that are present in @ARGV and set the option
+    value to the value "1" if the option did occur on the command line. Otherwise, the option vairable is 
+    NOT touched.
         
 Non-affiliated values
     The GetOptions function only handles the parameters that start with a dash and their corresponding values,
     when they are relevant. Once it processed the options it will remove them from @ARGV. (Both the option name
     and the option value will be removed.) Any other, non-affiliated values on the command line will stay
-    in @ARGV.
-   
+    in @ARGV. 
         
 Single-character and bundling feature
     ##################  test.pl #############################################################
@@ -142,19 +164,29 @@ Optional value
     Using :s at the end of the option name.
     GetOptions( 'logfile:s' => \$logfile);
     # $logfile will take a value only when the value for 'logfile' is present.
+    
+    # In the case of optional values, if no suitable is supplied, string valued options get en empty string ''
+    assigned, while number options are set to '0'.
 
+
+Options with multiple values
+    Input:   --library lib/stdlib   --library lib/extlib   
+    GetOptions ('library=s"   => \@libfiles);  # @libfiles would coontain two strings "lib/stdlib" and "lib/extlib"
+    GetOptions ('library=s@"  => \$libfiles);  # @$libfiles would contain two strings "lib/stdlib" and "lib/extlib"
+
+    Often it is usefull to allow comman-separated lists of values as well as multiple occurances of the options.
+    This is easy using Perl's split() and join() operations:
+        GetOptions ("library=s"  => \@libfiles);
+        @libfiles = split (/,/, join (',', @libfiles)); 
         
-Regular expression for the commmand line    
-    while (@ARGV && ($_ = $ARGV[0]) =~ /^-(.)(.*)/) { ... }
-    # This regex will match things like "-a", "-abc", but it won't match "--xzy" or "abc".
+    Input:   --coordinates 52.2 16.4 --rgbcolor 255 255 149
+    GetOption ("coordinates=f{2}' => \@coor, 'rgbcolor=i{3}' => \@color);
     
-    my (@witharg)   = ($args =~ /(\S)\s*:/g);
-    my (@rest)      = ($args =~ /([^\s:])(?!\s*:)/g);
     
-    #If $args ='a:b :cde: +:-', the @witharg will be ('a','b','e','+'), the @rest will be ('c','d','-').
-    #The group (?!\s*:) is a zero-width negative look-ahead assertion.
+Option specification and destination
+    The option name as specified to the GetOptions() function is called option specification. The reference
+    to the variable is called the option destination.
     
-Advance destination
     You do not need to specified the option destination. If no destination is specified, GetOptions will define
     variables $opt_xxx where xxx is the name of the option. GetOptions will also accept a reference
     to a hash as its first argument and deliver the option values there.
@@ -175,18 +207,24 @@ Subroutine for option
     # 'sub_proc' with argument 'foo' (and $x equal to 1), and then call 'sub_proc' with argument 'bar' (and $x
     # equal to 2).
     
+  
     
 summary of option expressions
     GetOptions ('foo' => \$foo_value);
     GetOptions ('foo|bar' => \$foo_value);
     GetOptions ('foo=s' => \$foo_string_value);   
-    GetOptions ('foo:s' => \$foo_string_value);    # optional value
+    GetOptions ('foo:s' => \$foo_string_value);     # optional value
     GetOptions ('foo=f' => \$foo_float_value);
-    GetOptions ('foo=i' => \$foo_integer_value);
+    GetOptions ('foo=i' => \$foo_integer_value);    
     GetOptions ('foo!' => \$foo_value);
+    GetOptions ('foo+' => \$foo_value);             # an incremental option is specified with a plus "+"
     GetOptions ('f|foo' => \$foo_value);
     GetOptions ('foo|f' => \$foo_value);
     GetOptions ('foo=i' => \@foo_value);
+    GetOptions ('foo=i{3}' => \@foo_value);         # exactly take three values
+    GetOptions ('foo=i{2,4}' => \@foo_value);       # take at least two and at most four values
+    GetOptions ('foo=i{1,}' => \@foo_value);        # take one or more values
+    GetOptions ('foo=i{,}' => \@foo_value);         # take zero or more values
     GetOptions ('foo=i' => \%foo_value);
     GetOptions ('foo' => \$foo_value, '<>' => \$sub_proc);           
     
