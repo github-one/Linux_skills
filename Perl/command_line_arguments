@@ -235,6 +235,8 @@ summary of option expressions
     GetOptions ('foo=i' => \%foo_value);
     GetOptions ('foo=i@' => \$foo_value);
     GetOptions ('foo=i%' => \$foo_value);           # the key are always taken to be string.
-    GetOptions ('foo' => \$foo_value, '<>' => \$sub_proc);           
+    GetOptions ('foo' => \$foo_value, '<>' => \$sub_proc);
+    GetOptions ('verbose' => \$verbose, 'quiet' => sub { $verbbose=0 });
+    
     
         
