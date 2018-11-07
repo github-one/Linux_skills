@@ -190,6 +190,12 @@ Options with hash values
     # The hash %defines (or %$defines) will contain two keys, "os" with value "linux" and "vendor" with value "redhat".
     # The key are always taken to be strings.
     
+
+Options with multiple names
+    Often it is friendly to supply alternate mnemonic names for options.
+    GetOptions ('length|height=f' => \$length);
+    The first name is called the primary name, the other names( a list of alternative names) are called aliases. 
+    When using a hash to store options, the key will always be the primary name.
     
 Option specification and destination
     The option name as specified to the GetOptions() function is called option specification. The reference
@@ -198,7 +204,21 @@ Option specification and destination
     You do not need to specified the option destination. If no destination is specified, GetOptions will define
     variables $opt_xxx where xxx is the name of the option. GetOptions will also accept a reference
     to a hash as its first argument and deliver the option values there.
+
+
+Parsing options from an arbitrary array or string
+    use Getop::Long qw(GetOptionsFromArray);
+    $ret = GetOptionsFromArray (\@myopts, ...);           # the @ARGV is not touched at all.
     
+    use Getopt::Long qw(GetOptionsFromString);
+    $ret = GetOptionsFromString ($string, ...);
+    
+    $ret = GetOptionsFromString ($string, ...);
+    # When GetOptionsFromString is called in list context, return both the return status and an array reference to
+    # any remaining arguments.
+    # Note: this is useful when you have a configuration file to parse on.
+
+
 Subroutine for option
     GetOptions ("foo=i" => \$handler);
     sub handler {
@@ -214,15 +234,36 @@ Subroutine for option
     # When you execute this program with command line arguments '-x 1 foo -x 2 bar', this will call subroutine
     # 'sub_proc' with argument 'foo' (and $x equal to 1), and then call 'sub_proc' with argument 'bar' (and $x
     # equal to 2).
-      
+     
+
+Storing options values in a hash
+    A hash must be passed as the first argument to GetOptions().
     
+    my $hash = ();
+    GetOptions (\%hash, 'foo=i', 'bar=i');      # values will be stored in $hash{foo}, $hash{bar}
+    GetOptions (\%hash, 'foo=i@");              # values will be strore in @{$hash{foo}}
+    
+    The hash may contain reference to the actual destination, for example
+    my $len  = 0;
+    my $hash = ('length' => \$len);
+    GetOptions (\%hash, 'length=i');            # value will be stored in $len.
+    
+    The most frequently used options could be stored in variables while all other options get stored in the hash.
+    my ($verbose, $debug) = (0, 0);                                 # frequently referenced
+    my %hash = ('verbose' => \$verbose, 'debug' => \$debug);            
+    GetOptions (\%hash, 'verbose', 'debug', 'filter', 'size=i'); 
+    if ($verbose) {...}
+    if (exists $hash{filter}) { ... }
+    
+      
 summary of option expressions
     GetOptions ('foo' => \$foo_value);
-    GetOptions ('foo|bar' => \$foo_value);
+    GetOptions ('foo|bar' => \$foo_value);          # The first name is called the primary name, the other called alias.
     GetOptions ('foo=s' => \$foo_string_value);   
     GetOptions ('foo:s' => \$foo_string_value);     # optional value
     GetOptions ('foo=f' => \$foo_float_value);
-    GetOptions ('foo=i' => \$foo_integer_value);    
+    GetOptions ('foo=i' => \$foo_integer_value);
+    GetOptions ('foo=o' => \$foo_INTEGER_value);    # +10, -5, 037(Ooctal), 0xf3(hexadecimal), 0b01101(binary)
     GetOptions ('foo!' => \$foo_value);
     GetOptions ('foo+' => \$foo_value);             # an incremental option is specified with a plus "+"
     GetOptions ('f|foo' => \$foo_value);
