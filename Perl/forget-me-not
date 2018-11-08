@@ -1,6 +1,17 @@
 PDO
     A Pod bolock starts with ANY command paragraph, so a "=pod" command is usually just when you want to start a Pod block with
     and ordinary paragraph or verbatim paragraph.
-    To end a Pod block, use a blank line, then a lien beginning with "=cut", and a blank line after it.
+    To end a Pod block, use a blank line, then a line beginning with "=cut", and a blank line after it.
     
     
+-> operator
+    "->" is an infix derefence operator, just as it is in C an C++. 
+    If the right side if either a [...], {...}, or a (...) subscript, then the left side must be either
+    a hard or symbolic reference to an array, a hash, or a subroutine respectively. (Or technically speaking,
+    a location capable of holding a hard reference, if it's an array or hash reference being used for assignment.)
+    
+    Otherwise, the right side is method name or a simple scalar variable containing either the method name or
+    a subroutine reference, and the left side must be either an object(a blessed reference) or a class name
+    (that is, a package name).
+    
+        
