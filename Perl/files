@@ -95,7 +95,8 @@ File path separator
 Lexical filehandle or typeglob
     Lexical filehandles are a better practice for a variety of reasons.
         open my $fh, '<', 'filename' or die $!;
-        
+    Note: You must "use IO::File;" in 5.10 to enalbe this and "use IO::Handle;" in 5.10 and earlier.
+
     Lexical filehandles can be passed easily as arguments, filehandles cannot, typeglobs can (or at least references to them can),
     but that's kinda messy.
     
@@ -114,8 +115,10 @@ Lexical filehandle or typeglob
     Within the inner block in the example, when the filehandle's reference count reaches zero at the end of the block, 
     Perl recycles it to reclaim memory and calls close() implicitly.
     
-        
-        
-    
-        
+    OLDER code may take references to typeglobs.
+        local *FH;
+        open FH, "> $file" or die "Can't wirte '$file': $!";
+        my $fh = \*FH;
+    This idiom predates lexical filehandles(introduced with Perl 5.6.0 in March 2000).               
+          
     
