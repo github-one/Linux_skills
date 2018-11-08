@@ -14,4 +14,24 @@ PDO
     a subroutine reference, and the left side must be either an object(a blessed reference) or a class name
     (that is, a package name).
     
-        
++shift
+    Unary plus is a NOP. It prevents ffrom what follows being interpreted as a bareword, and hence, from
+    being autoquoted.    
+    This is a just a way to disambiguating the shift in a location where it might be mistaken
+    for another lexical item such as:
+        print +join ' ', @array;
+           
+Bareword hash keys
+    The "pinball" in "$games{pinball}" will be identify as string keys.
+    If you want to a builtin or a function to produce the hask key, you should use function argument parentheses,
+    or prepend unary plus to force the evaluation of the builtin.
+            # the literal 'shift' is the key
+            my $value = $items{shift};
+            
+            # the value produced by shift is the key
+            my $value = $items{shift @_};
+            
+            # unary plus uses the builtin shift
+            my $value = $items{+shift};
+            
+            
