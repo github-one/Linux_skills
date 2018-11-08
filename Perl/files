@@ -99,5 +99,23 @@ Lexical filehandle or typeglob
     Lexical filehandles can be passed easily as arguments, filehandles cannot, typeglobs can (or at least references to them can),
     but that's kinda messy.
     
+    With the benefit of explicit scoping, lexical filehandles allow you to manage the lifespan of filehandles as a feature of
+    Perl 5's memory management.
+        say 'file not open';
+        {
+            open my $fh, '>', 'inner_scope.txt';
+            $fh->say( 'file open here' );
+        }
+        say 'file closed here';
+    Perl 5 uses a memory management technique known as reference counting. Every Perl value has a counter attached.
+    Perl increases this counter every time something takes a reference to the value, whether implicitly or explicitly.
+    Perl decreases that counter every time a reference goes awy. When the counter reaches zero, Perl can saftely recycle
+    that value.
+    Within the inner block in the example, when the filehandle's reference count reaches zero at the end of the block, 
+    Perl recycles it to reclaim memory and calls close() implicitly.
+    
+        
+        
+    
         
     
