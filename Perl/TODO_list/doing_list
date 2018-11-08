@@ -15,6 +15,9 @@ https://www.oreilly.com/library/view/programming-perl-4th/9781449321451/ch02s10.
 
 All variables in a perl programs are stored in namespaces. There are two types of namespaces:
 Symbol tables. It is a global hash which stores record of global variables.
-Lexical scopes. It is anonymous temporary memory which is stored, not a PARTICULAR symbol table but it is attached to a block of your program. They store variables which we can see only in that program block.
-Typeglobs are used to define a record (a variable, an array etc.) of Symbol tables, but not Lexical scopes. So, when you use this part of code:
+Lexical scopes. It is anonymous temporary memory which is stored, not a PARTICULAR symbol table but it is attached 
+to a block of your program. They store variables which we can see only in that program block.
+Typeglobs are used to define a record (a variable, an array etc.) of Symbol tables, but not Lexical scopes. So, 
+when you use this part of code:
 
+http://modernperlbooks.com/books/modern_perl/chapter_03.html#bGV4aWNhbF9maWxlaGFuZGxlcw
