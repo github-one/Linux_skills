@@ -92,3 +92,12 @@ File path separator
     the '/' to the correct path separator for the system it is running on.
     
    
+Lexical filehandle or typeglob
+    Lexical filehandles are a better practice for a variety of reasons.
+        open my $fh, '<', 'filename' or die $!;
+        
+    Lexical filehandles can be passed easily as arguments, filehandles cannot, typeglobs can (or at least references to them can),
+    but that's kinda messy.
+    
+        
+    
