@@ -5,3 +5,23 @@ http://world.std.com/~swmcd/steven/perl/pm/getopt.html
 http://perldoc.perl.org/Getopt/Long.html
 
 https://stackoverflow.com/questions/562798/is-var-dereferencing-a-perl-hash
+
+
+unsolved questions:
+https://stackoverflow.com/questions/14070342/typeglob-aliases
+
+All variables in a perl programs are stored in namespaces. There are two types of namespaces:
+Symbol tables. It is a global hash which stores record of global variables.
+Lexical scopes. It is anonymous temporary memory which is stored, not a PARTICULAR symbol table but it is attached to a block of your program. They store variables which we can see only in that program block.
+Typeglobs are used to define a record (a variable, an array etc.) of Symbol tables, but not Lexical scopes. So, when you use this part of code:
+
+my @b;
+*b = $a;
+you will get it:
+
+Name "main::b" used only once:
+This says us that the record main::b is not defined in a Symbol tables by us, but we can do it with a modifier "our". Therefore when you write so:
+
+our @b;
+*b = $a;
+We can get an usefull result for us because *b is stored in a Symbol tables and we can use an operator * typeglob.
