@@ -34,6 +34,9 @@ Bareword hash keys
             # unary plus uses the builtin shift
             my $value = $items{+shift};
             
+    Without the * sigil, a bareword is just a string.
+    
+            
 Symbolic references
     Note1: Don't use symbolic references - they lead to hard to track down bugs. 
     Note2: Always use strict;
