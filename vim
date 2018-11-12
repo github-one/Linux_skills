@@ -120,3 +120,13 @@ Windows
     
 Regex
     \w\W\a\s\<\d\D\p\_s\S\x   # vim \s is different with Perl \s
+    
+    
+Exchagne characters, words and lines
+    xp, Xp              # exchange characters
+    ddp                 # exchange the current line with the next
+    ddkP, ddkkp         # exchange the current line with the previous
+    dawbP               # swap the current word with the previous
+    dawwP, dawelp       # swap the current word with the next
+    
+    
