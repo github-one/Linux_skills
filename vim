@@ -31,6 +31,7 @@ Format
     :set tabstop = 4  
     :retab              # to change all the existing tab characters to match the current tab settings
     :set aoutoindent
+    :set noautoindent
        
     :set wrap           # to enable "visual" wrapping
     :set nowarp
@@ -63,7 +64,11 @@ Shell command for vim
     set -o vim
     # When you enter a line in vim mode, you are already placed in "insertion" mode, press ESC switches into "command" mode.
     # Move to previous hsitroy line with 'k' and subsequent line with 'j', and so forth in "command" mode.
-    
+
+Files
+    :edit command without specifying a file name to reload the current file. If you have made modification to the file,
+    you can use :edit! to force the reload of the current file (you will lose your modifications).
+
 Buffers
     :bn
     :bprev
