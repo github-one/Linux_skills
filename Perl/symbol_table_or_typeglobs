@@ -1,8 +1,16 @@
 Typeglobs
     Perl uses an internal type called a typeglob to hold an entire symbol table entry.
-    The type prefix of a typeglob is a '*', because it represenets all types. This used to be the preferred way
-    to pass arrays and hashes by reference into a function, but now that we have real reference, 
-    this is seldom needed. 
+    The type prefix of a typeglob is a '*', because it represenets all types. 
+    This USED TO BE the preferred way to pass arrays and hashes by reference into a function, 
+    but now that we have real reference, this is seldom needed. 
+        
+    In Perl you can refer all objects of a particular name by prefix teh name with a star: *foo. 
+    This is often known as a "typeglob", because the star on the front can be thought of as a wildcard
+    match for all the funny prefix on vairables and subroutines and such.
+    
+    When evaluated, the typeglob produces a scalar value that represent all the objects of the name, including
+    any filehandle, format, or subroutine. When assigned to, it causes the name mentioned to refer to whatever
+    * value was assigned to it. 
     
 Usage    
     [1] The main use of typeglobs in modern Perl is create symbol table aliases.
@@ -58,7 +66,4 @@ Usage
         double_array(*foo);
         double_array(*bar);
         
-        
-        
-        
-        
+       
