@@ -1,0 +1,39 @@
+Definition
+    If a value used as a reference is already defined, and it isn't a hard reference, now you use it as a reference,
+    then it will be treated as a symbolic reference.
+    That is, the value of the scalar is taken to be the name of a vairiable, rather than a direct link to a annoymous value.
+    
+Examples
+    $string = "hello"           # "string" is a hard reference    
+    $name = "foo";
+    $$name = 1;                 # Sets $foo
+    ${$anme} = 2;               # Sets $foo
+    ${$name x 2} = 3;           # Sets $foofoo
+    $name->[0] = 4;             # Set $foo[0]
+    @$name = ();                # Clears @foo
+    &$name();                   # Calls &foo()
+
+    Source code:
+            my $name = 'person';
+            ${$name} = 'Foo';
+            print "$name\n";
+            print "$person\n";
+    Output:
+            person
+            Foo
+
+    
+Others
+    Symbolic references are sometimes called "soft references", but please don't call them that to make more confusion.
+    The *glob notation is something of a symbolic reference.
+    
+    
+Note:    
+    - Don't use symbolic references - they lead to hard to track down bugs. 
+    - Always use strict;
+    - In almost any case where symbolic references seem like a good idea, using a data structure based on
+          a hash is the best approach.
+    - symbolic references don't work on lexical variables.
+    - Typeglobs don't work on lexical variables.
+    - Use lexcial variables.
+        
