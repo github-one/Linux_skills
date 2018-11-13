@@ -34,31 +34,8 @@ Bareword hash keys
             # unary plus uses the builtin shift
             my $value = $items{+shift};
             
-    Without the * sigil, a bareword is just a string.
-    
+    Without the * sigil, a bareword is just a string.  
             
-Symbolic references
-    Note1: Don't use symbolic references - they lead to hard to track down bugs. 
-    Note2: Always use strict;
-    Source code:
-            print "Hello world\n";
-            my $name = 'person';
-            ${$name} = 'Foo';
-            print "$name\n";
-            print "$person\n";
-    Output:
-            Hello world
-            person
-            Foo
-            
-    Several points:
-        - In almost any case where symbolic references seem like a good idea, using a data structure based on
-          a hash is the best approach.
-        - symbolic references don't work on lexical variables.
-        - Typeglobs don't work on lexical variables.
-        - Use lexcial variables.
-        - Don't use symbolic references.
-
 
 Typeglobs and Filehandles
     Perl use an internal type called a typeglob to hold an entire symbol table entry. The type prefix
