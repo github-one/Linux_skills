@@ -65,5 +65,62 @@ Usage
         }
         double_array(*foo);
         double_array(*bar);
+
+
+
+Difference between \*DATA and *DATA    
+    my $fh = *DATA;         # a glob
+    my $fh = \*DATA;        # a reference to a glob
+    
+    Most places accept both. Many also accept the name of the glob as a string, and many accept a reference to IO object.
+        # Symbolic reference to the glob that contains the IO object.
+        >perl -E"$fh = 'STDOUT';    say $fh 'hi'"
+        hi
+
+        # Reference to the glob that contains the IO object.
+        >perl -E"$fh = \*STDOUT;    say $fh 'hi'"
+        hi
+
+        # Glob that contains the IO object.
+        >perl -E"$fh = *STDOUT;     say $fh 'hi'"
+        hi
+
+        # Reference to the IO object.
+        >perl -E"$fh = *STDOUT{IO}; say $fh 'hi'"
+        hi
+
+    open(my $fh, '<', ...) populates $fh with a reference to a glob, and it's the most supported.
         
-       
+    
+    The following script compares and contrasts the difference between these two methods.
+        use strict;
+        use warnings;
+
+        use Fcntl qw(:seek);
+
+        # Compare Indirect Filehandle Notation
+        my %hash = (
+            '\*DATA' => \*DATA,
+            '*DATA'  => *DATA,
+        );
+
+        my $pos = tell DATA;
+
+        my $fmt = "%-8s %-22s %-7s %s\n";
+        printf $fmt, qw(Name Value ref() readline());
+
+        while ( my ( $name, $fh ) = each %hash ) {
+            seek( $fh, $pos, SEEK_SET );    # Rewind FH
+            chomp( my $line = <$fh> );
+            printf $fmt, $name, $fh, ref($fh), $line;
+        }
+
+        __DATA__
+        Hello World
+
+    Output:
+        Name     Value                  ref()   readline()
+        \*DATA   GLOB(0x7fdc43027e70)   GLOB    Hello World
+        *DATA    *main::DATA                    Hello World    
+        
+        
