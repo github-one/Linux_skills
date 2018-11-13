@@ -36,4 +36,17 @@ Note:
     - symbolic references don't work on lexical variables.
     - Typeglobs don't work on lexical variables.
     - Use lexcial variables.
-        
+
+
+Can symbolic references be useful?
+    Sometimes it might be useful. The following example won't work under "use strict;", and it should be avoided.
+    
+    For example:
+        $machineA = '10.3.7.5';
+        $machineB = '11.3.5.6';
+        foreach $name ('A', 'B') {
+            $key = 'machine' . $name;
+            print "${$key}\n";
+        }
+    
+    
