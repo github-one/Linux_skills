@@ -58,13 +58,5 @@ Typeglobs and Filehandles
             }
             double_array (*foo);
             double_array (*bar);
-    
-    
-        
-        
-        
-        
-        
-        
-        
+ 
         
