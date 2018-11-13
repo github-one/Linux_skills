@@ -22,6 +22,20 @@ PDO
         print +join ' ', @array;
            
 Bareword hash keys
+    A bareword generally refers to a sequence of characters that is suitable for an identifier(i.e. A-Za-z_A-Za-z_0-9).
+    The strict pragma bans most uses of barwords by default, but they still live on 
+    [1] the names of global filehandles
+    [2] things that are auto-quoted by the fat comma operator.
+        example:  my %h = ( nanme => 'Foo');
+    [3] keys that don't require quoting in hashes
+        example:  print $h{name}, "\n";                
+    In the latter two cases the set of allowed characters includes a leading hyphen '-'.
+    
+    Perl by default allows barewords--words without quotes--to behave like strings. For example:    
+        my $x = hello;
+        print "$x\n";           # Prints "hello"
+    This is a bad example, "use strict;" alwayes.   
+  
     The "pinball" in "$games{pinball}" will be identify as string keys.
     If you want to a builtin or a function to produce the hask key, you should use function argument parentheses,
     or prepend unary plus to force the evaluation of the builtin.
