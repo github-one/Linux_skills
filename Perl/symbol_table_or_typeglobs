@@ -1,0 +1,64 @@
+Typeglobs
+    Perl uses an internal type called a typeglob to hold an entire symbol table entry.
+    The type prefix of a typeglob is a '*', because it represenets all types. This used to be the preferred way
+    to pass arrays and hashes by reference into a function, but now that we have real reference, 
+    this is seldom needed. 
+    
+Usage    
+    [1] The main use of typeglobs in modern Perl is create symbol table aliases.
+    
+        *this = *that;          # Makes $this an alias for $that, @this an alias for @that, ... etc.
+        local *Here::blue = \$There::green      # Much safer method, only for $Here::blue an alais for $There::green
+                                                # but doesn't make @Here::blue an alias for @There::green
+                                                
+    [2] Another use of typeglobs is to pass filehandles into a function or to create new filehandles.
+        $fh = *STDOUT;
+        $fh = \*STDOUT;     # A real reference
+        
+        Typeglobs are also a way to create a local filehandle using local() operator.
+        sub newopen {
+            my $path = shift;
+            local *FH;              # Not my!
+            open (FH, $path) or return undef;
+            return *FH;
+        }
+        $fh = newopen('/etc/passwd');
+        
+    [3] The usage of "open my $fh, ..." largely eliminates the need for typeglobs.
+        All functions that capable of creating filehandles (open, opendir, socketpair, sysopen, socket, and accetp)
+        automatically create an anonymous fllehandle passed to them is an uninitialized scalar variable.
+        This allow the contructs such as open(my $fh, ...) and open(local $fh, ...) to be used to created filehandles
+        that will conveniently be closed automatically when the scope ends, provided there are no other reference
+        to them.
+        sub myopen {
+            open my $fh, "@_" or die "Can't open '@_': $!";     # note
+            return $fh;
+        }
+        {
+            my $f = myopen("</etc/motd");
+            print <$f>;
+        }
+        # note:  If an initialized scalar variable is used instead the result is different: 
+            my $fh = 'zzz'; 
+            open $fh, ...
+          The above is equivalent to open(*{'zzz'}, ...),  use strict 'refs' to forbids such practice.
+          
+
+    [4] Passing symbol table entries(typeglobs) to subroutines
+        Warning: The new reference mechanism in modern Perl is better and easier.
+        
+        Sometimes you don't want to pass the value of an array to a subroutine but rather the name of it,
+        so that the subroutine can modify the global copy of it rather than working with a local copy.
+        sub double_array {
+            local (*some_array) = @_;
+            foreach $element (@some_array) {
+                $element *= 2;
+            }
+        }
+        double_array(*foo);
+        double_array(*bar);
+        
+        
+        
+        
+        
