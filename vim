@@ -17,7 +17,7 @@ Color scheme:
     FAQ: Change font color for comments in vim?  
     A1: use :color desert
     A2: use :set background=dark  (instead of :set background=light)
-    
+    A3: use :hi Comment ctermfg=White   (if you use GUI vim, use guifg=White)
 
 Format
     :set texwitdth = 120
