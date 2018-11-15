@@ -13,6 +13,11 @@ Color scheme:
     To get the list of installed color schemes
     Type :colorscheme then press "Space" followed by "Tab" 
     Type :colorscheme then press "Space" followed by "Ctrl-d"
+    
+    FAQ: Change font color for comments in vim?  
+    A1: use :color desert
+    A2: use :set background=dark  (instead of :set background=light)
+    
 
 Format
     :set texwitdth = 120
