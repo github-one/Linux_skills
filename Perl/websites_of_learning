@@ -1,12 +1,22 @@
+--------------------- Most important ----------------------------------------
 https://perlmaven.com
 https://www.perlmonks.org
 https://metacpan.org
 http://perl101.org/
 http://modernperlbooks.com
 
+
+--------------------- Good Books --------------------------------------------
+O'Relly Books (free online)
 https://docstore.mik.ua/orelly/bookshelfs.html          # O'Relly's CD bookshelf
 https://docstore.mik.ua/orelly/perl2/                   # O'Reilly The Perl CD Bookshelf
 https://docstore.mik.ua/orelly/perl2/advprog/           # Advanced Perl Prgramming
 
-Modern Perl, 4e
+Modern Perl, 4e (free online)
 http://modernperlbooks.com/books/modern_perl_2016/index.html
+
+
+
+--------------------- Special Subjects ---------------------------------------
+Getopt::Long
+https://www.vromans.org/articles/getopt.html
