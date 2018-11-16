@@ -16,6 +16,11 @@ Modern Perl, 4e (free online)
 http://modernperlbooks.com/books/modern_perl_2016/index.html
 
 
+--------------------- Code Exampless --------------------------------------------
+The Perl Power Tools project is to construct all the Unix bin utilities.
+https://github.com/briandfoy/PerlPowerTools
+
+
 
 --------------------- Special Subjects ---------------------------------------
 Getopt::Long
