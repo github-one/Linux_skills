@@ -20,7 +20,23 @@ PDO
     This is a just a way to disambiguating the shift in a location where it might be mistaken
     for another lexical item such as:
         print +join ' ', @array;
-           
+
+
+Quick multi-line comment
+    Labeling the comments begins with '=begin comment', then uses '=end comment', then ends with '=cut'.
+    -----------------------------------
+    =begin comment
+    
+    my $str = "hello";
+    print $str, "\n";
+    
+    =end comment
+    
+    =cut
+
+    -----------------------------------
+    
+    
 Bareword hash keys
     A bareword generally refers to a sequence of characters that is suitable for an identifier(i.e. A-Za-z_A-Za-z_0-9).
     The strict pragma bans most uses of barwords by default, but they still live on 
