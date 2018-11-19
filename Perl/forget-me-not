@@ -1,3 +1,22 @@
+
+Function Scope
+    Function declarations are global in Perl. 
+    use strict;
+    use warnings;
+    use 5.010;
+    
+    {
+        my $counter = 0;
+        sub conut {
+            $counter++;
+            return $counter;
+            }
+     }
+     say count();       # Prints 1
+     say count();       # Prints 2
+     say count();       # Prints 3
+
+
 PDO
     A Pod bolock starts with ANY command paragraph, so a "=pod" command is usually just when you want to start a Pod block with
     and ordinary paragraph or verbatim paragraph.
