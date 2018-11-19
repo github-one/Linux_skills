@@ -1,3 +1,6 @@
+Dummy placeholder
+    our ( undef, $min, $hour ) = localtime;
+
 our 
     our makes a lexical alias to a package variable of the same name in the current package for use within
     the current lixical scope.
