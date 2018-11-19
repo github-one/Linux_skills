@@ -1,3 +1,12 @@
+'$::foo' and '@::foo'
+    They are shorthand for '$main::foo' and '@main::foo'.
+    
+    The default namespace, main, is an alias for the root namespace.
+    Most "global" variables are actually package-globals, meaning they are global within package in which
+    they are defined. In modern Perl, these vairiables are typically accessed in other packages via suitable
+    our declarations, bute the older mechanism of use vars is still available.    
+    
+
 Dummy placeholder
     our ( undef, $min, $hour ) = localtime;
 
