@@ -1,3 +1,41 @@
+our 
+    our makes a lexical alias to a package variable of the same name in the current package for use within
+    the current lixical scope.
+    Notes:
+    [1] It only valid wthin a lexical scope.
+    [2] It only reates an alias to an existing varaibles ( a package variable of the same name )
+    [3] It works even if the pacakge variable has not been used before, as package varaibles sprint into
+    existence when first used.
+    [4] Multiple our declarations with the same name in the same lexical scope are allowd if they are
+    in different packages. If they are in the smae package, Perl will emit warnings as the second is 
+    merely redundant.
+    ---------------------------------------------------------
+    package Foo;
+    use strict;
+    
+    $Foo::foo = 23;
+    {
+        our $foo;       # Alias to $Foo::foo
+        print $foo;     # Prints 23
+    }
+    print $Foo:foo;     # Prints 23
+    print $foo;         # ERROR: requires explicit package name
+    ---------------------------------------------------------
+
+
+"our" vs "use vars"
+    use vars: allows use of an unqualified name only whtin the affected package, but across scopes.
+    our:  An our declaration declares an alias for a package variable that will be visible across its
+    entire lexical scope, even across package boundaries. The package in which the variable is entered is
+    determined at the point of the decalaration, not at the piont of use.
+    ---------------------------------------------------------
+    package Foo;
+    our $bar;       # Declares $Foo:bar for rest of lexical scope
+    $bar = 20;
+    
+    package Bar;
+    print $bar;     # Prints 20, as it referes to $Foo::bar    
+    ---------------------------------------------------------    
 
 Function Scope
     Function declarations are global in Perl. 
