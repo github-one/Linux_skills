@@ -1,6 +1,26 @@
 
 Function Scope
     Function declarations are global in Perl. 
+    
+    
+Two ways of using stastic variables    
+    The first mothod is to use stat variable.
+    ---------------------------------------------------------
+    use strict;
+    use warnings;
+    use 5.010;
+    
+    sub count {
+        state $counter = 0;
+        $counter++;
+        return $counter;
+    }
+    say count();       # Prints 1
+    say count();       # Prints 2
+    say count();       # Prints 3
+    ---------------------------------------------------------    
+    
+    The second method is to use my and block.
     ---------------------------------------------------------
     use strict;
     use warnings;
