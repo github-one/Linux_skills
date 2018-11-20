@@ -32,13 +32,15 @@ Directory operations
     @files = readdir DIR;
     print join "\n", @fiels;        # note: the result is unsorted and includes hidden files.
 
-File::Find
-
+File::Find Simple Examples
+    
     use File::Find;
     my $dir = "/root/mypath";
     find(sub { print if -d }, $dir);
     find(sub { print $FILE::Find::name if -d}, $dir);
-       
+    
+    
+File::Find Example 1    
     # print the 10 largest files found in the tree under the directory
     #---------------------------------------------------------------------------
     #!/usr/bin/perl -w
@@ -58,22 +60,41 @@ File::Find
     } 
     #---------------------------------------------------------------------------
         
+        
+File::Find Example 2
+    #---------------------------------------------------------------------------
+    use File::Find;
+    use Cwd;
     
+    my $current_dir     = getcwd;
+    my @files_found     = ();
+    my $file_pattern    = '*.c';
+    find( sub { push @files_found, $File::Find::name, 
+                      if( m/^(.*)$file_pattern$/ ) }, $current_dir);
+    print join( "\n", @files_found );                    
+    #---------------------------------------------------------------------------
+        
+        
+File::Find::Rule Examples
+    #---------------------------------------------------------------------------
     use File::Find::Rule;
     my $dir = "/root/mypath";
     for my $file (File::Find::Rule->in($dir)) {
         print $file . "\n";
     }
     
+    #---------------------------------------------------------------------------
     use File::Find::Rule;
     # find all the subdirectories of a gvie directory
     my @subdir = File::Find::Rule->directory->( $directory );
     
+    #---------------------------------------------------------------------------
     # find all the .pm files in @INC
     my @files = File::Find::Rule->file()
                                 ->name( '*.pm' )
                                 ->in( @INC );
-                                
+    
+    #---------------------------------------------------------------------------
     # find all the .pm file in @INC, but without method chaining
     my $rule = File::Find::Rule-new;
     $rule->file;
