@@ -20,6 +20,11 @@ grep
     @unique = grep { ++$count{$_} < 2 } qw(a b c d e a e f h h h);
     print "@unique\n";
     
+    # List all the text files in the current directory.
+    my @files = grep { -f and -T } glob '* .*"
+    print "@files\n";
+    Note: '*' matches all files but not '.xxx', while '.*' matches all files beginning with '.'
+    
 any
     The any function has the same syntax as grep, but only return true or false. It will short circuit on large lists
     so this function can be a lot faster.
