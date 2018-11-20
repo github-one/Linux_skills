@@ -8,3 +8,7 @@ Question: How could I separate a big number with commas, like 123456789=123,456,
     use Number::Format 'format_number';
     say foramt_number(123456789.123);
             
+Question: How to convert bytes to x.xx MB
+    sub ByteToMeg {  return sprintf( "%.2f", ($_[0]/1024000) ); }
+    
+    
