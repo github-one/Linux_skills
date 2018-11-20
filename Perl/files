@@ -39,6 +39,10 @@ File::Find Simple Examples
     find(sub { print if -d }, $dir);
     find(sub { print $FILE::Find::name if -d}, $dir);
     
+File::Find Variables
+    $_                      Current filename
+    $File::Find::dir        Current diretory name
+    $File::Find::name       Full path of current filename(i.e., $File::Find::dir/$_)
     
 File::Find Example 1    
     # print the 10 largest files found in the tree under the directory
