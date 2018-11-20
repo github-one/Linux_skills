@@ -32,8 +32,8 @@ Directory operations
     @files = readdir DIR;
     print join "\n", @fiels;        # note: the result is unsorted and includes hidden files.
 
+
 File::Find Simple Examples
-    
     use File::Find;
     my $dir = "/root/mypath";
     find(sub { print if -d }, $dir);
