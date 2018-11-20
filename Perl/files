@@ -31,6 +31,11 @@ Directory operations
     opendir (DIR, "/root/mypath") or die "Error, $!";       # note: "/root/mypath" vs "/root/mypath/*"
     @files = readdir DIR;
     print join "\n", @fiels;        # note: the result is unsorted and includes hidden files.
+    
+    # List all the text files in the current directory.
+    my @files = grep { -f and -T } glob '* .*"
+    print "@files\n";
+    Note: '*' matches all files but not '.xxx', while '.*' matches all files beginning with '.'
 
 
 File::Find Simple Examples
