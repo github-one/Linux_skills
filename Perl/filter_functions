@@ -1,0 +1,35 @@
+grep
+    The grep function takes two arguments: a block and a list of values. There is no comma between the block and the list.
+    In SCALAR context grep will return the number of elements that went though the filter.
+    Note: The grep function is not limited to using regular expressions. The block can be any expression.
+    
+    my @numbers = qw( 8 2 5 12 7 3 2 1 );
+    my @big_nmubers = grep { $_ > 4 } @numbers;
+    print "@big_numbers\n"
+    
+    my @files = glob "*.log";
+    my old_files = grep { -M $_ > 365 } @files;
+    print join "\n", @old_files;
+    
+    my $regex = shift;
+    print grep { $_ =~ /$regex/ } <>;
+    
+    my @foo = grep( !/^#/, @bar );      # Weed out comments
+    my @foo = grep {!/^#/} @bar;        # The same thing
+    
+    @unique = grep { ++$count{$_} < 2 } qw(a b c d e a e f h h h);
+    print "@unique\n";
+    
+any
+    The any function has the same syntax as grep, but only return true or false. It will short circuit on large lists
+    so this function can be a lot faster.
+    
+    use List::MoreUtils qw(any)
+    if (any { $visitor eq $_ } @names {
+        print "Visitor $visitor is in the guest list\n";
+    } else {
+        print "Visitor $visitor is NOT in the guest list\n";
+    }
+    
+      
+    
