@@ -37,4 +37,32 @@ any
     }
     
       
+map
+    In SCALAR context, the map function returns the total number of elements so genereated.
+    my @chars = map(char, @numbers);
+    my @squares = map {$_ * $_ } @numbers;
+    
+    my @squares = map { $_ > 5 ? ($_ * $_) : () } @numbers;     # '()' will omit an element
+    my @squares = map { $_ * $_ } grep { $_ > 5} @numbers;      # the same
+    
+    my %hash = map { get_a_key_for($_) = > $_ } @array;         # the elements becom key/value pairs.
+    my %hash;
+    foreach (@array) { $hash{get_a_key_for($_)} = $_; }         # the same      
+    
+    Note: '{' may start both hash references and blocks, but Pelr doesn't look ahead for the closing '}', 
+    so Perl has to take a guess at which it's dealing with BASED on what if finds just after the '{'.
+    The syntax error will be reported if the guess is wrong even before it gets to the '}'.
+    So, DON NOT let Perl guess!
+    
+    my %hash = map { "\L$_" => 1 } @array           # perl guesses EXPR for hash reference. wrong!
+    my %hash = map { +"\L$_" => 1 } @array          # perl guesses BLOCK. right
+    my %hash = map {; "\L$_" => 1 } @array          # perl guesses BLOCK. right
+    my %hash = map { ("\L$_" => 1) } @array         # perl guesses BLOCK. right
+    my %hash = map { lc($_) => 1) } @array          # perl guesses BLOCK. right
+    my %hash = map +( lc($_) => 1) ), @array        # perl guesses EXPR. right. note: the comma
+    my %hash = map ( lc($_), 1) ), @array           # evaluates to (1, @array)
+    
+    
+    
+    
     
