@@ -23,7 +23,7 @@
     -c  File is a character special file.
     -t  Filehandle is opened to a tty.
 
-Directory operations
+Directory and file operations
     $mydir = "/root/mypath/*";      # note: "/root/mypath" will get only one result.
     my @files = glob( $mydir );
     print join "\n", @files;        # note: the result is sorted.  
@@ -108,6 +108,13 @@ File::Find preprocess and postprocess
     at depth 2-3, find() will happily descend down to level 15, giving wanted all the directories and files it 
     encounters en route.    
      
+
+File::Basename;
+    use File::Basename;
+    my $file_name = "/dir1/dir2/some.pl";
+    my ($name, $path, $suffix) = fileparse($file_name, '\.[^\.]*');
+    print $name, "\n";
+    
      
 File::Find::Rule Examples
     #---------------------------------------------------------------------------
