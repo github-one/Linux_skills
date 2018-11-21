@@ -41,9 +41,9 @@ Special characters:
 
 String vs Number
     Equality    Numeric     String
-     Equal	    ==	        eq
+     Equal	    ==          eq
     Not Equal   !=          ne
-    Comparison	<=>	        cmp
+    Comparison	<=>         cmp
     
     Relational              Numeric     String
     Less than	            <	        lt
@@ -55,11 +55,18 @@ String vs Number
     
     To check if a valid number exist in a variable $var you could do:
     (Note: Perl evaluates any string to 0 if is not a number. )
-
-        if ( ($var ne "0") && ($var == 0))
-          { 
+        if ( ($var ne "0") && ($var == 0)) { 
                 # $var is a number
           }
 
 
-
+Counting lines, chars and words of a file
+    open($fh, "<file.txt") or die "Could not open file: $!";    
+    my ($lines, $words, $chars) = (0,0,0);
+    while <$fh> {
+        $lines++;
+        $chars += length($_);
+        $words += scalar split(/\s+/, $_);
+    }
+    print "lines=$lines words=$words chars=$chars\n";
+    
