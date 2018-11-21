@@ -82,8 +82,33 @@ File::Find Example 2
                       if( m/^(.*)$file_pattern$/ ) }, $current_dir);
     print join( "\n", @files_found );                    
     #---------------------------------------------------------------------------
-        
-        
+
+File::Find preprocess and postprocess
+    #---------------------------------------------------------------------------
+    my ($min_depth, $max_depth) = (2,3);
+    
+    find( { 
+            preprocess  => \&preprocess,
+            wanted      => \&wanted,
+          }, 
+          @dir);
+    sub preprocess {
+        my $depth = $File::Find::dir =~ tr[/][];
+        return @_ if $depth < $max_depth;
+        return grep { not -d } @_ if $depth == $max_depth;
+        return;
+    }
+    sub wanted {
+        my $depth = $File::Find::dir =~ tr[/][];
+        return if $depth < $min_depth;
+        print;
+    }       
+    #---------------------------------------------------------------------------
+    Note: If you are traversing a very big tree, the biggest problem here is that even if you only want the files 
+    at depth 2-3, find() will happily descend down to level 15, giving wanted all the directories and files it 
+    encounters en route.    
+     
+     
 File::Find::Rule Examples
     #---------------------------------------------------------------------------
     use File::Find::Rule;
