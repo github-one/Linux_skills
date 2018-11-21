@@ -1,0 +1,52 @@
+This is too simple and it will work in many but not all cases.
+    perl -0777 -pe 's{/\*.?\*/}{}gs' foo.c
+    
+This was created by Jeffrey Friedl and later modified by Fred Curtis.
+    $/ = undef;
+    $_ = <>;
+    s#/\*[^*]*\*+([^/*][^*]*\*+)*/|("(\\.|[^"\\])*"|'(\\.|[^'\\])*'|.[^/"'\\]*)#defined $2 ? $2 : ""#gse;
+    print;
+    
+The explanations for the above expression:
+    s{
+        /\*         ##  Start of /* ... */ comment
+        [^*]*\*+    ##  Non-* followed by 1-or-more *'s
+        (
+                [^/*][^*]*\*+
+        )*          ##  0-or-more things which don't start with /
+                    ##    but do end with '*'
+         /          ##  End of /* ... */ comment
+
+        |           ##     OR  various things which aren't comments:
+
+        (
+        "           ##  Start of " ... " string
+        (
+        \\.           ##  Escaped char
+        |               ##    OR
+        [^"\\]        ##  Non "\
+        )*
+        "           ##  End of " ... " string
+
+        |         ##     OR
+
+        '           ##  Start of ' ... ' string
+        (
+        \\.           ##  Escaped char
+        |               ##    OR
+        [^'\\]        ##  Non '\
+        )*
+        '           ##  End of ' ... ' string
+
+        |         ##     OR
+
+        .           ##  Anything other char
+        [^/"'\\]*   ##  Chars which doesn't start a comment, string or escape
+        )
+    }{defined $2 ? $2 : ""}gxse;
+    
+    
+Removes C++ comments:
+    s#/\*[^*]*\*+([^/*][^*]*\*+)*/|//([^\\]|[^\n][\n]?)*?\n|("(\\.|[^"\\])*"|'(\\.|[^'\\])*'|.[^/"'\\]*)#defined $3 ? $3 : ""#gse;
+    
+    
