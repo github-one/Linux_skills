@@ -115,6 +115,13 @@ File::Basename;
     my ($name, $path, $suffix) = fileparse($file_name, '\.[^\.]*');
     print $name, "\n";
     
+    my @files = qw(file.txt file.zip file.pl);
+    my @exts = qw(.txt .pl .zip);
+    for my $file (@files) {
+        my ($name, $dir, $suffix) = parsefile( $file, @exts );
+        print $name, " ", $dir, " ", $suffix, "\n";
+        }
+        
      
 File::Find::Rule Examples
     #---------------------------------------------------------------------------
