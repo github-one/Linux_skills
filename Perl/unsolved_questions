@@ -1,0 +1,6 @@
+Q: what will happen?
+    my %hash = map (2,4), %array;
+    my %hash = map (2,5,7), %array;
+    my @b = map (2,4,7), @array;
+         
+  
