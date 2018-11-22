@@ -4,3 +4,7 @@ Q: what will happen?
     my @b = map (2,4,7), @array;
          
   
+Q: what do the followings mean?
+    @array[...]
+    @hash{...}
+    
