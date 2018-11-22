@@ -1,6 +1,6 @@
 Schwartzian transform
     It is a technique used to improve the efficency of sorting a list of items. The idiom is named after Randal L. Schwartz,
-    who first demonstrated it in Perl 5 in 1994. It has been later adpoted by other languages such as Python.
+    who first demonstrated it in Perl 5 in 1994. It has been later adpoted by other languages such as Python, Ruby, PHP, etc.
     The term "Schwartzian transform" indicates a specific idiom, and not the algorithm in general.
     [ See "Schwartzian transform" in Wikipedia ]
 
