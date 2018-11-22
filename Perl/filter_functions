@@ -82,6 +82,7 @@ map
         
     some elegang examples of map
         @files_size = map { -s $_ } @files_name;
+        %dictionary = map { ($_, 1) } qw( cat dog man woman hat glove );
         %dictionary = map {$_, 1} qw( cat dog man woman hat glove );
         @caps = map uc, @phrases;
         @first_word = map { /(S+)/ } @phrases;
