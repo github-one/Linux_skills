@@ -76,7 +76,16 @@ map
     my %hash = map +( lc($_) => 1) ), @array        # perl guesses EXPR. right. note: the comma
     my %hash = map ( lc($_), 1) ), @array           # evaluates to (1, @array), it's tricky!
     
-    
-    
+    Each element need NOT necessarily map to a single item. If multiple values are created, map returns them
+    asll as a SINGLE, FLATTENED LIST. 
+        @words = map split, @phrases;       # Split all words in all phrases into a single list.
+        
+    some elegang examples of map
+        @files_size = map { -s $_ } @files_name;
+        %dictionary = map {$_, 1} qw( cat dog man woman hat glove );
+        @caps = map uc, @phrases;
+        @first_word = map { /(S+)/ } @phrases;
+        $title = join ' ', map ( ucfirst lc } split / /, $name;
+        
     
     
