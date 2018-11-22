@@ -1,3 +1,17 @@
+map, grep and sort
+    Each of these operators receives a code block (or an expression) which is used to transform, 
+    filter or compare elements of the list.
+    
+    For map, the result of the block becomes one (or more) element(s) in the new list. 
+    The current element is aliased to $_.
+
+    For grep, the boolean result of the block decides if the element of the original list will be copied into the new list. 
+    The current element is aliased to $_.
+
+    For sort, the block receives two elements (aliased to $a and $b) and is expected to return one of -1, 0 or 1, 
+    indicating whether $a is greater, equal or less than $b.
+
+
 grep
     The grep function takes two arguments: a block and a list of values. There is no comma between the block and the list.
     In SCALAR context grep will return the number of elements that went though the filter.
