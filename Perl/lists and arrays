@@ -1,0 +1,49 @@
+
+Question: Print a list with commas
+    print join(',', @array);
+    
+    my @array = qw(one two three);
+    {
+        local $, = ',';
+        print @array;
+    }
+    
+    sub commify_series {
+        (@_ == 0 ) ?    ''                     :
+        (@_ == 1 ) ?    $_[0]                  :
+        (@_ == 2 ) ?    join( " and ", @_)     :
+                        join(", ", @_[0 .. ($#_ -1)], "and $_[-1]");
+    }
+        
+
+
+Question: What is the difference between a list and an array?
+    https://learn.perl.org/faq/perlfaq4.html#What-is-the-difference-between-a-list-and-an-array-
+    http://perldoc.perl.org/perlfaq4.html#What-is-the-difference-between-a-list-and-an-array%3f
+    
+    A list is a fixed collection of scalars. 
+    An array is a variable that holds a variable collection of scalars. 
+    
+    An array can supply its collection for list operations, so list operations also work on arrays:
+        - slice:            (3,4,5,6,7,8)[2,3];   @array[2];  @array[2,3];
+        - iterator:         foreach ( ) { }
+        - supply an argument list (such as for a subroutine)
+
+    Array operations, which change the list, only work on arrays.
+        - shift, unshift, push, pop, and splice
+        - $#animals = 1;        # truncate to two elements
+          $#animals = 10000;    # pre-extend to 10,001 elements
+        - $animals[0] = 'Rottweiler';
+          qw( dog cat bird )[0] = 'Rottweiler'; # syntax error!
+
+            foreach ( @animals ) {
+                s/^d/fr/;  # works fine
+            }
+            foreach ( qw( dog cat bird ) ) {
+                s/^d/fr/;  # Error! Modification of read only value!
+            }
+         - my $count = @animals;                    # only works with arrays   
+           my $scalar = ( 'dog', 'cat', 'bird' );   # $scalar gets bird
+           
+           
+           
