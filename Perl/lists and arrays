@@ -95,6 +95,12 @@ Question: What is the difference between a list and an array?
           -  what goes between the parens in a foreach statement -- it is naively a "list of scalar values" 
                 but is functionally much more like an "argument list" but calling it the latter would confuse people.
      
+     [5]
+        An array is like a list of scalar values with an extra chunk of data that keeps track of bookkeeping information
+        about where the list is, how much space is allocated for the list, etc. 
+        This means that you can add items to the list of values stored in an array because the that extra chunk of data 
+        allows the array to reallocate space to make more room. 
+     
      
 -------------------  More Explanation about List vs Array ------------------------------------------------
 https://www.perlmonks.org/?node_id=72247
