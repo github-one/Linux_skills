@@ -76,9 +76,29 @@ Question: What is the difference between a list and an array?
         A "list value" is the result from executing an operator in a list context. And yes, 
         a list literal yields a list value in a list context, hence leading to the casual use of "list" for both.
 
-           
+    [4]
+        About array:
+        - The @ character can be used to introduce an array (if you can't use @ with what you have, then you don't have an array)
+        - This means that you can use an array with push, pop, shift, unshift, and splice.
+        - You can get a reference to an entire array. You can't get a reference to an entire non-array "list" 
+            except using [ ... ] which is cheating because it makes a new array, copies the "list" into it, 
+            and then gives you back a reference to the new array.
+        
+        About list:
+        Many of the meanings of "list" in Perl come close to "a list of scalar values", 
+        but that still doesn't nail things down very specifically. You can have:
+
+          -  a "list literal" might be used to mean "a list of scalar-value expressions separated by commas and surrounded by parens"
+          -  a list of SVs arranged together in memory, such as on the stack
+          -  "an operation that would return a list of scalar values if used in a list context"
+          -  the argument list passed to a subroutine
+          -  what goes between the parens in a foreach statement -- it is naively a "list of scalar values" 
+                but is functionally much more like an "argument list" but calling it the latter would confuse people.
+     
+     
 -------------------  More Explanation about List vs Array ------------------------------------------------
 https://www.perlmonks.org/?node_id=72247
+note: comments provide more explanations.
 
 [Input]
         use strict;
