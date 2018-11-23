@@ -119,6 +119,17 @@ Question: What is the difference between a list and an array?
         
         Even passing a list into a function causes Perl to place that list into an array (@_) for you.
      
+     [6]
+        An array has a changeable length.  A list does not.  
+        An array is something you can push or pop, while a list is a set of values.  
+        Some people make the distinction that a list is a value while an array is a variable.  
+        Subroutines are passed and return lists, you put things into list context, you initialize arrays 
+        with lists, and you foreach() across a list.  
+        "@" variables are arrays, anonymous arrays are arrays, arrays in scalar context behave like the number 
+        of elements in them, subroutines access their arguments through the array "@_", and push/pop/shift 
+        only work on arrays.
+           
+     
      
 -------------------  More Explanation about List vs Array ------------------------------------------------
 https://www.perlmonks.org/?node_id=72247
