@@ -95,6 +95,7 @@ Question: What is the difference between a list and an array?
                 but is functionally much more like an "argument list" but calling it the latter would confuse people.
      
      [5]
+        https://www.perlmonks.org/?node_id=130861
         An array is like a list of scalar values with an extra chunk of data that keeps track of bookkeeping information
         about where the list is, how much space is allocated for the list, etc. 
         This means that you can add items to the list of values stored in an array because the that extra chunk of data 
