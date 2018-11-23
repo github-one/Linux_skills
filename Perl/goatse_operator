@@ -1,7 +1,7 @@
 https://stackoverflow.com/questions/21037846/why-does-the-goatse-operator-work/21069822
 http://blogs.perl.org/users/nate_glenn/2014/01/list-assignment-in-scalar-context.html
 https://stackoverflow.com/questions/17136232/forcing-a-list-context-in-perl
-
+https://www.perlmonks.org/?node_id=790129
 
 ---------------------------------------------------------------------------------------------------------------
     # right side gets scalar context, so commas return rightmost item
