@@ -52,9 +52,9 @@ Question: What is the difference between a list and an array?
 
 -------------------  Important things about List vs Array ------------------------------------------------
     [1]
-    The context effect applies to the expression itself, not to its value. 
-    All contextual effects occur at compile time, never at run time, and at compile time there are no values; 
-    the values do not appear until run time, after all the contextual effects are resolved.
+        The context effect applies to the expression itself, not to its value. 
+        All contextual effects occur at compile time, never at run time, and at compile time there are no values; 
+        the values do not appear until run time, after all the contextual effects are resolved.
 
     [2]
         @a is an array expression. In a list context, its value is the list of elements from the array. 
@@ -68,6 +68,13 @@ Question: What is the difference between a list and an array?
 
         localtime() is not a list. It is a localtime expression. In list context, its value is a list of the current seconds, 
             minutes, hours, days, and so on. In scalar context, its value is a string representing the current time.
+
+    [3]
+        The Perl documentation has two different things that both end up being casually called "list": 
+        "list values" and "list literals". 
+        A "list literal" is that comma-ish thing that turns into the comma operator in a scalar context (last value wins). 
+        A "list value" is the result from executing an operator in a list context. And yes, 
+        a list literal yields a list value in a list context, hence leading to the casual use of "list" for both.
 
            
 -------------------  More Explanation about List vs Array ------------------------------------------------
