@@ -21,8 +21,12 @@ Question: What is the difference between a list and an array?
     https://learn.perl.org/faq/perlfaq4.html#What-is-the-difference-between-a-list-and-an-array-
     http://perldoc.perl.org/perlfaq4.html#What-is-the-difference-between-a-list-and-an-array%3f
     
+    
     A list is a fixed collection of scalars. 
     An array is a variable that holds a variable collection of scalars. 
+    
+    In internal sense an array is something that has a corresponding AV, which means that it can referenced and modified.
+    A list is a temporary construct of an unmodifiable set of values on the stack.
     
     An array can supply its collection for list operations, so list operations also work on arrays:
         - slice:            (3,4,5,6,7,8)[2,3];   @array[2];  @array[2,3];
@@ -47,3 +51,36 @@ Question: What is the difference between a list and an array?
            
            
            
+-------------------  More Explanation about List vs Array ------------------------------------------------
+https://www.perlmonks.org/?node_id=72247
+
+[Input]
+        use strict;
+        my @array = ('foo', 'bar', 'baz');
+        my $temp;
+        
+        $temp = @array;
+        print "$temp\n";
+        $temp = ('foo', 'bar', 'baz');
+        print "$temp\n";
+        ($temp) = @array;
+        print "$temp\n";
+        ($temp) = @array[0..2];
+        print "$temp\n";
+        $temp = @array[0..2];
+        print "$temp\n";
+
+[output]
+        3
+        baz
+        foo
+        foo
+        baz
+
+        This assignment has a scalar on the left hand side. This forces the array to be evaluated in a scalar context, which gives the length of the array.
+        This assignment has a scalar on the left hand side. This forces the list to be evaluated in a scalar context, which gives the last element of the list.
+        This assignment has a list on the left hand side. @array is thus evaluated in an array context. When Perl sets assigns one array to another, it sets the first element of one array equal to the first element of the other array, the second element equal to the next element, etc. Extra values are thrown away, so $temp is now equal to the first value of @array, or 'foo'.
+        This assignment also has a list on the left hand side, and an array slice (containing all the elements of the original array) on the right. The behavior is the same as in 3.
+        This assignment has a scalar on the left and the array slice (a.k.a. a list) on the right. This looks like a combination of 1. and 4., so you would think that the answer would be 3 or 'foo'. It turns out to be 'baz', because lists assigned to scalar context return the last element of the list.
+
+
