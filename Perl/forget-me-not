@@ -1,3 +1,12 @@
+my $count = () =  /.../g or goatse operator
+    my $str = "here are some words";
+    my $count = () = $str =~ /\S+/g;
+
+    The "empty parentheses" idiom is one that is used to force list context on an expression, 
+    and yet return a scalar: the count of items in that list.
+
+
+
 Baby cart sign @{[ ]}
     Discovered by Larry Wall, 1994. (Alternate nicknames: "shopping-trolley", "pram", "turtle")
         print "sorted array: @{[ sort keys %hash ]} \n";
