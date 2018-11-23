@@ -77,10 +77,52 @@ https://www.perlmonks.org/?node_id=72247
         foo
         baz
 
-        This assignment has a scalar on the left hand side. This forces the array to be evaluated in a scalar context, which gives the length of the array.
-        This assignment has a scalar on the left hand side. This forces the list to be evaluated in a scalar context, which gives the last element of the list.
-        This assignment has a list on the left hand side. @array is thus evaluated in an array context. When Perl sets assigns one array to another, it sets the first element of one array equal to the first element of the other array, the second element equal to the next element, etc. Extra values are thrown away, so $temp is now equal to the first value of @array, or 'foo'.
-        This assignment also has a list on the left hand side, and an array slice (containing all the elements of the original array) on the right. The behavior is the same as in 3.
-        This assignment has a scalar on the left and the array slice (a.k.a. a list) on the right. This looks like a combination of 1. and 4., so you would think that the answer would be 3 or 'foo'. It turns out to be 'baz', because lists assigned to scalar context return the last element of the list.
 
 
+https://stackoverflow.com/questions/14001741/what-is-the-difference-between-lists-and-arrays
+    I now believe these to be true:
+
+    - An array in scalar context becomes a count of its elements.
+    - The comma operator in scalar context returns the last element.
+    - You can't make a reference to a list; \(2, 4, 6) returns a list of references to the scalars in the list. 
+        You can use [2, 4, 6] to make a reference to an anonymous array.
+    - You can index a list (to get its nth element) without making an array if you make a list slice, so (2, 4, 6)[1] is 4.
+        
+    But what if I want to count the elements in a list, or get the last element of an array? 
+    Should I convert between arrays and lists somehow?
+
+    You can always convert a list to an array with [...] syntax. One way to count the elements in a list is 
+    to make an anonymous array, then immediately dereference it in scalar context, like so:
+        sub list { return qw(carrot stick); }
+        my $count = @{[list()]};
+        print "Count: $count\n";  # Count: 2
+
+    Another way is to use the list assignment operator, like so:
+        sub list { return qw(carrot stick); }
+        my $count = (()=list());
+        print "Count: $count\n";  # Count: 2
+    
+    There is no array in this code, but the list assignment operator returns the number of things being assigned. 
+    I assign them to an empty list of variables. In code golf, I write ()=$str=~/reg/g to count the regular expression 
+    matches in some string.
+
+    You need not convert an array to a list, because an array in list context is already a list. 
+    If you want the last element of an array, just say $array[-1].
+
+    The comma operator would return the last element of a list, but I can't use it to get the last element of an array. 
+    If I say ((),@array) in scalar context, then @array is in scalar context and I get the count.
+
+    You need not make an array to index a list. You can make an anonymous array, as in [list()]->[1], 
+    or you can make a list slice, as in (list())[1]. I had trouble with list slices because they have different syntax. 
+    A list slice needs parentheses! In C or Python or Ruby, func()[1] would do the array index on the function's return value, 
+    but in Perl, func()[1] is a syntax error. You must say (func())[1].
+
+    For example, I want to print the 3rd highest number in array. Because I'm lazy, 
+    I sort the array and take the 3rd last element:
+    
+        my @array = (112, 101, 114, 108, 32, 104, 97, 99, 107);
+        print +(sort { $a <=> $b } @array)[-3], "\n";  # prints 108
+        The unary + prevents the print() function stealing my parentheses.
+
+    You can use a list slice on an array, as in (@array)[1]. This works because an array is a list. 
+    The difference between lists and arrays is that arrays can do $array[1].
