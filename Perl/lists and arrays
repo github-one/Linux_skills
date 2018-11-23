@@ -49,7 +49,26 @@ Question: What is the difference between a list and an array?
          - my $count = @animals;                    # only works with arrays   
            my $scalar = ( 'dog', 'cat', 'bird' );   # $scalar gets bird
            
-           
+
+-------------------  Important things about List vs Array ------------------------------------------------
+    [1]
+    The context effect applies to the expression itself, not to its value. 
+    All contextual effects occur at compile time, never at run time, and at compile time there are no values; 
+    the values do not appear until run time, after all the contextual effects are resolved.
+
+    [2]
+        @a is an array expression. In a list context, its value is the list of elements from the array. 
+            In scalar context, its value is the length of the array.
+
+        (1,2,3) is not a list. It is a comma expression. In list context, its value is a list of the values of 
+            the items separated by the commas. In scalar context, its value is the value of the last item.
+
+        @a[0..2] is not a list. It is an array slice expression. In list context, its value is a list of 
+            the array elements you selected. In scalar context, its value is the value of the last array element you selected.
+
+        localtime() is not a list. It is a localtime expression. In list context, its value is a list of the current seconds, 
+            minutes, hours, days, and so on. In scalar context, its value is a string representing the current time.
+
            
 -------------------  More Explanation about List vs Array ------------------------------------------------
 https://www.perlmonks.org/?node_id=72247
