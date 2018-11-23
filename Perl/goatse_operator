@@ -63,5 +63,28 @@ https://www.perlmonks.org/?node_id=790129
             -------------------   List assign in list context. Returns LHS.
                    ----------     List literal in list context. Returns all.
 
-    
-    
+---------------------------------------------------------------------------------------------------------------    
+http://www.catonmat.net/blog/secret-perl-operators/
+
+The Goatse operator, as nasty as it may sound, doesn't do any nasty things. Instead it does a wonderful thing 
+and causes an expression on the right to be evaluated in array context.
+
+Here is an example,
+
+my $str = "5 foo 6 bar 7 baz";
+my $count =()= $str =~ /\d/g;
+print $count;
+This program prints 3 - the number of digits in $str. How does it do it? Let's deparse the 2nd line:
+
+    (my $count = (() = ($str =~ /\d/g)));
+What happens here is that the expression ($str =~ /\d/g) gets assigned to the empty list (). 
+
+Assigning to a list forces the list context. The whole (() = ($str =~ /\d/g)) thing gets evaluated in list context, 
+but then it gets assigned to a scalar which causes it to get evaluated again in scalar context. 
+So what we have is a list assignment in scalar context. 
+The key thing to remember is that a list assignment in scalar context returns the number of elements 
+on the right-hand side of the list assignment. 
+In this example the right-hand side of the list assignment is ($str =~ /\d/g). 
+This matches globally (/g flag) and finds 3 digits in $str. Therefore the result is 3.
+
+
