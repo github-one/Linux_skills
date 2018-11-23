@@ -95,9 +95,19 @@ https://www.perlmonks.org/?node_id=72247
         foo
         foo
         baz
+        
+---------------------------------------------------------------------------------------------------------------------
+Perl5-porters got email about a year ago from a guy who was reporting the following bug:
+    Following is an account of what could be a bug in perl.
+      $ perl -e 'print "count is ", scalar(undef, undef), "\n"'
+        count is
+Note that count is undefined here, though it should have been 2.
+This guy had the same idea you did: (undef, undef) is a list of two items, and scalar() should count the items. 
+But scalar does no such thing. It changes the way the way the program is compiled, 
+so that the comma operator returns its second operand, instead of constructing a list value.
 
 
-
+---------------------------------------------------------------------------------------------------------------------
 https://stackoverflow.com/questions/14001741/what-is-the-difference-between-lists-and-arrays
     I now believe these to be true:
 
