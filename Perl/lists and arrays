@@ -134,7 +134,7 @@ Question: What is the difference between a list and an array?
         When a hase is passed as a parameter to a subroutine, the hash will be flattened into lists, where
         the key/value pairs are guaranteed to remain adjacent and in 'key', 'value' order, but the ordering of
         the pairs is not necessarily deterministic.
-        
+        (Note: prototypes can alter this behavior.)
         
      
 -------------------  More Explanation about List vs Array ------------------------------------------------
