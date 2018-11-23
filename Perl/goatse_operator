@@ -1,0 +1,65 @@
+https://stackoverflow.com/questions/21037846/why-does-the-goatse-operator-work/21069822
+http://blogs.perl.org/users/nate_glenn/2014/01/list-assignment-in-scalar-context.html
+
+---------------------------------------------------------------------------------------------------------------
+    # right side gets scalar context, so commas return rightmost item
+    $string = qw(stuff junk things); 
+    say $string; # things
+
+    # right side gets list context, so middle is list assigned in scalar context
+    $string = () = qw(stuff junk things);
+    say $string; # 3
+
+    # right side gets list context, so creates a list, assigns an item to $string2, and
+    # evaluates list in scalar context to assign to $string
+    $string = ($string2) = qw(stuff junk things);
+    say $string; # 3
+    say $string2; # stuff
+ 
+ 
+ ---------------------------------------------------------------------------------------------------------------
+    # scalar assignment in scalar context
+    $thing = ($foo = 'bar'); # assignment returns $foo as lvalue
+    say $thing; # bar
+
+    # scalar assignment in list context
+    ($thing) = ($foo = 'bar'); #assignment returns ($foo), $foo is lvalue
+    say $thing; # bar
+
+    # list assignment in scalar context;
+    # assignment returns number of items in RHS of list assignment
+    $thing = (($foo, $bar) = qw(foo bar));
+    say $thing; # 2
+    $thing = (() = qw(foo bar));
+    say $thing; # 2
+    $thing = () = qw(foo bar);
+    say $thing; # 2
+
+    # list assignment in list context
+    # assignment returns LHS list as lvalues
+    ($thing) = (($foo, $bar) = qw(foo bar));
+    say $thing; # foo
+    ($thing) = (() = qw(foo bar));
+    say $thing; # nothing ($thing is undef)    
+    
+---------------------------------------------------------------------------------------------------------------
+    my $b = (33,22,11);
+    ------------------            Scalar assign in void context.
+            ----------            List literal in scalar context. Returns last.
+
+    my @b = (33,22,11);
+    ------------------            List assign in void context.
+            ----------            List literal in list context. Returns all.
+
+    my $b = ( () = (33,22,11) );
+    ---------------------------   Scalar assign in void context.
+            -------------------   List assign in scalar context. Returns count of RHS
+                   ----------     List literal in list context. Returns all.
+
+    my @b = ( () = (33,22,11) );
+    ---------------------------   List assign in void context.
+            -------------------   List assign in list context. Returns LHS.
+                   ----------     List literal in list context. Returns all.
+
+    
+    
