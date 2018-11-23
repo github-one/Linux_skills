@@ -14,7 +14,6 @@ Question: Print a list with commas
         (@_ == 2 ) ?    join( " and ", @_)     :
                         join(", ", @_[0 .. ($#_ -1)], "and $_[-1]");
     }
-        
 
 
 Question: What is the difference between a list and an array?
@@ -100,6 +99,24 @@ Question: What is the difference between a list and an array?
         about where the list is, how much space is allocated for the list, etc. 
         This means that you can add items to the list of values stored in an array because the that extra chunk of data 
         allows the array to reallocate space to make more room. 
+     
+        A hash is like an array. You could think of it as a container for a list of pairs 
+        (where each pair is one string and one scalar value). If you take the contents of a hash out of the hash, 
+        you have a "list" (of scalar values, every other one of which must be just a string).
+     
+        A "list" is a rather temporary thing. 
+        If you want to find out how many things are in a list, you can do:     my $size= ()= LIST;
+        but now you've lost the "list" and so you'll either have to recreate or keep a copy of it. 
+        And about the only way to keep a copy of it is to stuff it into an array. 
+        
+        Similarly, if you want the last item of a list, you can use     my $last= (LIST)[-1];
+        but you had better not have wanted to know anything else about the list as you've now lost it again.
+
+        Sure, you can get several items out of the list at once using a list slice. 
+        But you can't get several items out of the list and also record the size of the list unless 
+        you put the list into an array at least temporarilly. 
+        
+        Even passing a list into a function causes Perl to place that list into an array (@_) for you.
      
      
 -------------------  More Explanation about List vs Array ------------------------------------------------
