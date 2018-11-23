@@ -223,3 +223,32 @@ https://stackoverflow.com/questions/14001741/what-is-the-difference-between-list
 
     You can use a list slice on an array, as in (@array)[1]. This works because an array is a list. 
     The difference between lists and arrays is that arrays can do $array[1].
+
+---------------------------------------------------------------------------------------------------------------------
+    http://blogs.perl.org/users/nate_glenn/2014/01/list-assignment-in-scalar-context.html
+    
+        # scalar assignment in scalar context
+        $thing = ($foo = 'bar'); # assignment returns $foo as lvalue
+        say $thing; # bar
+
+        # scalar assignment in list context
+        ($thing) = ($foo = 'bar'); #assignment returns ($foo), $foo is lvalue
+        say $thing; # bar
+
+        # list assignment in scalar context;
+        # assignment returns number of items in RHS of list assignment
+        $thing = (($foo, $bar) = qw(foo bar));
+        say $thing; # 2
+        $thing = (() = qw(foo bar));
+        say $thing; # 2
+        $thing = () = qw(foo bar);
+        say $thing; # 2
+
+        # list assignment in list context
+        # assignment returns LHS list as lvalues
+        ($thing) = (($foo, $bar) = qw(foo bar));
+        say $thing; # foo
+        ($thing) = (() = qw(foo bar));
+        say $thing; # nothing ($thing is undef)
+    
+    
