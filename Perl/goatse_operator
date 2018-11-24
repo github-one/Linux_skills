@@ -107,8 +107,11 @@ Topic: List Assignment in Scalar Context
     
 [Answer]
     It's documented to count the elements on the right in perlop (the last sentence in the Assignment Operators section):
-
-    Similarly, a list assignment in list context produces the list of lvalues assigned to, and a list assignment in scalar context returns the number of elements produced by the expression on the right hand side of the assignment.
+    -------------------------------------------------------------------------------------------------------------
+    Similarly, a list assignment in list context produces the list of lvalues assigned to, and a list assignment 
+    in scalar context returns the number of elements produced by the expression on the right hand side of 
+    the assignment.
+    -------------------------------------------------------------------------------------------------------------
 
     The reason it works like that is so that you can write things like this:
 
