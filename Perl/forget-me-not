@@ -1,3 +1,16 @@
+difference b/w undef and empty string
+    An empty string, is a string defined to be empty. It is defined. Creating a scalar variable without assigning it anything 
+    or assigning it the special symbol undef are two ways of saying "I haven't chosen a value yet. Act accordingly."
+        my $a;                      defined($a); returns false.
+        my $a=undef;                defined($a); returns false.
+        my $a='';                   defined($a); returns true.
+        my $a="";                   defined($a); returns true.
+        my $a=1; $a=undef;          defined($a); returns false.
+        print 3 + undef;            # 3
+        print "hello" . undef       # hello
+        $a=undef;  print $b=()=(9,15,$a);         # 3  
+
+
 length function on an undefined value
     In Perl 5.12, it's a bit easier because length on an undefined value also returns undefined. 
     That doesn't issue a warning, which is the reason this question exists.
