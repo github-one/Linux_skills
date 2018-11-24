@@ -1,8 +1,23 @@
 Print
     %hash = ('foo'=>1, 'bar'=>3);
-    print %hash;                    # result: bar3fool1
-    print "%hash";                  # result: %hash
-    print join ",", %hash;          # result: bar,3,foo,1
+    print %hash;                    # not good enogh, result: bar3fool1
+    print "%hash";                  # error, result: %hash
+    print join ",", %hash;          # a little better, result: bar,3,foo,1
+    @a=%hash; print "@a\n";         # a little better, rersult: bar 3 foo 1
+    print "@{ [%hash] }\n";         # using anonymouse array reference trick
+    
+    foreach $key (keys %hash) {             # this is the most common method.
+        print "$key => $hash{$key}\n";
+        }
+    while( ($key, $value) = each %hash ) {
+        print "key => $value\n";
+        }
+    
+    print map { "key:$_ => value:$hash{$_}\n" } keys %hash;    
+    use Data::Dumper;
+    print Dumper %hash;     # ok, but not great
+    print Dumper \%hash;    # much better
+    
     
 Length
     print scalar keys %hash;
