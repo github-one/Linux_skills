@@ -1,10 +1,24 @@
-my $count = () =  /.../g or goatse operator
+length function on an undefined value
+    In Perl 5.12, it's a bit easier because length on an undefined value also returns undefined. 
+    That doesn't issue a warning, which is the reason this question exists.
+
+    use 5.012;
+    use warnings;
+
+    my $name;
+
+    if( length $name ) { # no warning
+        ...
+        }
+
+
+
+goatse operator "  = () =  "
     my $str = "here are some words";
     my $count = () = $str =~ /\S+/g;
 
     The "empty parentheses" idiom is one that is used to force list context on an expression, 
     and yet return a scalar: the count of items in that list.
-
 
 
 Baby cart sign @{[ ]}
