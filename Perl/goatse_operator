@@ -88,3 +88,44 @@ In this example the right-hand side of the list assignment is ($str =~ /\d/g).
 This matches globally (/g flag) and finds 3 digits in $str. Therefore the result is 3.
 
 
+---------------------------------------------------------------------------------------------------------------------
+https://stackoverflow.com/questions/9307137/list-assignment-in-scalar-context
+Topic: List Assignment in Scalar Context
+
+[Question]
+    A list assignment in scalar context returns the number of elements on the right hand side:
+
+    scalar(my ($hello, $there, $world) = (7,8)); #evaluates to 2
+    Why does it evaluate the right hand side and produce 2, instead of the newly defined list being evaluated and returning 3?
+
+    To me, it seems like $hello gets 7, $there gets 8, and $world gets undef, then that list is evaluated in scalar context, which would result in 3, as that is the number of elements in the list ($hello $there $world). It seems weird to me that context affects which part of the evaluated expression is returned:
+
+    my $greeting = (($hello, $there, $world) = (7,8)); #2
+
+    my @greeting = (($hello, $there, $world) = (7,8));
+    my $greeting_length = @greeting; #3
+    
+[Answer]
+    It's documented to count the elements on the right in perlop (the last sentence in the Assignment Operators section):
+
+    Similarly, a list assignment in list context produces the list of lvalues assigned to, and a list assignment in scalar context returns the number of elements produced by the expression on the right hand side of the assignment.
+
+    The reason it works like that is so that you can write things like this:
+
+    while (my ($key, $value) = each %hash) { ... }
+    If it counted the number of elements on the left hand side of the assignment, that would be an infinite loop.
+
+    If you think about it, the number of elements on the left hand side is either the same as on the right hand side or 
+    it's a constant (when you're assigning to a list of scalars). In the first case, it makes no difference which side you count, 
+    and in the second case, counting the right hand side is more useful.
+
+    On the other hand, in list context the assignment operator returns the left hand list, because that's more useful. 
+    If you use it in a context that modifies the list elements, you want to modify the variables that were just assigned to.
+
+    Re: your comment In your example, (7,8) is a two-element list, which is why the assignment operator returns 2. 
+    When you assign a shorter list to a longer list of scalars, the right hand side is not "padded out" with undef 
+    before the assignment happens. Instead, any variables that did not have a value associated with them from the right hand list 
+    are reset to their default value. For a scalar variable, that's undef. 
+    For arrays, that's an empty array. For hashes, that's an empty hash.
+
+
