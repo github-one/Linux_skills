@@ -1,10 +1,32 @@
+
+Q: what do the followings mean?
+    @array[...]
+    @hash{...}
+    
+A: 
+    @array[...] is array silce operation.
+    
+    
+-----------------------------------------  Solved Questions    -------------------------------------------------
+
 Q: what will happen?
     my %hash = map (2,4), %array;
     my %hash = map (2,5,7), %array;
     my @b = map (2,4,7), @array;
          
-  
-Q: what do the followings mean?
-    @array[...]
-    @hash{...}
+A: Finnally, I found this is a silly question!
+    my %hash = map (2,4), %arrar  
+    equals:
+    my %hahs = map (2,4);    # the comma ',' means the map function ends
+    %array;   
     
+    
+references:    
+https://stackoverflow.com/questions/21032709/why-does-perl-function-map-give-the-error-not-enough-arguments-for-map
+https://stackoverflow.com/questions/23332271/perl-map-when-to-use-expr-vs-block-form
+
+try:
+    my $x = 0;
+    %h = map $x = $x + $_, 5,6,7,8;
+    %h = map +{a=>1}, (1..7);
+ ------------------------------------------------------------------------------------------------------------   
