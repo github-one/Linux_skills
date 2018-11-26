@@ -227,6 +227,7 @@ Bareword hash keys
 
 
 Dispatch tables of coderefs
+    from: https://www.xaprb.com/blog/2006/10/05/five-great-perl-programming-techniques-to-make-your-life-fun-again/
     What exactly is a dispatch table? It’s a hash of references to executable code. 
     -----------------------------------------------------------------
     #!/usr/bin/perl
