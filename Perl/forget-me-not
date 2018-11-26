@@ -1,4 +1,12 @@
-difference b/w undef and empty string
+|| assignment
+    In Perl, you can use the ||= operator. Its precedence rules are such that it’ll only do an assignment if the value is false 
+    (‘false’ generally means zero, undefined, or the empty string):
+    $a ||= 5;
+    $a = $a || 5;           # another way
+    $a = 5 unless $a;       # another way
+
+
+Difference b/w undef and empty string
     An empty string, is a string defined to be empty. It is defined. Creating a scalar variable without assigning it anything 
     or assigning it the special symbol undef are two ways of saying "I haven't chosen a value yet. Act accordingly."
         my $a;                      defined($a); returns false.
@@ -11,7 +19,7 @@ difference b/w undef and empty string
         $a=undef;  print $b=()=(9,15,$a);         # 3  
 
 
-length function on an undefined value
+Length function on an undefined value
     In Perl 5.12, it's a bit easier because length on an undefined value also returns undefined. 
     That doesn't issue a warning, which is the reason this question exists.
 
