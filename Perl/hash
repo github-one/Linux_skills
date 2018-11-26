@@ -37,3 +37,21 @@ Length
             soem_sub(\%hash);
             som_sub( {pi => 3.14, C => 4});
      
+Hash slice technique
+    my %new_hash;
+    @new_hash( @desired_keys ) = @old_hash( @desired_Keys );
+    
+    If you want to extract some key/vaule pairs from a hash, there are some ways to do it.
+    Method #1: foreach
+        my @desired_keys = qw(a c);
+        my %new_hash;
+        foreach my $key (@desired_keys) {
+            $new_hash{ $key } = $old_hash{ $key };
+        }
+    Method #2: map
+        my %new_hash = map { $_ => $old_hash{ $_ } } @desired_keys;
+    Method #3: slice
+        my %new_hash;
+        @new_hash( @desired_keys ) = @old_hash( @desired_Keys );
+       
+      
