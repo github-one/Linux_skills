@@ -225,4 +225,50 @@ Bareword hash keys
     Without the * sigil, a bareword is just a string.  
             
 
-        
+
+Dispatch tables of coderefs
+    What exactly is a dispatch table? It’s a hash of references to executable code. 
+    -----------------------------------------------------------------
+    #!/usr/bin/perl
+
+    use strict;
+    use warnings FATAL => 'all';
+
+    use Term::ReadKey;
+
+    sub display_a {
+       print "I am in display_a\n";
+    }
+
+    sub display_b {
+       print "I am in display_b\n";
+    }
+
+    my $dispatch_for = {
+       a => \&display_a,
+       b => \&display_b,
+       q => sub { ReadMode('normal'); exit(0) },
+    };
+
+    while ( 1 ) {
+       print "Press a key!\n";
+       ReadMode('cbreak');
+       my $char = ReadKey(10);
+       defined $dispatch_for->{$char} && $dispatch_for->{$char}->();
+    }
+
+    -----------------------------------------------------------------
+    my $dispatch_for = {
+       a => \&display_a,
+       b => \&display_b,
+       q => sub { ReadMode('normal'); exit(0) },
+       DEFAULT => sub { print "That key does nothing\n"; },
+    };
+
+    # Later
+       my $func = $dispatch_for->{$char} || $dispatch_for->{DEFAULT};
+       $func->();    
+    -----------------------------------------------------------------
+    
+    
+    
