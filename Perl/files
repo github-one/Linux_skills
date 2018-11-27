@@ -116,12 +116,18 @@ File::Basename;
     print $name, "\n";
     
     my @files = qw(file.txt file.zip file.pl);
-    my @exts = qw(.txt .pl .zip);
+    my @exts = qw(.txt .pl .zip .gz);
     for my $file (@files) {
         my ($name, $dir, $suffix) = parsefile( $file, @exts );
         print $name, " ", $dir, " ", $suffix, "\n";
         }
-        
+
+    $full_name = "/local/src/perl-5.6..1.tar.gz";
+    my ($name, $dir, $suffix) = parsefile ($full_name, qr/\..*/);               # suffix=".6.1.tar.gz"
+    my ($name, $dir, $suffix) = parsefile ($full_name, qr/\.\D.*/);             # suffix=".tar.gz"
+    my ($name, $dir, $suffix) = parsefile ($full_name, qr/\.[^.]*/);            # suffix=".gz"
+    my ($name, $dir, $suffix) = parsefile ($full_name, @exts, qr/\.[^.]*/);     # suffix=".tar.gz", !!!NOT what you want
+    
      
 File::Find::Rule Examples
     #---------------------------------------------------------------------------
