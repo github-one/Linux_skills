@@ -74,7 +74,8 @@ map
     my %hash = map { ("\L$_" => 1) } @array         # perl guesses BLOCK. right
     my %hash = map { lc($_) => 1) } @array          # perl guesses BLOCK. right
     my %hash = map +( lc($_) => 1) ), @array        # perl guesses EXPR. right. note: the comma
-    my %hash = map ( lc($_), 1) ), @array           # evaluates to (1, @array), it's tricky!
+    my %hash = map ( lc($_), 1) ), @array           # wrong. RHS turns out to be "map(xx,1)", then ",",  then @array.
+                                                    # The result is definitely not what you want!    
     
     Each element need NOT necessarily map to a single item. If multiple values are created, map returns them
     asll as a SINGLE, FLATTENED LIST. 
