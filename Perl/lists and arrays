@@ -16,6 +16,24 @@ Question: Print a list with commas
     }
 
 
+Question: How can I check if an array contains a (or some) particluar value?
+    Method #1: for one or more values
+        my %params = map { $_ => 1 } @target_array;
+        if( exists( $params{$input_param} ) ) { 
+            ... 
+        }
+        
+        You can also add more params to the list:
+        $params{$new_param} = 1;
+        And later get a list of params back:
+        @target_array = keys %params;
+        
+    Method #2: this is good for looking up only one value.
+        if (grep (/^$input_param$/, @target_array) {
+            ...
+        }                   
+
+
 Question: What is the difference between a list and an array?
     https://learn.perl.org/faq/perlfaq4.html#What-is-the-difference-between-a-list-and-an-array-
     http://perldoc.perl.org/perlfaq4.html#What-is-the-difference-between-a-list-and-an-array%3f
