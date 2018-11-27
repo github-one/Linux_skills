@@ -32,7 +32,13 @@ Question: How can I check if an array contains a (or some) particluar value?
         if (grep (/^$input_param$/, @target_array) {
             ...
         }                   
-
+        
+        if (grep {$_ eq $input_param} @target_array) { 
+            ...
+        } else {
+            push @target_array, $input_param;        
+        }
+        
 
 Question: What is the difference between a list and an array?
     https://learn.perl.org/faq/perlfaq4.html#What-is-the-difference-between-a-list-and-an-array-
