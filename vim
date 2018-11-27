@@ -45,6 +45,13 @@ Format
     
     :set splitbelow     # open new split panes to bottom, which feels more natural than Vim's default
     :set splitright
+
+Search
+    Highlight all occurrence of a selected word
+    :set hlsearch
+    :noh            # or :nohlsearch
+    Search for a pattern with the command / in Normal mode, or <Ctrl>o followed by / in Insert mode.
+    * in Normal mode will search for the next occurrence of the word under the cursor. # for the previouse occurrence.       
     
 Marks & Jumps
     Two types of mark jumps, bactick(`<mark>) and single quote('<mark>).
