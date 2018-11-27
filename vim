@@ -86,13 +86,16 @@ Buffers
     :bprev
     :b2
     :ls
+    :set hidden     # switch buffers without saving the current file.
+    
+    !! Don't use Tabs command to switch files, use Buffers command. 
 
 Tabs
     :tabnew
     :tabedit <filename>
     gt      # go to the next tab
     gT      # go to he previous tab
-    Ctrl +w T       # break the current window to a new tab
+    Ctrl +w T       # break the current window to a new tab      
     
 Windows
     File operations
