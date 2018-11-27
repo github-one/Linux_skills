@@ -1,3 +1,31 @@
+Parans, square brackets and curly braces
+    In Perl, brackets, braces and parens all have multiple meanings, but curly braces probably have the most.
+
+    Parens
+        - Sort out precedence 2 * 3 + 4 vs. 2 * (3 + 4).
+            > Delimiting argument lists for functions is a subcase of this: 
+                    join "", 1, 2, 3 vs. join("", 1, 2), 3
+            > Surround argument list of method call with arrow operator: 
+                    $foo->bar(1, 2) (not needed for empty arglist)
+        - Force interpretation of the previous bareword as a subroutine call. Compare Foo->new and Foo()->new.
+        - Invoke coderefs with arrow operator: $code->()
+        - Subroutine prototypes sub foo ($$;$%) { ... }
+    Square Brackets
+        - Array subscript operator my @array = 1 .. 5; $array[1]
+        - Arrayref literals my $aref = [1 .. 5]
+    Curly braces
+        - Blocks (for do, sub, map, grep, conditionals, looping constructs, bare blocks, labeled blocks, ... )
+        - Hash subscript operator $hash{foo}
+        - Hashref literal my $hashref = { a => 3, b => 2 }
+        - Dative block print { $filehandles[5] } "Hello world"
+        - Circumfix dereference operators @{ $aref }, %{ $hashref }, ...
+        - package blocks package Foo { ... }
+     
+     … and nearly all characters can be used as delimiters for quote-like operators 
+        q//, qq//, qr//, qx//, m//, s///, tr///, y///, leading to interesting stuff like s(foo){bar}g
+
+
+
 || assignment
     In Perl, you can use the ||= operator. Its precedence rules are such that it’ll only do an assignment if the value is false 
     (‘false’ generally means zero, undefined, or the empty string):
@@ -267,9 +295,4 @@ Dispatch tables of coderefs
     };
 
     # Later
-       my $func = $dispatch_for->{$char} || $dispatch_for->{DEFAULT};
-       $func->();    
-    -----------------------------------------------------------------
-    
-    
-    
+       my $func
