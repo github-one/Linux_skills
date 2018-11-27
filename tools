@@ -1,0 +1,14 @@
+time
+  $ time du -h
+  real 0m0.177s
+  user 0m0.156s
+  sys 0m0.020s
+  
+  The statistics shown show the total time is taken to run the command, the amount of time 
+  that was spent in user mode and the amount of time spent in kernel mode.
+  To output the format to a file use the following syntax:
+  time -o
+  time --output=
+  time -a
+  time --append
+  
