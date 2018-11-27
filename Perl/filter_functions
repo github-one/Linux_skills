@@ -81,6 +81,10 @@ map
     asll as a SINGLE, FLATTENED LIST. 
         @words = map split, @phrases;       # Split all words in all phrases into a single list.
         
+        @tokens = map { [split /:/] } @original_lines[6..14]
+        # Brackets are used as the array subscriptor operator in [6..14], and the curlies are used to form a block.
+        
+        
     some elegang examples of map
         @files_size = map { -s $_ } @files_name;
         %dictionary = map { ($_, 1) } qw( cat dog man woman hat glove );
