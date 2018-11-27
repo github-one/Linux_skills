@@ -1,3 +1,4 @@
+from:  https://metacpan.org/pod/perlfaq6#How-do-I-use-a-regular-expression-to-strip-C-style-comments-from-a-file
 This is too simple and it will work in many but not all cases.
     perl -0777 -pe 's{/\*.?\*/}{}gs' foo.c
     
