@@ -1,0 +1,12 @@
+re 'debug' pragma
+        use re 'debug';  
+    The use re 'debug' pragma comes with Perl 5.005 and later. You can watch Perl's regular expression engine at work
+    to verify for yourself if Perl is recompiling a regular expression.
+  
+  
+/O option
+    The /o option for regular expression tells Perl to complie the regular expression only once.
+    This is only usefule when the pattern contains a variable. Perl 5.6 and later handle this automatically if
+    the patter does not change. So, you don't need the /o option. It doesn't hurt, but it doesn't help either.
+    
+    
