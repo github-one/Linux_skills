@@ -144,4 +144,10 @@ Exchagne characters, words and lines
     dawbP               # swap the current word with the previous
     dawwP, dawelp       # swap the current word with the next
     
-    
+Comment out blocks/multiline:
+    press Esc (to leave editing or other mode)
+    hit ctrl + v (visual block mode)
+    use the up/down arrow keys to select lines you want (it won't highlight everything - it's OK!)
+    Shift + i (capital I)
+    insert the text you want, i.e. %
+    press Esc Esc.    
