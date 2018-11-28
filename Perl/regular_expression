@@ -28,3 +28,49 @@ How can I quote a variable to use in a regex?
         
         $string =~ s/\Q$regex/Polyp/;
         # $string is now "Placido Polyp Octopus"
+
+Matching multiple lines
+        /s allows dot to include newline.
+        /m allows caret and dollar to match next to a newline, not just at the end of the string.
+        
+        
+---------------------------------------------- Special Charaters --------------------------------------------------- 
+    \w        [3]  Match a "word" character (alphanumeric plus "_", plus
+                                      other connector punctuation chars plus Unicode
+                                      marks)
+    \W        [3]  Match a non-"word" character
+    \s        [3]  Match a whitespace character
+    \S        [3]  Match a non-whitespace character
+    \d        [3]  Match a decimal digit character
+    \D        [3]  Match a non-digit character
+    \pP       [3]  Match P, named property.  Use \p{Prop} for longer names
+    \PP       [3]  Match non-P
+    \X        [4]  Match Unicode "eXtended grapheme cluster"
+    \1        [5]  Backreference to a specific capture group or buffer.
+                                      '1' may actually be any positive integer.
+    \g1       [5]  Backreference to a specific or previous group
+    \g{-1}    [5]  The number may be negative indicating a relative
+                                      previous group and may optionally be wrapped in
+                                      curly brackets for safer parsing.
+    \g{name}  [5]  Named backreference
+    \k<name>  [5]  Named backreference
+    \K        [6]  Keep the stuff left of the \K, don't include it in $&
+    \N        [7]  Any character but \n.  Not affected by /s modifier
+    \v        [3]  Vertical whitespace
+    \V        [3]  Not vertical whitespace
+    \h        [3]  Horizontal whitespace
+    \H        [3]  Not horizontal whitespace
+    \R        [4]  Linebreak
+
+zero-width assertions
+     \b{}   Match at Unicode boundary of specified type
+     \B{}   Match where corresponding \b{} doesn't match
+     \b     Match a \w\W or \W\w boundary
+     \B     Match except at a \w\W or \W\w boundary
+     \A     Match only at beginning of string
+     \Z     Match only at end of string, or before newline at the end
+     \z     Match only at end of string
+     \G     Match only at pos() (e.g. at the end-of-match position
+            of prior m//g)
+            
+            
