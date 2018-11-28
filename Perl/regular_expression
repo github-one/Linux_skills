@@ -53,7 +53,7 @@ How can I quote a variable to use in a regex?
         # $string is now "Placido Polyp Octopus"
 
 Matching multiple lines
-        /s allows dot to include newline.
+        /s allows dot to include newline. (normally it doesn't)
         /m allows caret and dollar to match next to a newline, not just at the end of the string.
         
         
