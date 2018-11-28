@@ -37,7 +37,11 @@ Comments Regex
     Regexp::Common - Provide commonly requested regular expressions
     Regexp::Common::comment -- provide regexes for comments.
     
-    
+Regex explanation
+    use YAPE::Regex::Explain;
+    my $exp = YAPE::Regex::Explain->new($REx)->explain;        
+    Note: There is no support for regular expression syntax added after Perl version 5.6, particularly any constructs added in 5.10.
+
 How can I quote a variable to use in a regex?
     The Perl parser will expand $variable and @variable references in regular expressions unless the delimiter is a single quote. 
     The [right-hand side] of a s/// substitution is considered a double-quoted string.
