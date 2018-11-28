@@ -39,7 +39,8 @@ Comments Regex
     
 Regex explanation
     use YAPE::Regex::Explain;
-    print YAPE::Regex::Explain->new($Regular_expression)->explain();    
+    my $regex = qr{(foo|bar)\d+}/i;
+    print YAPE::Regex::Explain->new($regex)->explain();    
     
     Note: There is no support for regular expression syntax added after Perl version 5.6, particularly any constructs added in 5.10.
 
