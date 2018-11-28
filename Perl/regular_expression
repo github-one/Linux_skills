@@ -14,3 +14,17 @@ Comments Regex
     Regexp::Common - Provide commonly requested regular expressions
     Regexp::Common::comment -- provide regexes for comments.
     
+    
+How can I quote a variable to use in a regex?
+    The Perl parser will expand $variable and @variable references in regular expressions unless the delimiter is a single quote. 
+    The [right-hand side] of a s/// substitution is considered a double-quoted string.
+    Remember that ANY regex special characters will be acted on unless you precede the substitution with \Q. 
+    
+        $string = "Placido P. Octopus";
+        $regex  = "P.";
+
+        $string =~ s/$regex/Polyp/;
+        # $string is now "Polypacido P. Octopus"
+        
+        $string =~ s/\Q$regex/Polyp/;
+        # $string is now "Placido Polyp Octopus"
