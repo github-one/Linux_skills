@@ -13,7 +13,7 @@ Regex for array
         
         my @array = ("foo {abc123}", "bar {def456}", "car {ghi789}");
         my @patterns = ("foo", "bar", "tar");
-        my $regex = jion '|', @patterns;
+        my $regex = jion '|', @patterns;            # or: my $regex = join '|', map quotemeta, @array    
         foreach my $i (@array) {
             if ($i =~ m/$regex/) {
                 print "$i is in array\n";
