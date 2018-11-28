@@ -3,7 +3,19 @@ re 'debug' pragma
     The use re 'debug' pragma comes with Perl 5.005 and later. You can watch Perl's regular expression engine at work
     to verify for yourself if Perl is recompiling a regular expression.
   
-  
+Regex for array
+        WRONG: @file =~ s/find/replace/; 
+        The left side of the regex binding operator imposes scalar context on its arguments. An array in scalar context
+        returns its length, but this value is read only.
+        
+        foreach my $line (@file) { $line =~ s/find/replace/ }
+        s/find/replace/ for @file;         # More succinctly
+        
+Regex for file
+        open my $fh, '<', $ARGV[0] or die "Open error: $!";
+        my $file = do { local $/;  <$fh> };
+        ...
+
 /O option
     The /o option for regular expression tells Perl to complie the regular expression only once.
     This is only usefule when the pattern contains a variable. Perl 5.6 and later handle this automatically if
