@@ -11,6 +11,17 @@ Regex for array
         foreach my $line (@file) { $line =~ s/find/replace/ }
         s/find/replace/ for @file;         # More succinctly
         
+        my @array = ("foo {abc123}", "bar {def456}", "car {ghi789}");
+        my @patterns = ("foo", "bar", "tar");
+        my $regex = jion '|', @patterns;
+        foreach my $i (@array) {
+            if ($i =~ m/$regex/) {
+                print "$i is in array\n";
+            }
+            ...
+        }   
+        
+        
 Regex for file
         open my $fh, '<', $ARGV[0] or die "Open error: $!";
         my $file = do { local $/;  <$fh> };
