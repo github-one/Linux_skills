@@ -38,6 +38,17 @@ Directory and file operations
     Note: '*' matches all files but not '.xxx', while '.*' matches all files beginning with '.'
 
 
+Read file twice
+    open F, 'filename.ext' or die $!;
+    ...
+    seek F, 0, 0;   #   Move pointer back to start of file
+
+    open F, "some_file" or die $!";
+    my @lines = <F>;
+    close F;
+    for (@lines) { ... something ... }
+    for (@lines) { ... another ... }
+
 File::Find Simple Examples
     use File::Find;
     my $dir = "/root/mypath";
