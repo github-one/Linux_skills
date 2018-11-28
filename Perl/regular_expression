@@ -15,12 +15,14 @@ Regex for array
         my @patterns = ("foo", "bar", "tar");
         my $regex = jion '|', @patterns;            # or: my $regex = join '|', map quotemeta, @array    
         foreach my $i (@array) {
-            if ($i =~ m/$regex/) {
-                print "$i is in array\n";
-            }
+            print "$i is in array\n" if /$regex/;   # or: print "$i is in array\n" if /\b(?:$regex)\b/;            
             ...
         }   
         
+        If you have Perl 5.10 or later, this is almost trivial.
+        my @patterns = (qr/foo/, qr/bar/, qr/tar/);
+        if ( $string ~~ @patterns ) { ... }
+        The smart match stops when it finds a match, so it doesn't have to try every expression.
         
 Regex for file
         open my $fh, '<', $ARGV[0] or die "Open error: $!";
