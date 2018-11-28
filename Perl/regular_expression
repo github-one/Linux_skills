@@ -65,6 +65,21 @@ Matching multiple lines
         
         \s matches whitespace(\n, \r, \t, \f and " "), which inludes the newline charater.
         
+        my $line = "Hi\n";
+        $line =~ s/Hi\s*//;             # length($line) is 0
+        $line =~ s/Hi\s*?$//m;          # length($line) is 1, "\n" stays there.
+        $line =~ s/Hi\s*$//m;           # length($line) is 0
+        
+        Because Perl returns a string with a newline at the end when reading a line from a file, Perl's regex engine matches $ 
+        at the position before the line break at the end of the string even when multi-line mode is turned off. 
+        Perl also matches $ at the very end of the string, regardless of whether that character is a line break. 
+        So ^\d+$ matches "123" whether the subject string is "123" or "123\n".
+        
+        \A only ever matches at the start of the string. 
+        \Z only ever matches at the end of the string. 
+        These two tokens never match at line breaks. 
+        This is true in all regex flavors, even when you turn on "multiline mode". 
+        
         
 ---------------------------------------------- Special Charaters --------------------------------------------------- 
     \w        [3]  Match a "word" character (alphanumeric plus "_", plus
