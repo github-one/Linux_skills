@@ -10,3 +10,7 @@ re 'debug' pragma
     the patter does not change. So, you don't need the /o option. It doesn't hurt, but it doesn't help either.
     
     
+Comments Regex
+    Regexp::Common - Provide commonly requested regular expressions
+    Regexp::Common::comment -- provide regexes for comments.
+    
