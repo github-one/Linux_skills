@@ -3,6 +3,13 @@ re 'debug' pragma
     The use re 'debug' pragma comes with Perl 5.005 and later. You can watch Perl's regular expression engine at work
     to verify for yourself if Perl is recompiling a regular expression.
   
+$ metacharacter
+    $ matches the end of the string or before newline at the end of the string, or before any newline if /m is used.
+        without /m modifier     (?=\n\z)|\z
+        with /m modifier        (?=\n)|\z
+    This means that the \n is not include in the matched substring.       
+    
+
 Regex for array
         WRONG: @file =~ s/find/replace/; 
         The left side of the regex binding operator imposes scalar context on its arguments. An array in scalar context
