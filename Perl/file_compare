@@ -5,7 +5,7 @@ Methods for comparing
     - Text::Diff            # It's bulit on top of Algorithem::Diff
     - File::DirCompare      # Perl module to compare two directories using callbacks.
     - Perl::Metrics::Simple     # Count packages, subs, lines, cyclomatic (mccabe) complexity, etc. of many files.
-    
+    - Perl::Critic::Policy::Subroutines::ProhibitExcessComplexity
 
 File::Compare
     use File::Compare;
