@@ -4,6 +4,7 @@ Methods for comparing
     - Algorithem::Diff      # If you want to find out which lines are different.
     - Text::Diff            # It's bulit on top of Algorithem::Diff
     - File::DirCompare      # Perl module to compare two directories using callbacks.
+    - Perl::Metrics::Simple     # Count packages, subs, lines, cyclomatic (mccabe) complexity, etc. of many files.
     
 
 File::Compare
