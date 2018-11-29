@@ -3,6 +3,7 @@ Methods for comparing
     - Digest::MD5           # If you only need to know whether they are the same (i.e. not discover how they are different)
     - Algorithem::Diff      # If you want to find out which lines are different.
     - Text::Diff            # It's bulit on top of Algorithem::Diff
+    - File::DirCompare      # Perl module to compare two directories using callbacks.
     
 
 File::Compare
