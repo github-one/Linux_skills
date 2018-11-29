@@ -1,0 +1,16 @@
+Methods for comparing
+    - File::Compare
+    - Digest::MD5           # If you only need to know whether they are the same (i.e. not discover how they are different)
+    - Algorithem::Diff      # If you want to find out which lines are different.
+    - Text::Diff            # It's bulit on top of Algorithem::Diff
+    
+
+File::Compare
+    use File::Compare;
+    if (compare ("file1", "file2") == 0) { 
+        print "They're equal\n";
+    }
+    
+    Note: File::Compare already checks for file size.
+    
+    
