@@ -1,3 +1,7 @@
+What does that mean?  0.0..10_000
+    Underscores are ignored. You can put them in to make them more readable.
+    
+
 Parans, square brackets and curly braces
     From: https://stackoverflow.com/questions/16153618/rules-of-parens-brackets-usage-in-perl
     In Perl, brackets, braces and parens all have multiple meanings, but curly braces probably have the most.
