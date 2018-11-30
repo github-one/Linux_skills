@@ -20,3 +20,8 @@ Display
     -y, --side-by-side              output in two columns
     --suppress-common-lines         do not output common lines
     --sppress-blank-empty
+
+Directory compare
+    -q, --brief                     Output only whether files differ.
+    -r, --recursive                 Recursively compare any subdirectories found.
+    
