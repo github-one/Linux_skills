@@ -1,3 +1,16 @@
+Use of defined/undef
+    sub MyFunc {
+        my $first  = shift;
+        my $second = shift // 'default value';
+        # Do your stuff here.
+        }
+    
+    my $optional = shift;
+    $optional = defined $optional ? $optional : 'Default value';
+    
+    my $optional = defined( $_[0] ) ? shift : 'Default value';
+
+
 defined-or operator //=
     my $value;    
     $value ||= "some";      # the same: $value = $value || "some";
