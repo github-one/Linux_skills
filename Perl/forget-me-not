@@ -1,3 +1,15 @@
+defined-or operator //=
+    my $value;    
+    $value ||= "some";      # the same: $value = $value || "some";
+    $value = 0;
+    $value ||= "some";      # $value is 'some'
+    
+    use 5.010;
+    my $value = 0;
+    $value = $value // 1;   # $value is 0;
+    $vluae //= 1;           # $value is 0;    
+
+
 What does that mean?  0.0..10_000
     Underscores are ignored. You can put them in to make them more readable.
     
