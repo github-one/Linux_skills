@@ -3,12 +3,22 @@ re 'debug' pragma
     The use re 'debug' pragma comes with Perl 5.005 and later. You can watch Perl's regular expression engine at work
     to verify for yourself if Perl is recompiling a regular expression.
   
-$ metacharacter
-    $ matches the end of the string or before newline at the end of the string, or before any newline if /m is used.
-        without /m modifier     (?=\n\z)|\z
-        with /m modifier        (?=\n)|\z
-    This means that the \n is not include in the matched substring.       
-    
+Regex return values
+        The =~ perl operator returns a boolen value(true or false) depending on whether the re matches.
+        But Perl doesn't really ahve a boolen type. So when returning a boolean, it generally uses
+        '1' for ture and ''(empty string) for false.
+        
+        Note: Most things are 'true', but the empty string and the special 'undef' value for undefined things
+        are false. 
+        
+        $record =~ /(Something)/;
+        print $1;
+        
+        if( $string =~ /Something/ ) {
+             ... code use $1 for the suexpressions matched.
+        } else {
+             ... code for the unmatched.
+        }        
 
 Groups regex        
         In list context, the groups are returned, not the match itself.
@@ -43,6 +53,13 @@ Regex for file
         my $file = do { local $/;  <$fh> };
         ...
 
+$ metacharacter
+    $ matches the end of the string or before newline at the end of the string, or before any newline if /m is used.
+        without /m modifier     (?=\n\z)|\z
+        with /m modifier        (?=\n)|\z
+    This means that the \n is not include in the matched substring.       
+    
+
 /O option
     The /o option for regular expression tells Perl to complie the regular expression only once.
     This is only usefule when the pattern contains a variable. Perl 5.6 and later handle this automatically if
@@ -52,6 +69,7 @@ Regex for file
 Comments Regex
     Regexp::Common - Provide commonly requested regular expressions
     Regexp::Common::comment -- provide regexes for comments.
+    
     
 Regex explanation
     use YAPE::Regex::Explain;
