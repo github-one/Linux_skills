@@ -10,6 +10,13 @@ $ metacharacter
     This means that the \n is not include in the matched substring.       
     
 
+Groups regex        
+        In list context, the groups are returned, not the match itself.
+        my( $foo ) = $record =~ /(Defect)/;
+        
+        if( $recodr =~ /(Defect)/ ) { print "$1\n"; }     # note the parentheses.
+
+
 Regex for array
         WRONG: @file =~ s/find/replace/; 
         The left side of the regex binding operator imposes scalar context on its arguments. An array in scalar context
