@@ -9,8 +9,8 @@ Regex return values
         '1' for ture and ''(empty string) for false.
         
         Note: Most things are 'true', but the empty string and the special 'undef' value for undefined things
-        are false. 
-        
+        are false.       
+     
         --------------------- example code ---------------------------------
         $record =~ /(Something)/;
         print $1;
@@ -28,6 +28,9 @@ Groups regex
         my( $foo ) = $record =~ /(Defect)/;
         
         if( $recodr =~ /(Defect)/ ) { print "$1\n"; }     # note the parentheses.
+        
+        In list context, /g returns a list of matched groupings, or if there are no groupings, a list of matches 
+        to the whole regex. 
         
         --------------------- example test ----------------------------------------------------------
         ($a, $b, $c) = "a,b" =~ /\w/;                   # $a=1, $b=undef, $c=undef
