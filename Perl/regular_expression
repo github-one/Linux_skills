@@ -11,6 +11,7 @@ Regex return values
         Note: Most things are 'true', but the empty string and the special 'undef' value for undefined things
         are false. 
         
+        --------------------- example code ---------------------------------
         $record =~ /(Something)/;
         print $1;
         
@@ -19,14 +20,26 @@ Regex return values
         } else {
              ... code for the unmatched.
         }        
-
+        ---------------------------------------------------------------------      
+        
+        
 Groups regex        
         In list context, the groups are returned, not the match itself.
         my( $foo ) = $record =~ /(Defect)/;
         
         if( $recodr =~ /(Defect)/ ) { print "$1\n"; }     # note the parentheses.
-
-
+        
+        --------------------- example test ----------------------------------------------------------
+        ($a, $b, $c) = "a,b" =~ /\w/;                   # $a=1, $b=undef, $c=undef
+        ($a, $b, $c) = "a,b" =~ /(\w)/;                 # $a='a', $b=undef, $c=undef
+        ($a, $b, $c) = "a,b" =~ /(\w)/g;                # $a='a', $b='b', $c=undef
+        ($a, $b, $c) = "a,b" =~ /(\w),(\w)/;            # $a='a', $b='b', $c=undef
+        ($a, $b, $c) = "a,b" =~ /(\w)(,(\w))/;          # $a='a', $b=',b', $c='b'
+        ($a, $b, $c) = "a,b" =~ /(\w)(?:,(\w))/;        # $a='a', $b='b', $c=undef
+        ($a, $b, $c) = "a,b" =~ /\w(?:,(\w))/;          # $a='b', $b=undef, $c=undef
+        ---------------------------------------------------------------------------------------------
+        
+        
 Regex for array
         WRONG: @file =~ s/find/replace/; 
         The left side of the regex binding operator imposes scalar context on its arguments. An array in scalar context
