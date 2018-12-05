@@ -1,3 +1,13 @@
+comment multiple line
+    =begin comment
+
+    my code ...
+    
+    =end comment
+
+    =cut
+
+
 Use of defined/undef
     sub MyFunc {
         my $first  = shift;
