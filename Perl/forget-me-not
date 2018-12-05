@@ -5,6 +5,14 @@ anonymous subroutines
         };                              # note ';'
     print &{ $add_ref }(2, 3), "\n";
     print $add_ref->(2, 3), "\n";
+    print &$add_ref(2,3), "\n";
+    
+    sub greet {  print "hello \n"; }
+    $rs = \&greet; # Create a reference to subroutine greet
+    
+    sub foo { print "foo called\n" }
+    $rs = "foo"; 
+    &$rs();  # prints "foo called"
 
 comment multiple line
     =begin comment
