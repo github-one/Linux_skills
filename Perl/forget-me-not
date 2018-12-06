@@ -1,3 +1,11 @@
+Subroutine Parameters
+    perlsub: The array @_ is a local array, but its elements are alias for the actual scalar parameter.
+    In Particular, if an element $_[0] is updated, the corresponding argument is updated (or an error
+    occurs if it is not possible to update)... So yes, they are passed as "copy", but internally still
+    as ref. The copy only takes place once you shfit them out of @_. That's is why it's possible to change
+    the original variable inside the subroutine by using @_[0] = ...
+    
+
 anonymous subroutines
     my $add_ref = sub {
         my ($x, $y) = @_;
