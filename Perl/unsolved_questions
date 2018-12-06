@@ -1,4 +1,19 @@
 
+Q:  WHY?
+    When the inner subroutine is called, it will probably see the value of the outer subroutine's
+    variable as it was before and during the *first* call to the outer subroutine;
+    in this case, after the first call to the outer subroutine is complete, the inner and outer subroutines
+    will no longer share a common value for the variable. In other words, the vairable will no longer be shared.
+
+    Furthermore, if the outer subroutine is anonymous and references a lexical variable outside itself, then
+    the outer and inner subroutine will never share the given variable.
+
+    This problem can usually be solved by making the inner subroutine anonymous, using the sub {} syntax.
+    When inner anonymous subs that reference variables in outer subroutines are called or referenced,
+    they are automatically rebound to the current values of such variables.
+
+
+
 Q: what do the followings mean?
     @array[...]
     @hash{...}
