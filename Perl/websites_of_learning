@@ -47,6 +47,11 @@ https://stackoverflow.com/questions/834590/why-would-i-use-perl-anonymous-subrou
 https://www.perlmonks.org/?node_id=1036300
 https://stackoverflow.com/questions/10192228/nested-subroutines-and-scoping-in-perl
 
+Files and directories diff & compare
+https://metacpan.org/pod/Text::Diff
+https://metacpan.org/pod/File::DirCompare
+https://metacpan.org/pod/distribution/Directory-Diff/lib/Directory/Diff.pod
+
 EXCEL
 https://metacpan.org/pod/distribution/Excel-Writer-XLSX/lib/Excel/Writer/XLSX.pm
 
