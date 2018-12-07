@@ -44,4 +44,9 @@ https://www.perlmonks.org/?node_id=66677
 
 Difference between inner subroutines and anonymous subroutines
 https://stackoverflow.com/questions/834590/why-would-i-use-perl-anonymous-subroutines-instead-of-a-named-one
+https://www.perlmonks.org/?node_id=1036300
+https://stackoverflow.com/questions/10192228/nested-subroutines-and-scoping-in-perl
+
+EXCEL
+https://metacpan.org/pod/distribution/Excel-Writer-XLSX/lib/Excel/Writer/XLSX.pm
 
