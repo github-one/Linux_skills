@@ -1,3 +1,54 @@
+Warning: "Variable $dom will not stay shared"
+    sub outerSub {
+          my $dom = someBigDOM;
+          ...
+          my $otherVar = innerSub();
+          return $otherVar;
+
+          sub innerSub {
+            my $resultVar = doStuffWith($dom);
+            return $resultVar;
+          }
+    }
+    
+    All the variables are originally preallocated, and innerSub and outerSub share the same $dom. 
+    When you leave a scope, perl goes through the lexical variables that were declared in the scope 
+    and reinitializes them. So at the point that the first call to outerSub is completed, it gets a new $dom. 
+    Because named subs are global things, though, innerSub isn't affected by this, and keeps referring to 
+    the old $dom. So if outerSub is called a second time, its $dom and innerSub's $dom are in fact separate variables.
+
+    So either moving the declaration out of outerSub or using an anonymous sub (which gets freshly bound to 
+    the lexical environment at runtime) fixed the problem.        
+
+    You can fix this by doing this:
+    {
+        my $dom;
+        sub outerSub {
+            $dom = ...
+            ... innerSub() ...
+        }
+        sub innerSub {
+            ...
+        }
+    }
+    or
+    sub outerSub {
+        my $dom = ...
+        *innerSub = sub {
+            ...
+        };
+        ... innerSub() ...
+    }    
+    or
+    sub outerSub {
+        my $dom = ...
+        my $innerSub = sub {
+            ...
+        };
+        ... $innerSub->() ...
+    }    
+
+
 Subroutine Parameters
     perlsub: The array @_ is a local array, but its elements are alias for the actual scalar parameter.
     In Particular, if an element $_[0] is updated, the corresponding argument is updated (or an error
