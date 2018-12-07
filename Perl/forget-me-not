@@ -1,3 +1,51 @@
+Nested subroutines(1)
+    From perlref-> Function Templates
+    Generally said, named subroutines do not nest properly and should only be declared in the main package scope.
+
+    This is because named subroutines are created at compile time so their lexical variables get assigned 
+    to the parent lexicals from the first execution of the parent block. 
+    If a parent scope is entered a second time, its lexicals are created again, while the nested subs still reference the old ones.
+
+    Anonymous subroutines get to capture each time you execute the sub operator, as they are created on the fly. 
+    If you are accustomed to using nested subroutines in other programming languages with their own private variables, 
+    you'll have to work at it a bit in Perl. The intuitive coding of this type of thing incurs mysterious warnings 
+    about "will not stay shared" due to the reasons explained above.
+    
+    This has the interesting effect of creating a function local to another function, something not normally supported in Perl.
+
+Nested subroutines(2)
+    Subroutines are stored in a global namespace at compile time. In this example b(); is short hand for main::b();. 
+    To limit visibility of a function to a scope you need to assign an anonymous subroutines to a variable.    
+    sub a { 
+       sub b { print "In B\n"; }
+    }
+    b();
+
+    Both named and anonymous subroutines can form closures, but since named subroutines are 
+    only compiled once if you nest them they don't behave as many people expect.
+    ----------------------------------------------------------------------------------------
+            Nesting named subroutines is allowed in Perl 
+            BUT
+            it's almost certainly a sign that the code is doing someting incorrectly.
+    ----------------------------------------------------------------------------------------
+    use warnings;
+    sub one {
+        my $var = shift;
+        sub two {
+            print "var: $var\n";
+        }
+    }
+    one("test");
+    two();
+    one("fail");
+    two();
+    __END__
+    output:
+    Variable "$var" will not stay shared at -e line 5.
+    var: test
+    var: test
+
+
 Named subroutines and anonymous subroutines
     "A subroutine doesn't have to be an anonymous subroutine to be a closure. If a named subroutine accesses 
     lexical variables and those variables go out of scope, the named subroutine retains a reference to 
