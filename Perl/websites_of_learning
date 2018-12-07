@@ -42,4 +42,6 @@ Variable Scoping
 https://www.plover.com/~mjd/perl/FAQs/Namespaces.html
 https://www.perlmonks.org/?node_id=66677
 
+Difference between inner subroutines and anonymous subroutines
+https://stackoverflow.com/questions/834590/why-would-i-use-perl-anonymous-subroutines-instead-of-a-named-one
 
