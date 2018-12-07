@@ -1,3 +1,9 @@
+Named subroutines and anonymous subroutines
+    "A subroutine doesn't have to be an anonymous subroutine to be a closure. If a named subroutine accesses 
+    lexical variables and those variables go out of scope, the named subroutine retains a reference to 
+    the lexicals, just as you saw with anonymous subroutines."
+            ---------From (2003)Alpaca book, learning of closures, page 73
+
 Warning: "Variable $dom will not stay shared"
     sub outerSub {
           my $dom = someBigDOM;
