@@ -37,3 +37,9 @@ https://www.regular-expressions.info
 --------------------- Special Subjects ------------------------------------------
 Getopt::Long
 https://www.vromans.org/articles/getopt.html
+
+Variable Scoping
+https://www.plover.com/~mjd/perl/FAQs/Namespaces.html
+https://www.perlmonks.org/?node_id=66677
+
+
