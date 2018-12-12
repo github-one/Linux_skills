@@ -4,6 +4,9 @@ Configuration:
     :echo $HOME         # get current work directory
     :echo $VIM          # get the vim binary name
     :echo @%            # get current file name which you're editting on
+    :pwd                # get current directory
+    :cd $HOME           # change the current directory to home directory
+    :cd %:h             # change the current directory to the directory of the current open file
 
 Color scheme:
     :color              # view current color scheme
