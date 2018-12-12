@@ -57,5 +57,8 @@ https://metacpan.org/pod/distribution/Excel-Writer-XLSX/lib/Excel/Writer/XLSX.pm
 
 build stand-alone Perl apps
 https://www.perl.com/article/58/2014/1/5/The-easy-way-to-build-stand-alone-Perl-apps/
+How can I compile my Perl program into byte code or C?
+https://learn.perl.org/faq/perlfaq3.html#How-can-I-compile-my-Perl-program-into-byte-code-or-C
+
 
 
