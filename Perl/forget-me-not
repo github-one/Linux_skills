@@ -1,3 +1,15 @@
+use base
+    use base somemoudle;  
+    vs 
+    use somemoudle;
+    The first has only one more expression: push @IAS, qw(somemoudle);
+    
+    use Foo ();
+    vs 
+    use Foo;
+    The latter will automatically call import subroutine. The 
+    
+
 File locking
     On Unix-like operating systems, such as Linux and OSX, we can use the native file locking mechanism 
     via the flock function of Perl.
