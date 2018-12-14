@@ -1,5 +1,8 @@
 caller
     print __PACKAGE__, ' called from ', (caller)[1], ".\n";    
+    
+    ( $package, $filename, $line ) = caller;
+    
 
 __PACKAGE__ is the name of the current package;
 
