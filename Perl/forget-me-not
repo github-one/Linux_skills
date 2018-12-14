@@ -1,3 +1,16 @@
+Special Literals
+    __FILE__        the current file
+    __LINE__        the current line number
+    __PACKAGE__     the current package
+    __SUB__         A reference to the current subroutine, it's undefined if outside of a subroutine
+                    __SUB__ only with a use 5.16 or use feature "current_sub""
+    ^D              the logical end of the script
+    ^Z              the logical end of the script
+    __DATA__        the logical end of the script. Text after it may be read via the filehandle PACKNAME::DATA
+    __END__         the logical end of the script. This behaves like __DATA__ but only in the top level script.
+                    It can be accessible via main::DATA
+                       
+
 caller
     print __PACKAGE__, ' called from ', (caller)[1], ".\n";    
     
