@@ -1,3 +1,5 @@
+__PACKAGE__ is the name of the current package;
+
 use base
     use base somemoudle;  
     vs 
