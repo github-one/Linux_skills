@@ -1,3 +1,6 @@
+caller
+    print __PACKAGE__, ' called from ', (caller)[1], ".\n";    
+
 __PACKAGE__ is the name of the current package;
 
 use base
