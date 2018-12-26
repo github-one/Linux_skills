@@ -97,11 +97,42 @@ SUSE proxy settings
     #wget www.google.com
     
     
-    
+--------------------------------- no_proxy -----------------------------------------------    
+no_proxy: This variable should contain a comma-separated list of domain extensions proxy should not be used for.
 
+The no_proxy environment variable lists the domain suffixes, not the prefixes.
 
+So for IPs, you have two options:
+1) Add each IP in full:
+printf -v no_proxy '%s,' 10.1.{1..255}.{1..255};
+export no_proxy="${no_proxy%,}";
 
+2) Rename wget to wget-original and write a wrapper script (called wget) that looks up the IP for the given URL's host, 
+and determines if it should use the proxy or not:
 
+#!/bin/bash
+ip='';
+for arg; do
+   # parse arg; if it's a URL, determine the IP address
+done;
+if [[ "$ip" =~ ^10\.1\. ]]; then
+   wget-original --no-proxy "$@";
+else
+   wget-original "$@";
+fi;
 
+Other methods:
+    #1
+    So the variable "no_proxy" should contain a list of domains, not IP ranges. 
+    You'll need to set up proper local aliases for your local machines in /etc/hosts file(s).
+
+    #2
+    Here's a slightly simpler (one-line) approach based on janmoesen's solution.
+
+    export no_proxy=`echo 10.1.1.{1..255} | sed 's/ /,/g'`
+
+    Unfortunately, sed chokes on all the arguments passed from the expansion of 10.1.{1..255}.{1..255}, 
+    either in his code or mine. So if you really need to expand to 256 * 256 IP addresses, you'll need 
+    a different approach, but if you merely need 256 or so, this should work perfectly for you.
 
 
