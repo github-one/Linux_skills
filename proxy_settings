@@ -98,8 +98,9 @@ SUSE proxy settings
     
     
 --------------------------------- no_proxy -----------------------------------------------    
-no_proxy: This variable should contain a comma-separated list of domain extensions proxy should not be used for.
+https://unix.stackexchange.com/questions/23452/set-a-network-range-in-the-no-proxy-environment-variable
 
+no_proxy: This variable should contain a comma-separated list of domain extensions proxy should not be used for.
 The no_proxy environment variable lists the domain suffixes, not the prefixes.
 
 So for IPs, you have two options:
@@ -135,4 +136,12 @@ Other methods:
     either in his code or mine. So if you really need to expand to 256 * 256 IP addresses, you'll need 
     a different approach, but if you merely need 256 or so, this should work perfectly for you.
 
+
+    #3
+    Not exactly a correct solution but it might solve the problem for you. 
+    If you assume that accessing anything from the outside of the proxy will be using DNS-names and 
+    not directly using IP-addresses, you can set it like:
+
+    export no_proxy=0,1,2,3,4,5,6,7,8,9
+    As far as I know, no top domain ends with a number so if it does, it must be an IP-address.
 
