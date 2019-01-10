@@ -6,3 +6,45 @@ A:  kcore is the virtual allocation of your RAM for the kernel.
     An example of this purely virtual filesystem is under /proc that exposes many system properties as files.
     
     
+Q:  In the shell, what does "2>&1" mean?
+A:  File descriptor 1 is the standard output (stdout).
+    File descriptor 2 is the standard error (stderr).
+
+    Here is one way to remember this construct (although it is not entirely accurate): 
+       at first, 2>1 may look like a good way to redirect stderr to stdout. 
+       However, it will actually be interpreted as "redirect stderr to a file named 1". 
+       & indicates that what follows is a file descriptor and not a filename. 
+       So the construct becomes: 2>&1. 
+    
+    Note: 
+    1. command > output is just a shortcut for command 1> output.
+    2. You can use &[FILE_DESCRIPTOR] to reference a file descriptor value.
+    3. This often happens when using process expansion (the ` ` or $( ) operators), 
+       which normally only captures stdout, but you may want to include stderr in it. 
+       In this case, you would also use >& to point stderr to stdout:
+           out=$(app 2>&1)
+    4. When using grep, or similar utility, since the pipe | normally only works on stdout, 
+       you would redirect stderr to stdout before using the pipe:
+           app 2>&1 | grep hello
+    
+Q:  What is the difference between: cmd 2>&1 > log vs cmd > log 2>&1
+A:  If you say 2>&1 then you are redirecting stderr to wherever stdout is currently redirected to. 
+    If stdout is going to the console then stderr is, too. If stdout is going to a file then stderr is as well. 
+    
+    If you follow this up by then redirecting stdout, stderr still points to what stdout used to point to. 
+    It does not "follow" stdout to the new location.
+ 
+        # Right
+        cmd > log 2>&1
+        This redirects stdout to log and then redirects stderr to wherever stdout is now being redirected, which is log.
+
+        End result: both stdout and stderr are redirected to log.
+
+        # Wrong
+        cmd 2>&1 > log
+        This redirects stderr to wherever stdout is currently being redirected, which is typically the console. 
+        Then stdout is redirected to log. Remember that stderr does not "follow" stdout, so it continues to 
+        redirect to the console.
+
+        End result: stdout is redirected to the log file and stderr is (still) sent to the console. 
+        This is almost certainly not what you want. 
