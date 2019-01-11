@@ -48,3 +48,14 @@ A:  If you say 2>&1 then you are redirecting stderr to wherever stdout is curren
 
         End result: stdout is redirected to the log file and stderr is (still) sent to the console. 
         This is almost certainly not what you want. 
+
+
+Q:  'echo' without newline in a shell script
+A:   echo -n "something"
+     But this is not portable among various implementations of 'echo' builtin/external executable. 
+     The portable way would be to use 'prinft' instead:
+         printf "something"
+         printf "something\n"
+         printf '%s' "$x"
+          
+     
