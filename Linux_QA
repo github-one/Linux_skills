@@ -72,4 +72,19 @@ A:  Try this:
     will be treaed literally instead of being considered as a command lines switch.
     
     
-    
+Q:  How to append multiple lines to a file?
+A:  Three ways
+        # possibility 1:
+        echo "line 1" >> greetings.txt
+        echo "line 2" >> greetings.txt
+
+        # possibility 2:
+        echo "line 1
+        line 2" >> greetings.txt
+
+        # possibility 3:
+        cat <<EOT >> greetings.txt
+        line 1
+        line 2
+        EOT
+
