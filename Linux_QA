@@ -58,4 +58,18 @@ A:   echo -n "something"
          printf "something\n"
          printf '%s' "$x"
           
-     
+Q:  How to include dashes '--' in the format stirng of bash printf?
+        $ printf "--files"
+    It generates an error:
+        sh: printf --: invalid option       
+        
+A:  Try this:
+        $ printf -- "--files"
+    
+    Always specify end of command line flags when using strings involving '--'. In general the shell commands
+    need to know where their positional argument start at. So by forcing '--' after printf we let it know
+    that th subsequent arguments are to be interpreted as its arguments. At this point, afterwards using --
+    will be treaed literally instead of being considered as a command lines switch.
+    
+    
+    
