@@ -1,0 +1,69 @@
+------------------------------  Setting an reading ----------------------------------
+A variable in bash can contain a number, a character, a string of characters.
+There are no data types for bash variables. 
+When referring to or reading a variable we place a $ sign before the variable name.
+Bash is a case sensitive environment so variables are case-sensitive.
+
+When setting a variable we leave out the $ sign.
+When setting a variable there is NO SPACE on either side of the equals ( = ) sign. 
+
+Bash will replace the variable with the value of it before the command or script is run.
+Single quotes will treat every character literally.
+Double quotes will allow you to do substitution (that is include variables within the setting of the value).
+Local variables can be created by using the keyword local.
+
+
+------------------------------  Command substitution ----------------------------------
+Command substitution '$( xxx )' allows us to take the output of a command and save it as the value of a variable. 
+If the output of command substitution goes over several lines then the newlines are simply removed 
+    and all the output ends up on a single line.
+
+
+------------------------------   Exporting variables ----------------------------------
+Variables are limited to the process they were created in. 
+If we want the variable to be available to the second script then we need to export the variable.
+Exporting just makes a copy of the variable and hand it over to the new process. 
+Anything that the new process does with the copy of the variables has no impact on the original variables.
+
+----------------------------------  Examples -------------------------------------------
+$ myvar='Hello World'
+$ echo $myvar
+Hello World
+$ newvar="More $myvar"
+$ echo $newvar
+More Hello World
+$ newvar='More $myvar'
+$ echo $newvar
+More $myvar
+
+$ myvar=$( ls /etc | wc -l )
+$ echo There are $myvar entries in the directory /etc
+
+#!/bin/bash          
+OF=/var/my-backup-$(date +%Y%m%d).tgz
+tar -cZf $OF /home/me/
+
+$ ls
+bin Documents Desktop ...
+Downloads public_html ...
+$ myvar=$( ls )
+$ echo $myvar
+bin Documents Desktop Downloads public_html ...
+
+
+---------------------------  special variables -------------------------------------------
+$0 - The name of the Bash script.
+$1 - $9 - The first 9 arguments to the Bash script. (As mentioned above.)
+$# - How many arguments were passed to the Bash script.
+$@ - All the arguments supplied to the Bash script.
+$? - The exit status of the most recently run process.
+$$ - The process ID of the current script.
+$USER - The username of the user running the script.
+$HOSTNAME - The hostname of the machine the script is running on.
+$SECONDS - The number of seconds since the script was started.
+$RANDOM - Returns a different random number each time is it referred to.
+$LINENO - Returns the current line number in the Bash script.
+
+
+More information:
+https://ryanstutorials.net/bash-scripting-tutorial/bash-variables.php
