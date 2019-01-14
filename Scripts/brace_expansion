@@ -1,0 +1,22 @@
+More information:
+https://www.gnu.org/software/bash/manual/html_node/Brace-Expansion.html
+
+Examples:
+
+$ echo {0..10}
+0 1 2 3 4 5 6 7 8 9 10
+
+$ echo a{d,c,b}e
+ade ace abe
+
+$ mkdir /usr/local/src/bash/{old,new,dist,bugs}
+
+
+Noet:
+1. Brace expansion is performed before any other expansions, and any characters special to other expansions are preserved 
+in the result.
+
+2. A sequence expression takes the form {x..y[..incr]}, where x and y are either integers or single characters, and incr, 
+an optional increment, is an integer. 
+
+
