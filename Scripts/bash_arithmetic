@@ -62,3 +62,6 @@ b=4953
 echo ${#b} # 4
 
 
+More information:
+https://ryanstutorials.net/bash-scripting-tutorial/bash-arithmetic.php
+
