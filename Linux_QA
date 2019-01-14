@@ -1,3 +1,18 @@
+Q:  How do I iterate over a range of numbers defined by variables in Bash?
+    Like this:
+        start=1
+        end=10
+        echo {$start..$end}
+A:  In bash, brace expansion happens before variable expansion, so this is not directly possible.
+    Instead, use an arithmetic for loop:    
+        start=1
+        end=10
+        for ((i=start; i<end; i++))
+        do
+            echo "i: $i"
+        done
+
+
 Q:  How can I add a comma at the end of every line except the last line?
 A:  sed '$!/s/$/,/' file
     
