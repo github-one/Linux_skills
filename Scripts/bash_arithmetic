@@ -1,0 +1,64 @@
+let expression:         make a variable equal to an expression
+expr expression:        print out the result of the expression
+$(( expression )):      return the result of the expression
+${#var}:                return the length of the variable var
+
+Note:
+1. Double parentheses is the preferred method
+2. The presence or absence of spaces (and quotes) is often important.
+
+---------------------- let expression -------------------------------------------------
+et a=5+4                        # Note that if we don't put quotes around the expression then it must be written with no spaces.
+echo $a # 9
+
+let "a = 5 + 4"                 # Quotes allow us to space out the expression to make it more readable.
+echo $a # 9
+
+let a++
+echo $a # 10
+
+let "a = 4 * 5"
+echo $a # 20
+
+
+---------------------- expr expression -------------------------------------------------
+expr 5 + 4                      # Note that there must be spaces between the items and no quotes.
+expr "5 + 4"                    # Withou the expression the expression will not be evaluated but printed instead.
+expr 5+4                        # Wihout spaces the expression will not be evaluated but printed instead.
+expr 5 \* $1                    # We must escape * to remove their special meaning.
+expr 11 % 2
+a=$( expr 10 - 3 )
+echo $a # 7
+
+
+---------------------- (( * )) expression -------------------------------------------------
+a=$(( 4 + 5 ))                  # As you can see we may space it out nicely for readability without the need for quotes.
+echo $a # 9
+
+a=$((3+5))                      # It works just the same if we take spacing out.
+echo $a # 8
+
+b=$(( a + 3 ))                  # We may include variables without the preceding $ sign.
+echo $b # 11
+
+b=$(( $a + 4 ))                 # Variables can be included with the $ sign if you prefer.
+echo $b # 12
+
+(( b++ ))                       # When we do this we don't need the $ sign preceding the brackets.
+echo $b # 13
+
+(( b += 3 ))                    
+echo $b # 16
+
+a=$(( 4 * 5 ))                  # Unlike other methods, when we do multiplication we don't need to escape the * sign.
+echo $a # 20
+
+
+---------------------- ${#variable} expression -------------------------------------------------
+a='Hello World'
+echo ${#a} # 11
+
+b=4953
+echo ${#b} # 4
+
+
