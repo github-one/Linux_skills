@@ -1,3 +1,23 @@
+Q:  Is it possible ot write the numbers of the sequence in the same line?
+A:  Try these:
+        $ echo $(seq 10)
+        1 2 3 4 5 6 7 8 9 10
+
+        $ echo $(seq 5 10)
+        5 6 7 8 9 10
+
+        $ echo $(echo "for (i=0;i<=1000;i++) i"| bc)
+
+        echo {1..10}            # in Bash
+
+        $ seq -s ' ' 1 5
+        1 2 3 4 5
+
+        $ var="$(seq -s ' ' 1 5)"
+        $ echo "$var"
+        1 2 3 4 5
+
+
 Q:  How do I iterate over a range of numbers defined by variables in Bash?
     Like this:
         start=1
