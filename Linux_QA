@@ -1,3 +1,25 @@
+Q:  How can I repeat a character in bash?
+        like: perl -E 'say '=' x 100'
+        
+A:  printf '=%.0s' {1..10}
+    print -- '-%.0s' {1..10}
+    
+    Note: '=%.0s' means that printf will always print a single = no matter what argument it is given.
+    
+    printf %100s | tr ' ' '-' ; echo ""
+    
+    $ echo $temp{0..10}"test"             # $temp is null but it will repeat "test"
+    test test test test test test test test test test
+    
+    $ echo {0..5}" test "
+    0 test 1 test 2 test 3 test 4 test 5 test 
+    
+    $ echo $temp{0..5}"test" | tr -d ' '
+    testtesttesttesttest
+    
+    $echo -e ''$_{1..80}'\b+'      # repeat any string or char n times without spaces between
+        
+
 Q:  Is it possible ot write the numbers of the sequence in the same line?
 A:  Try these:
         $ echo $(seq 10)
