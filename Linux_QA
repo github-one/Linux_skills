@@ -1,3 +1,16 @@
+Q:  How can I add a comma at the end of every line except the last line?
+A:  sed '$!/s/$/,/' file
+    
+    The $ in the address refers to the last line while $! matches lines which are not the last.
+    The $ in the regular expression in the substitution refers to the last character position on every line.
+    
+    The following is more complicated. On the fist line substition in an openning square bracket at the beginning of
+    line(s/^/[/). On lines which are not the first, add a trailing comma. On the last line add a closing square barcket
+    (s/$/]/).
+        sed '1s/^/[/;$!s/$/,/;$s/$/]/' file
+    Many sed dialects also allow you to split this into multiple -e arguments.
+
+
 Q:  How do I grep for multiple patterns with a pipe character?
 A:  First, you need to protect the pattern from expansion by the shell. The easiest way to do that is to
     put single quotes around it. Single quotes prevent expansion of anything between them(inlcuding backslashes);
