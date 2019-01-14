@@ -1,0 +1,45 @@
+bc command is used for command line calculator.
+
+Examples:
+
+$ echo "12+5" | bc
+$ echo "10^2" | bc
+$ x=`echo "12+5" | bc`
+$ echo $x
+$ echo "var=10; var^=2; var" | bc
+
+$ echo "var=10; var++; var++; var" | bc             # Note, the output is three lines: 10\n 11\n 12\n
+
+$ echo '6.5/2.7' | bc -l                            # Output is 2.4074...
+$ echo "scale=3; 6.5/2.7" | bc                      # Output is 2.407
+$ echo "e(3)" | bc -l                               # e(x) is the exponetial function, the output is 20.0855....
+$ echo "sqrt(80)" | bc -l                           # Output is 8.944...
+
+-------------------------------------------------------------------------
+$ cat >> example.xt
+2+5;
+var = 10*3
+var
+quit
+[Press CTRL+D]
+
+$ bc -q example.txt
+7
+30
+-------------------------------------------------------------------------
+
+----------------------  bc_example.sh -----------------------------------
+#!/bin/bash
+echo "scale=3; 
+var1 = 6.5 / 2.7;
+var2 = 14 * $1;
+var1;
+var2 " \
+| bc
+-------------------------------------------------------------------------
+
+
+
+More information:
+https://www.geeksforgeeks.org/bc-command-linux-examples/
+https://www.gnu.org/software/bc/manual/html_mono/bc.html
