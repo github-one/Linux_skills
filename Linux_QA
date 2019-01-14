@@ -1,3 +1,19 @@
+Q:  How do I grep for multiple patterns with a pipe character?
+A:  First, you need to protect the pattern from expansion by the shell. The easiest way to do that is to
+    put single quotes around it. Single quotes prevent expansion of anything between them(inlcuding backslashes);
+    The only thing you can't do then is the single quotes in the pattern. If you need a single quote, you can
+    write it as '\''.
+    Second, grep supports two syntaxes for patterns. 
+    BRE(basic regular expression) doen't support the alternation(|) operator, THOUGH some versions have it 
+    as an extension, but written with a backslash.
+        grep 'foo\|bar' *.txt
+    ERE(extened regular expression) is better. You need to pass the -E option to grep. On Linux, you can also
+    type egrep instead of grep -E
+        grep -E 'foo|bar' *.txt
+    Third, pass multiple -e to grep.
+        grep -e foo -e bar *.txt
+
+
 Q:  Why is the size of “/proc/kcore” file so bigger than the physical memory size?
 A:  kcore is the virtual allocation of your RAM for the kernel. 
     On 64 bit systems that size can be an absolute limit of 128T since that is the most the system can allocate.
