@@ -9,6 +9,9 @@ $ echo {0..10}
 $ echo {10..5}
 10 9 8 7 6 5
 
+$ echo {z..x}
+z y x
+
 $ echo a{d,c,b}e
 ade ace abe
 
