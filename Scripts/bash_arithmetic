@@ -6,6 +6,11 @@ ${#var}:                return the length of the variable var
 Note:
 1. Double parentheses is the preferred method
 2. The presence or absence of spaces (and quotes) is often important.
+3. As long as you can limit yourself to integer arithmetic, you can use all the standard C-language operators 
+inside of  ((...)) conditionals.
+4. Quotes or backslashes  usually are not needed  inside of the $(( )) construct: all characters between 
+the (( and )) are treated as a string in double quotes.
+
 
 ---------------------- let expression -------------------------------------------------
 et a=5+4                        # Note that if we don't put quotes around the expression then it must be written with no spaces.
