@@ -1,3 +1,24 @@
+Q:  How to use grep to get anything just after 'name='?
+A:  $ grep -P '(?<=name=)[ A-Za-z0-9]*' filename
+    The -P makes grep use the Perl dialect, otherwise you'd probably need to escape the parentheses. 
+
+Q:  How to extract a number from a string?
+A:  grep:   $ grep -Eo "[0-9]{1,4}" testfile
+            Here "-o" is used to only output the matching segment of the line, rather than the full contents of the line.
+    
+    tr:     $ NUMBER=$( echo "I am 999 years old." | tr -dc '0-9' )
+            $ echo $NUMBER
+            999
+            
+    sed:    $ NUMBER=$( echo "I am 999 years old." | sed 's/[^0-9]*//g' )
+            $ echo $NUMBER
+            999
+            
+    grep:   $ NUMBER=$( echo "I am 999 years old." | grep -o -E '[0-9]+' )
+            $ echo $NUMBER
+            999           
+
+
 Q:  How can I repeat a character in bash?
         like: perl -E 'say '=' x 100'
         
