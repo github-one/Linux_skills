@@ -53,9 +53,14 @@ bin Documents Desktop Downloads public_html ...
 
 ---------------------------  special variables -------------------------------------------
 $0 - The name of the Bash script.
-$1 - $9 - The first 9 arguments to the Bash script. (As mentioned above.)
+$1 - $9 - The first 9 arguments to the Bash script. 
 $# - How many arguments were passed to the Bash script.
+
 $@ - All the arguments supplied to the Bash script.
+"$@" is an array-like construct of all positional parameters, {$1, $2, $3 ...}.
+"$*" is the IFS expansion of all positional parameters, $1 $2 $3 ....
+$* / $@ list of arguments passed to script as string / delimited list
+
 $? - The exit status of the most recently run process.
 $$ - The process ID of the current script.
 $USER - The username of the user running the script.
@@ -64,18 +69,48 @@ $SECONDS - The number of seconds since the script was started.
 $RANDOM - Returns a different random number each time is it referred to.
 $LINENO - Returns the current line number in the Bash script.
 
-
-$1, $2, $3, ... are the positional parameters.
-"$@" is an array-like construct of all positional parameters, {$1, $2, $3 ...}.
-"$*" is the IFS expansion of all positional parameters, $1 $2 $3 ....
 $# is the number of positional parameters.
 $- current options set for the shell.
-$$ pid of the current shell (not subshell).
 $_ most recent parameter (or the abs path of the command to start the current shell immediately after startup).
 $IFS is the (input) field separator.
-$? is the most recent foreground pipeline exit status.
 $! is the PID of the most recent background command.
-$0 is the name of the shell or shell script.
+
+
+------------------------------------------- !$ vs $_ -----------------------------------------------------------
+Q:
+        $ echo "hello" > /tmp/a.txt
+        $ echo "!$"
+        echo "/tmp/a.txt"
+        /tmp/a.txt
+
+        $ echo "hello" > /tmp/a.txt
+        $ echo $_
+        hello
+
+A: 
+!$ is a word designator of history expansion, it expands to the last word of previous command in history. 
+IOW, the last word of previous entry in history. This word is usually the last argument to command, 
+but not in case of redirection. In:
+
+$ echo "hello" > /tmp/a.txt
+the whole command 'echo "hello" > /tmp/a.txt' appeared in history, and /tmp/a.txt is the last word of that command.
+
+_ is a shell parameter, it expands to last argument of previous command. 
+Here, the redirection is not a part of arguments passed to the command, so only hello is the argument passed to echo. 
+That's why $_ expanded to hello.
+
+_ is not one of shell standard special parameters anymore. It works in bash, zsh, mksh and dash only when interactive, 
+ksh93 only when two command are on separated lines:
+
+$ echo 1 && echo $_
+1
+/usr/bin/ksh
+
+$ echo 1
+1
+$ echo $_
+1
+----------------------------------------------------------------------------------------------------------------
 
 
 
