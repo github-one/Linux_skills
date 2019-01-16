@@ -1,0 +1,10 @@
+$ printf '=%.0s' {1..100}
+
+The format to "=%.0s" which means that it will always print a single = no matter what argument it is given. 
+Therefore it prints 100 =s.
+
+$ printf -v foo "%s" "something string"
+
+Pass the -v var option to the printf command to assign the output to shell variable VAR rather than display it 
+on the standard output/screen. 
+
