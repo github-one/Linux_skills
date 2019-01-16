@@ -65,5 +65,19 @@ $RANDOM - Returns a different random number each time is it referred to.
 $LINENO - Returns the current line number in the Bash script.
 
 
+$1, $2, $3, ... are the positional parameters.
+"$@" is an array-like construct of all positional parameters, {$1, $2, $3 ...}.
+"$*" is the IFS expansion of all positional parameters, $1 $2 $3 ....
+$# is the number of positional parameters.
+$- current options set for the shell.
+$$ pid of the current shell (not subshell).
+$_ most recent parameter (or the abs path of the command to start the current shell immediately after startup).
+$IFS is the (input) field separator.
+$? is the most recent foreground pipeline exit status.
+$! is the PID of the most recent background command.
+$0 is the name of the shell or shell script.
+
+
+
 More information:
 https://ryanstutorials.net/bash-scripting-tutorial/bash-variables.php
