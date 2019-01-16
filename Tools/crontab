@@ -1,0 +1,22 @@
+Basic operation:
+
+$ crontab -l            # Display
+$ crontab -e            # Edit
+
+
+1 2 3 4 5 /path/to/command arg1 arg2
+1 2 3 4 5 /root/backup.sh
+
+1: Minute (0-59)
+2: Hours (0-23)
+3: Day (0-31)
+4: Month (0-12 [12 == December])
+5: Day of the week(0-7 [7 or 0 == sunday])
+
+The asterisk (*) :      all possible values for a field. 
+The comma (,) :         a list of values, for example: “1,5,10,15,20, 25”.
+The dash (-) :          a range of values, for example: “5-15” days. 
+The separator (/) :     a step value, for example: every two hours, just use */2.
+
+Notes:
+1. Use the absolute path for the scriptname.
