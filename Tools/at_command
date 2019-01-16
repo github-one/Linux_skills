@@ -32,3 +32,14 @@ Time format:
 # at now + 1 hour
 # at now + 1 week
 # at now + 2 weeks
+
+Note:
+Q: Why does this 'at' command not print to the standard output?
+A: 
+Because at does not execute commands in the context of your logged in user session. 
+The idea is that you can schedule a command to run at an arbitrary time, 
+then log out and the system will take care of running the command at the specified time.
+
+Note that the manual page for at(1) specifically says:
+The user will be mailed standard error and standard output from his commands, if any. 
+Mail will be sent using the command /usr/sbin/sendmail.
