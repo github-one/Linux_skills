@@ -113,6 +113,89 @@ $ echo $_
 ----------------------------------------------------------------------------------------------------------------
 
 
+--------------------------------------  Understand the meaning of `$_`  ----------------------------------------
+
+From:  https://unix.stackexchange.com/questions/280453/understand-the-meaning-of
+
+1. At shell startup,
+if the _ variable was in the environment that bash received, then bash leaves it untouched.
+
+In particular, if that bash shell was invoked by another bash shell (though zsh, yash and some ksh implementations also do it), 
+then that bash shell will have set the _ environment variable to the path of the command being executed 
+(that's the 3rd point in your question). For instance, if bash is invoked to interpret a script as a result of another bash 
+shell interpreting:
+
+bash-script some args
+That bash will have passed _=/path/to/bash-scrip in the environment given to bash-script, and that's what the initial value of
+the $_ bash variable will be in the bash shell that interprets that script.
+
+$ env -i _=whatever bash -c 'echo "$_"'
+whatever
+Now, if the invoking application doesn't pass a _ environment variable, the invoked bash shell will initialise $_ to the argv[0] 
+it receives itself which could be bash, or /path/to/bash or /path/to/some-script or anything else (in the example above, 
+that would be /bin/bash if the she-bang of the script was #! /bin/bash or /path/to/bash-script depending on the system).
+
+So that text is misleading as it describes the behaviour of the caller which bash has no control over. The application 
+that invoked bash may very well not set $_ at all (in practice, only some shells and a few rare interactive applications do, 
+execlp() doesn't for instance), or it could use it for something completely different 
+(for instance ksh93 sets it to *pid*/path/to/command).
+
+$ env bash -c 'echo "$_"'
+/usr/bin/env   (env did not set it to /bin/bash, so the value we
+               get is the one passed to env by my interactive shell)
+$ ksh93 -c 'bash -c "echo \$_"'
+*20042*/bin/bash
+
+
+2. Subsequently
+The Subsequently is not very clear either. In practice, that's as soon as bash interprets a simple command
+in the current shell environment.
+
+In the case of an interactive shell, that will be on the first simple command interpreted from /etc/bash.bashrc for instance.
+
+For instance, at the prompt of an interactive shell:
+
+ $ echo "$_"
+ ]      (the last arg of the last command from my ~/.bashrc)
+ $ f() { echo test; }
+ $ echo "$_"
+ ]      (the command-line before had no simple command, so we get
+         the last argument of that previous echo commandline)
+ $ (: test)
+ $ echo "$_"
+ ]      (simple command, but in a sub-shell environment)
+ $ : test
+ $ echo "$_"
+ test
+For a non-interactive shell, it would be the first command in $BASH_ENV or of the code fed to that shell if $BASH_ENV is not set.
+
+
+3. When Bash executes a command
+The third point is something different and is hinted in the discussion above.
+
+bash, like a few other shells will pass a _ environment variable to commands it executes that contains the path that bash 
+used as the first argument to the execve() system calls.
+
+$ env | grep '^_'
+_=/usr/bin/env
+4. When checking mail
+The fourth point is described in more details in the description of the MAILPATH variable:
+
+'MAILPATH'
+
+A colon-separated list of filenames which the shell periodically checks for new mail.
+
+Each list entry can specify the message that is printed when new mail arrives in the mail file by separating the filename 
+from the message with a '?'. When used in the text of the message, '$_' expands to the name of the current mail file.
+
+Example:
+
+$ MAILCHECK=1 MAILPATH='/tmp/a?New mail in <$_>' bash
+bash$ echo test >> /tmp/a
+New mail in </tmp/a>
+
+----------------------------------------------------------------------------------------------------------------
+
 
 More information:
 https://ryanstutorials.net/bash-scripting-tutorial/bash-variables.php
