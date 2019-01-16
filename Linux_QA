@@ -1,3 +1,7 @@
+Q:  How to get the current time?
+A:  $ date "+%Y-%m-%d %H:%M:%S"
+    Note: The output format of date depends on the "locale" setting.
+
 Q:  How to use grep to get anything just after 'name='?
 A:  $ grep -P '(?<=name=)[ A-Za-z0-9]*' filename
     The -P makes grep use the Perl dialect, otherwise you'd probably need to escape the parentheses. 
