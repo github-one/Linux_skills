@@ -1,0 +1,34 @@
+at command is very useful for scheduling one time tasks.
+
+
+Schedule jobs:  
+$ echo "something" > /root/username/log.txt | at now + 10 minutes
+
+List jobs:
+$ atq
+$ at -l
+
+Remove jobs:
+$ atrm  3           # or other job IDs.
+$ atrm  4 5 6     
+$ atrm  {1..10}
+
+Check the content of the job:
+$ at -c 5
+
+Time format:
+# at 23:23
+# at 10:00 AM
+# at 10:00 AM Sun
+# at 10:00 AM July 25
+# at 10:00 AM 6/22/2015
+# at 10:00 AM 6.22.2015
+# at 10:00 AM next month
+# at 10:00 AM tomorrow
+# at 10:00 AM tomorrow
+
+# at now + 1 minute
+# at now + 10 minutes
+# at now + 1 hour
+# at now + 1 week
+# at now + 2 weeks
