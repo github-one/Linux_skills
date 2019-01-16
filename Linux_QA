@@ -40,7 +40,10 @@ A:  printf '=%.0s' {1..10}
     $ echo $temp{0..5}"test" | tr -d ' '
     testtesttesttesttest
     
-    $echo -e ''$_{1..80}'\b+'      # repeat any string or char n times without spaces between
+    $echo -e ''$_{1..80}'\b+'      
+    It repeats any string or char n times without spaces between it.    
+    Here $_{1..80} means $_1, $_2, $_3, ..., $_80, which all has null string.
+    '\b' means backspace.
         
 
 Q:  Is it possible ot write the numbers of the sequence in the same line?
