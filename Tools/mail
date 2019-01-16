@@ -1,0 +1,11 @@
+Check mails
+  $ mail          # Check new mails. MacOS will check /var/mail/user_name file.
+  $ mail -f       # Check history mails. MacOS will check /Users/user_name/mbox file.
+  
+Send mails
+  $ echo "Mail Body"  | mail -s "Mail Subject" user_name    # MacOS username example: xxx@bogon.localdomain
+  $ cat mail_body.txt | mail -s "Mail Subject" user_name
+  $ mail -s "Mail Subject" user_name < mail_body.txt
+  $ mail -s "Mail Subject" "user1_name,user2_name" < mail_body.txt   # Specifying the users in comma separated list. 
+  
+  
