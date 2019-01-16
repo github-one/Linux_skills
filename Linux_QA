@@ -26,6 +26,8 @@ A:  printf '=%.0s' {1..10}
     print -- '-%.0s' {1..10}
     
     Note: '=%.0s' means that printf will always print a single = no matter what argument it is given.
+    The %.0s flag is meant to do nothing, just be there to pick up arguments. Then, if bash gets more arguments 
+    than it has format specifiers, it will simply print out multiple copies, grabbing as many as it needs.
     
     printf %100s | tr ' ' '-' ; echo ""
     
