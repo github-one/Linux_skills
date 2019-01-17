@@ -1,3 +1,28 @@
+Q:  How can I resume a stopped job in Linux?
+A:  Use the command fg.
+        $ fg
+        $ fg 3          # Here 3 is job number.
+    
+    The general job control commands in Linux are:
+    jobs - list the current jobs
+    fg - resume the job that's next in the queue
+    fg number - resume job number
+    fg %[number] - resume job [number]
+    bg - Push the next job in the queue into the background
+    bg %[number] - Push the job [number] into the background
+    kill %[number] - Kill the job numbered [number]
+    kill -[signal] %[number] - Send the signal [signal] to job number [number]
+    disown %[number] - disown the process(no more terminal will be owner), so command will be alive 
+    even after closing the terminal.
+    
+    Note: the % infront of the job number in the commands - this is what tells kill you're talking 
+    about jobs and not processes.
+
+
+The command fg is what you want to use. You can also give it a job number if there are more than one stopped jobs.
+
+
+
 Q:  How to get the current time?
 A:  $ date "+%Y-%m-%d %H:%M:%S"
     Note: The output format of date depends on the "locale" setting.
@@ -50,7 +75,7 @@ A:  printf '=%.0s' {1..10}
     '\b' means backspace.
         
 
-Q:  Is it possible ot write the numbers of the sequence in the same line?
+Q:  Is it possible to write the numbers of the sequence in the same line?
 A:  Try these:
         $ echo $(seq 10)
         1 2 3 4 5 6 7 8 9 10
