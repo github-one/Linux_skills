@@ -1,0 +1,7 @@
+Most useful examples:
+
+$ cut -c2-6 test.txt                    # Display 2nd-6th character from each line of the file.
+$ cut -d':' -f1  /etc/passwd            # using field delimiter :(colon), and display the first field
+$ cut -d ',' -f 1,4  names.csv
+$ ls -l | tr -s " " | cut -d" " -f5     # display the file size only.
+
