@@ -1,0 +1,4 @@
+
+$ echo $(date)
+$	var="hello"
+$ echo ${var}world
