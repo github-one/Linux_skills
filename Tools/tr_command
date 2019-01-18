@@ -1,0 +1,41 @@
+Most usefule examples:
+
+$ cat file | tr a-z A-Z
+$ cat file | tr [:lower:] [:upper:]
+$ cat file | tr '{}' '()'
+$ echo "something 123" | tr -d '[:digit:]'
+$ echo "Abc123def" | tr -c "A" "t"                  # Output: Attttttt
+$ echo "something 123" | tr -cd '[:digit:]'
+$ echo "something 123" | tr -cd '[:digit:]\n'
+$ echo "ssssffff12233" | tr -s "sf123"              # Output: sf123
+$ echo "sssfff" | tr -s "sf" "ab"                   # Output: ab
+$ echo "I am a boy. She is a girl."  | tr -s "[:alpha:]" "\n"       # This is very useful to seperate word from a textfile.
+
+Complicated examples:
+Create a list of sorted and unique words contained in a file.
+$ echo "He is a boy. She is a girl." | tr -cs "[:alpha:]" "\n" | sort | uniq -c | sort -rn
+    2 is
+    2 a
+    1 She
+    1 He
+    1 girl
+    1 boy
+
+
+Q:  How does tr '[a-z]' '[n-za-m]' work?
+A:  
+tr's man page explains it pretty well; it's a filter that converts characters from one set to another. 
+The first set specified is [a-z], which is a shorthand way of typing [abcdefghijklmnopqrstuvwxyz]. The second is [n-za-m], 
+which turns into [nopqrstuvwxyzabcdefghijklm]. tr reads each character from stdin, and if it appears in the first set, 
+it replaces it with the character in the same position in the second set (this means [ and ] are getting replaced 
+with themselves, so including them was pointless, but a lot of people do it by mistake because regular expressions use them 
+to represent character classes so they think tr requires them).
+
+So a simpler example:
+$ echo abc | tr ab xy
+xyc a turned into x, b turned into y, and c was left unchanged because it wasn't in the first set. 
+
+Sidenote: This particular swap, where each letter is replaced by the one 13 characters away from it in the alphabet, 
+is called ROT13 (rotate 13); it was popular on newsgroups as a way to hide things people might not want to see.
+
+
