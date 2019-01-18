@@ -1,3 +1,24 @@
+Q:  Difference between \n and \r?
+A:  
+- in Unix and all Unix-like systems, \n is the code for end-of-line, \r means nothing special.
+- as a consequence, in C and most languages that somehow copy it (even remotely), \n is the standard escape sequence 
+for end of line (translated to/from OS-specific sequences as needed)
+
+- in old Mac systems (pre-OS X), \r was the code for end-of-line instead
+- in Windows (and many old OSs), the code for end of line is 2 characters, \r\n, in this order
+- as a (surprising;-) consequence (harking back to OSs much older than Windows), \r\n is the standard line-termination 
+for text formats on the Internet
+
+- for electromechanical teletype-like "terminals", \r commands the carriage to go back leftwards until it hits the leftmost stop 
+(a slow operation), \n commands the roller to roll up one line (a much faster operation) 
+
+-- that's the reason you always have \r before \n, so that the roller can move while the carriage is still going leftwards!-) 
+Wikipedia has a more detailed explanation.
+
+- for character-mode terminals (typically emulating even-older printing ones as above), in raw mode, \r and \n act similarly 
+(except both in terms of the cursor, as there is no carriage or roller;-)
+
+
 Q:  How can I resume a stopped job in Linux?
 A:  Use the command fg.
         $ fg
