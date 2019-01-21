@@ -8,6 +8,13 @@ at> <Press Ctrl+D>
 job 1 at ...
 $ 
 
+$ at now + 10 minutes
+at> echo "something" > /dev/pts/0       # This is your login terminal id
+at> <Press Ctrl+D>
+job 2 at ...
+$ 
+
+
 List jobs:
 $ atq
 $ at -l
@@ -47,3 +54,4 @@ then log out and the system will take care of running the command at the specifi
 Note that the manual page for at(1) specifically says:
 The user will be mailed standard error and standard output from his commands, if any. 
 Mail will be sent using the command /usr/sbin/sendmail.
+
