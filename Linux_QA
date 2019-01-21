@@ -1,5 +1,6 @@
 Q:  Portable way to get file size (in bytes) in shell?
-A:  $ stat -c %s filename      
+A:  $ stat -c %s filename
+    $ stat --printf="%s" filename
     $ wc -c < filename
 
 
