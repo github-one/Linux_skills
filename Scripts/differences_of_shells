@@ -1,0 +1,101 @@
+More information:
+https://en.wikipedia.org/wiki/Comparison_of_command_shells
+
+--------------------------------------------- shells History ------------------------------------------------------------
+--sh is th original UNIX shell, also known as Bourne shell after its original designer Steve Bourne.
+--ksh is the Korn shell, also named after its designer. It adds numberous features to sh, particularly for interactive using.
+--Bash ("Bourne-again shell") is the standard Linux shell. It's POSIX-compliant but has many additional features.
+
+--Dash is an acronym for Debian Almquist shell (dash). It is a Unix and Linux shell which is much smaller than bash 
+  but still aiming at POSIX-compliancy. dash is a POSIX-compliant implementation of /bin/sh that aims to be as small as possible. 
+  dash is a direct descendant of the NetBSD version of ash (the Almquist SHell), ported to Linux in early 1997. 
+  It was renamed to dash in 2002.
+ 
+ 
+ --------------------------------------------- shells History detailed  -------------------------------------------------
+ https://superuser.com/questions/61727/why-is-bash-everywhere-in-most-if-not-all-linux-distributions
+ 
+--In the beginning (if you consider the beginning to be Unix Version 7) was the Bourne shell. 
+  Steve Bourne was the first to show that the shell which controlled the user's interaction could be a user program and 
+  not a special part of the operating system. A historic breakthrough. The shell itself was relatively clean for scripting, 
+  but had no command-line editing or job control. Bourne's Introduction to the Unix Shell is still useful for beginning users today.
+
+--The shell is just a user program, so anybody can write one. As Version 7 Unix was being created in New Jersey, 
+  Berkeley Unix was being created in California. Bill Joy at Berkeley wrote csh, the C shell. Joy added job control and history, 
+  and later command-line editing, but was not aware of Bourne's work and so based his language on the Thompson shell. 
+  The Unix community loved job control, but they also loved Bourne's language. For a not-particularly-good polemic against 
+  the csh language, see Csh Programming Considered Harmful. For a time, many people used csh interactively for its job-control 
+  and history features, but used Bourne's sh to write scripts. This situation was less than ideal.
+
+--Dave Korn at Bell Labs did a brilliant re-engineering of the Bourne shell to produce the Korn shell (ksh). It was fully backward
+  compatible with Bourne shell sh but provided a boatload of invaluable improvements. ksh became the basis of a POSIX standard 
+  and was shipped standard with Sun software. 
+  (This despite the fact that Bill Joy left Berkeley to help found Sun and was one of their leading software guys.)
+
+--Bell Labs and AT&T stupidly fail to make ksh open source. ksh88 is widely used, but having sources is not legal. 
+  Certain people become so addicted that they become digital criminals.
+
+--The Free Software Foundation does a "clean-room", from scratch implementation of a POSIX shell, taking all of Dave Korn's ideas
+  as then current, plus in usual FSF style adding new features of their own, such as programmable completion. They call it the 
+  "Bourne again" shell, or bash.
+
+--In the middle 1990s AT&T open-sources ksh93, but by then it is too late for widespread adoption. The licensing agreement is 
+  weirdly nonstandard.  bash and ksh diverge, and ksh never achieves market share commensurate with its place in history.
+
+Lessons:
+--The first adequate product to market wins (sh).
+--People love new features (job control, command completion), but they love them even more when their old scripts continue to work.
+
+
+
+--------------------------------------------- shells differences --------------------------------------------------------
+For interactive use, there are two main contenders, bash and zsh, plus the straggler tcsh and the newcomer fish.
+
+--Bash is the official shell of the GNU project and the default shell on most Linux distributions. 
+  On other unices that don't ship with a decent interactive shell as part of the base installation, I think bash is 
+  what people tend to choose, in a self-reinforcement “bash is everywhere so I'll use it too” loop. 
+
+--Zsh has almost every feature of bash and many more (useful!) features. Its main downside is being less well-known, 
+  which as a practical matter means you're less likely to find it already installed on a system someone else set up and 
+  there is less third-party documentation about it. 
+
+--Tcsh was once (up to the early 1990s) the shell with the best interactive features, like its predecessor csh. That made it 
+  popular for interactive use (but not for scripting). Zsh caught up with tcsh and fairly quickly improved further, 
+  and bash caught up (with programmable completion) in the early 2000s, while tcsh has barely made any progress in the past 15 years. 
+  Therefore there is little reason to learn tcsh now.
+
+--Fish tries to be cleaner than its predecessors. It has some neat features (simpler syntax, syntax coloring on the command line) 
+  but lacks others (whatever the author doesn't like). The fish community is a lot smaller than even zsh's, making the effects 
+  even more acute. 
+  
+  
+For scripting, there are several languages you might want to target, depending on how portable you want your scripts to be.
+
+--Anything that pretends to be Unix-like has a Bourne-derived shell as /bin/sh. There are still some commercial unices around 
+  where /bin/sh is not POSIX compliant.
+
+--Bash is always available on Linux (except some embedded variants) and often on other unices. It has most of ksh93's useful features,
+  though sometimes with a different syntax.
+
+--Zsh has most of ksh93 and bash's useful features. Its core syntax is cleaner but incompatible with Bourne. Except for macOS, 
+  don't count on zsh being available on a system you didn't install.
+
+--For more advanced scripting, you can turn to Perl or Python. These languages have proper data structures, decent text 
+  manipulation features, decent process combination and communication mechanisms, and tons of available libraries. 
+  Most unix systems have them, either bundled with the OS or installed by the administrator (because there are so many Perl 
+  and Python scripts out there that it's a rare system that doesn't have at least one of each).  
+
+--Almost every now-running unix has an sh executable that is at least compliant with at least POSIX.2-1992 and usually at least 
+  POSIX:2001 a.k.a. Single Unix v3. This shell might live in a different directory such as /usr/bin/posix or /usr/xpg6/bin. 
+  POSIX emulation layers also exist for just about every system that's powerful enough to support it, making it an attractive target.
+
+--Many unix systems have ksh93, which brings some very useful features that POSIX sh lacks (arrays, associative arrays, 
+  extended globs (*(foo), @(foo|bar), …), null globs (~(N)foo*), …). Ksh was initially commercial software (it became free in 2000, 
+  after some habits had set), and many free unices (Linux, *BSD) got into the habit of only providing a much older free clone 
+  (pdksh) lacking many of these useful features. Pdksh is now getting displaced by mksh outside of OpenBSD, but even mksh falls short
+  of implementing all ksh93 features. Today, you can't count on ksh93 being available everywhere, especially on Linux where bash is
+  the norm.
+
+
+
+
