@@ -2,7 +2,11 @@ at command is very useful for scheduling one time tasks.
 
 
 Schedule jobs:  
-$ echo "something" > /root/username/log.txt | at now + 10 minutes
+$ at now + 10 minutes
+at> echo "something" >> log.txt
+at> <Press Ctrl+D>
+job 1 at ...
+$ 
 
 List jobs:
 $ atq
