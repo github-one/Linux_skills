@@ -46,6 +46,21 @@ Lessons:
 --The first adequate product to market wins (sh).
 --People love new features (job control, command completion), but they love them even more when their old scripts continue to work.
 
+Others:
+/bin/sh is hardly ever a Bourne shell on any systems nowadays (even Solaris which was one of the last major system to 
+include it has now switched to a POSIX sh for its /bin/sh in Solaris 11). /bin/sh was the Thompson shell in the early 70s. 
+The Bourne shell replaced it in Unix V7 in 1979.
+
+/bin/sh has been the Bourne shell for many years thereafter (or the Almquist shell, a free reimplementation on BSDs).
+
+Nowadays, /bin/sh is more commonly an interpreter or another for the POSIX sh language which is itself based on a subset of 
+the language of ksh88 (and a superset of the Bourne shell language with some incompatibilities).
+
+The Bourne shell or the POSIX sh language specification don't support arrays. Or rather they have only one array: 
+the positional parameters ($1, $2, $@, so one array per function as well). ksh88 did have arrays which you set with set -A, 
+but that didn't get specified in the POSIX sh as the syntax is awkward and not very usable. Other shells with array/lists 
+variables include: csh/tcsh, rc, es, bash (which mostly copied the ksh syntax the ksh93 way), yash, zsh, fish 
+each with a different syntax (rc the shell of the once to-be successor of Unix, fish and zsh being the most consistent ones)...
 
 
 --------------------------------------------- shells differences --------------------------------------------------------
