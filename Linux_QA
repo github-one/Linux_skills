@@ -1,3 +1,8 @@
+Q:  Portable way to get file size (in bytes) in shell?
+A:  $ stat -c %s filename      
+    $ wc -c < filename
+
+
 Q:  Difference between \n and \r?
 A:  
 - in Unix and all Unix-like systems, \n is the code for end-of-line, \r means nothing special.
