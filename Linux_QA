@@ -1,3 +1,8 @@
+Q:  How to unset readonly variable in bash?
+A:  Once you've set a variable readonly you can't do anything but kill the shell.
+    If you need to change a variable, don't make it readonly.
+    Actually, you can uset a readonly variable but it's very tricky.
+
 Q:  Portable way to get file size (in bytes) in shell?
 A:  $ stat -c %s filename
     $ stat --printf="%s" filename
