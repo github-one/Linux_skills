@@ -1,0 +1,119 @@
+More information:
+https://linuxconfig.org/how-to-use-arrays-in-bash-script
+https://www.thegeekstuff.com/2010/06/bash-array-tutorial/
+
+
+$ declare -a my_array           # indexed array
+declare -a Unix=('Debian' 'Red hat' 'Red hat' 'Suse' 'Fedora');
+$ my_array=(foo bar)
+$ my_array[0]=foo
+$ my_array+=(baz)
+$ my_array+=(new foobar)
+$ echo ${my_array[0]}
+$ echo ${my_array[@]}
+$ echo ${my_array[*]}
+
+$ echo ${#my_array[@]}          # length of the array
+$ echo ${#my_array[1]}          # length of one element of the array
+
+
+echo ${#Unix[3]}
+$ my_array=(foo bar baz)
+$ unset my_array[1]
+$ echo ${!my_array[@]}
+0 2
+$ unset my_array
+$ echo ${!my_array[@]}
+
+
+$ declare -A my_array         # associative array
+$ my_array[foo]="bar"
+$ my_array+=([baz]=foobar [foobarbaz]=baz)
+
+$ my_array=([foo]=bar [baz]=foobar)
+$ unset my_array[foo]
+$ echo ${my_array[@]}
+foobar
+
+
+
+--Differences between ${my_array[@]} and  ${my_array[*]}
+$ my_array=(foo bar)
+$ for i in "${my_array[@]}"; do echo "$i"; done
+foo
+bar
+$ for i in "${my_array[*]}"; do echo "$i"; done
+foo bar
+
+$ my_array=(foo bar baz)
+$ for index in "${!my_array[@]}"; do echo "$index"; done
+0
+1
+2
+
+
+$ declare -A my_array
+$ my_array=([foo]=bar [baz]=foobar)
+$ for key in "${!my_array[@]}"; do echo "$key"; done
+baz
+foo
+
+$ Unix=('Debian' 'Red hat' 'Ubuntu' 'Suse' 'Fedora' 'UTS' 'OpenLinux');     # Extraction by offset and length for an array
+$ echo ${Unix[@]:3:2}
+Suse Fedora
+
+$ Unix=('Debian' 'Red hat' 'Ubuntu' 'Suse' 'Fedora' 'UTS' 'OpenLinux');     # Extraction for a particular element
+$ echo ${Unix[2]:0:4}
+Ubun
+
+
+$ Unix=('Debian' 'Red hat' 'Ubuntu' 'Suse' 'Fedora' 'UTS' 'OpenLinux');     # Search and replace in an array elements
+$ echo ${Unix[@]/Ubuntu/SCO Unix}
+Debian Red hat SCO Unix Suse Fedora UTS OpenLinux
+
+
+$ Unix=('Debian' 'Red hat' 'Ubuntu' 'Suse' 'Fedora' 'UTS' 'OpenLinux');
+$ Unix=("${Unix[@]}" "AIX" "HP-UX")
+$ echo ${Unix[7]}
+AIX
+
+$ Unix=('Debian' 'Red hat' 'Ubuntu' 'Suse' 'Fedora' 'UTS' 'OpenLinux');
+$ unset Unix[3]
+$ echo ${Unix[3]}
+
+$ Unix=('Debian' 'Red hat' 'Ubuntu' 'Suse' 'Fedora' 'UTS' 'OpenLinux');
+$ pos=3
+$ Unix=(${Unix[@]:0:$pos} ${Unix[@]:$(($pos + 1))})
+$ echo ${Unix[@]}
+Debian Red hat Ubuntu Fedora UTS OpenLinux
+
+$ declare -a Unix=('Debian' 'Red hat' 'Ubuntu' 'Suse' 'Fedora');
+$ declare -a patter=( ${Unix[@]/Red*/} )
+$ echo ${patter[@]}
+Debian Ubuntu Suse Fedora
+
+$ Unix=('Debian' 'Red hat' 'Ubuntu' 'Suse' 'Fedora' 'UTS' 'OpenLinux');
+$ Linux=("${Unix[@]}")
+$ echo ${Linux[@]}
+Debian Red hat Ubuntu Fedora UTS OpenLinux
+
+$ Unix=('Debian' 'Red hat' 'Ubuntu' 'Suse' 'Fedora' 'UTS' 'OpenLinux');
+$ Shell=('bash' 'csh' 'jsh' 'rsh' 'ksh' 'rc' 'tcsh');
+$ UnixShell=("${Unix[@]}" "${Shell[@]}")
+$ echo ${UnixShell[@]}
+Debian Red hat Ubuntu Suse Fedora UTS OpenLinux bash csh jsh rsh ksh rc tcsh
+$ echo ${#UnixShell[@]}
+14
+$ unset UnixShell
+$ echo ${#UnixShell[@]}
+0
+
+
+$ cat logfile
+Welcome
+to
+thegeekstuff
+Linux
+Unix
+$ filecontent=( `cat "logfile" `)
+$ for t in "${filecontent[@]}"; do echo $t; done
