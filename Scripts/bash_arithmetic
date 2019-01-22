@@ -13,7 +13,7 @@ the (( and )) are treated as a string in double quotes.
 
 
 ---------------------- let expression -------------------------------------------------
-et a=5+4                        # Note that if we don't put quotes around the expression then it must be written with no spaces.
+let a=5+4                       # Note that if we don't put quotes around the expression then it must be written with no spaces.
 echo $a # 9
 
 let "a = 5 + 4"                 # Quotes allow us to space out the expression to make it more readable.
@@ -67,6 +67,38 @@ b=4953
 echo ${#b} # 4
 
 
+
+--------------------------------- let, expr, $[] -----------------------------------------------------
+a=$((1+1))
+a=$[1+1]
+let a=1+1
+a=$(expr 1 + 1)
+
+All of these deal with arithmetic, but in different ways and the variable is created via different means. Some of these
+are specific to bash shells, while others aren't.
+
+-- ((...)) is called arithmetic expansion, which is typical of the bash and ksh shells. This allows doing simple integer
+arithmetic, no floating point stuff though. 
+((...)) is just an action.
+$((..)) substitutes the output of the operation.
+
+-- $[...] is the old syntax for arithmetic expansion which is deprecated. This was likely kept so that old bash
+scripts don't break. This didn't work in ksh93, so my guess is that this syntax is bash-specific. NOTE: spaces are very
+important here; don't confuse $[1+1] with stuff like [ $a -eq $b ]. The [ with spaces is known as the test command, and
+you typically see it in decision-making parts. It is very different in behavior and purpose.
+
+-- let is a bash and ksh keyword which allows for variable creation with simple arithmetic evaluation. If you try to assign
+a string there like let a="hello world" you'll get a syntax error. Works in bash and ksh93.
+
+-- $(...) is command substitution, where you literally take the output of a command and assign to a variable. Your command
+here is expr, which takes positional arguments, like expr arg1 arg2 arg3, so spaces are important. It's sort of like a
+small command-line calculator for integer arithmetic, plus some true/false and regex type of stuff. This is a
+shell-neutral command.
+
+It's also worth noting that arithmetic expansion and command substitution are specified by POSIX standard, while let and
+$[...] aren't.
+
+
+
 More information:
 https://ryanstutorials.net/bash-scripting-tutorial/bash-arithmetic.php
-
