@@ -72,7 +72,9 @@ $LINENO - Returns the current line number in the Bash script.
 $# is the number of positional parameters.
 $- current options set for the shell.
 $_ most recent parameter (or the abs path of the command to start the current shell immediately after startup).
-$IFS is the (input) field separator.
+
+$IFS is the (input) field separator. $IFS is always interpreted as a series of single characters.
+
 $! is the PID of the most recent background command.
 
 
