@@ -49,6 +49,14 @@ Format
     
     :set splitbelow     # open new split panes to bottom, which feels more natural than Vim's default
     :set splitright
+    
+    FAQ: How to wrap existing text at some width?
+    A:   set textwidth=120
+         Select the lines of text you want to re-format:
+         v
+         Re-format it:
+         gq
+         Learn more, use :h gq         
 
 Search
     Highlight all occurrence of a selected word
