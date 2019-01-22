@@ -1,19 +1,37 @@
-A shell provides
--- a prompt for the user to communicate by starting, managing, interacting with and ending processes
--- a container for processes and variables
+shell and subshell
+-- A shell is a prompt for the user to communicate, a container for processes and variables
 -- Any shell can create a new shell.
 -- The new shell is considered a child process—a subshell—of the parent shell that creates it.
 -- By default, if the parent process terminates, the subshell also terminates.
--- In a Bash shell script, you create a subshell using the parenthesis notation.
 -- Unless you specify that the subshell is to be executed in the background, the parent shell waits for 
    the subshell to finish before continuing with the rest of the script. 
 -- You may run subshell in the background, with the ampersand character '&' following the subshell expression.
 -- If each command is executed in a different subshell, there is no risk that variable settings will be mixed up.
 
-
 When you invoke a subshell, any processes started in that shell are contained within it. Any data items that are created die 
 with the shell unless they are committed to some persistent storage - perhaps written to a file on a hard drive or 
 exported from the parent shell to new shells. 
+
+
+------------------------------------------  subshell creations ----------------------------------------------------------------------
+There are several other constructs that create a subshell for bash:
+
+-- Subshell for grouping: ( … ) does nothing but create a subshell and wait for it to terminate). Contrast with { … }
+which groups commands purely for syntactic purposes and does not create a subshell.  
+
+-- Background: … & creates a subshell and does not wait for it to terminate.  Pipeline: … | … creates two subshells, 
+one for the left-hand side and one for the right-hand side, and waits for both to terminate. The shell creates a pipe 
+and connects the left-hand side's standard output to the write end of the pipe and the right-hand side's standard input 
+to the read end. In some shells (ksh88, ksh93, zsh, bash with the lastpipe option set and effective), the right-hand side 
+runs in the original shell, so the pipeline construct only creates one subshell.  
+
+-- Command substitution: $(…) (also spelled `…`) creates a subshell with its standard output set to a pipe, collects 
+the output in the parent and expands to that output, minus its trailing newlines. (And the output may be further subject 
+to splitting and globbing, but that's another story.) 
+
+-- Process substitution: <(…) creates a subshell with its standard output set to a pipe and expands to the name of the pipe. 
+The parent (or some other process) may open the pipe to communicate with the subshell. >(…) does the same but with the pipe
+on standard input.
 
 
 ----------------------------------------  '()' vs '{}'  ---------------------------------------------------------------------------
@@ -40,6 +58,21 @@ by whitespace.
 
 The exit status of both of these constructs is the exit status of list.
 
+
+------------------------------------------  $() vs ()  -----------------------------------------------------------------------------
+$(cmd) substitutes the result of cmd as a string, whereas (cmd; cmd) run a list of commands in a subprocess.
+
+If you want to put the output of one or more commands into a variable use the $( cmd ) form.
+$(…) is a subshell by definition: it's a copy of the shell runtime state¹, and changes to the state made in the subshell 
+have no impact on the parent. A subshell is typically implemented by forking a new process (but some shells may optimize this 
+in some cases).
+
+If changes to variables had an impact on the parent, it wouldn't be a subshell. It's a subshell whose OUTPUT the parent can retrieve. 
+The subshell created by $(…) has its standard output set to a pipe, and the parent reads from that pipe and collects the output.
+
+However if you want to run a number of commands and treat them as a single unit use the () form.
+The latter is useful when you want to run a set of commands in the background:
+(git pull; make clean; make all) &
 
 
 --------------------------------------  subshell vs script -------------------------------------------------------------------------
