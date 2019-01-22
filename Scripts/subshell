@@ -1,0 +1,81 @@
+A shell provides
+-- a prompt for the user to communicate by starting, managing, interacting with and ending processes
+-- a container for processes and variables
+-- Any shell can create a new shell.
+-- The new shell is considered a child process—a subshell—of the parent shell that creates it.
+-- By default, if the parent process terminates, the subshell also terminates.
+-- In a Bash shell script, you create a subshell using the parenthesis notation.
+-- Unless you specify that the subshell is to be executed in the background, the parent shell waits for 
+   the subshell to finish before continuing with the rest of the script. 
+-- You may run subshell in the background, with the ampersand character '&' following the subshell expression.
+-- If each command is executed in a different subshell, there is no risk that variable settings will be mixed up.
+
+
+When you invoke a subshell, any processes started in that shell are contained within it. Any data items that are created die 
+with the shell unless they are committed to some persistent storage - perhaps written to a file on a hard drive or 
+exported from the parent shell to new shells. 
+
+
+----------------------------------------  '()' vs '{}'  ---------------------------------------------------------------------------
+Grouping commands '(lits)' vs '{ list; }'
+
+Bash provides two ways to group a list of commands to be executed as a unit. When commands are grouped, redirections may 
+be applied to the entire command list. For example, the output of all the commands in the list may be redirected to a single stream.
+
+()
+Formats: (list)
+Placing a list of commands between parentheses causes a subshell environment to be created (see Command Execution Environment), 
+and each of the commands in list to be executed in that subshell. Since the list is executed in a subshell, variable assignments 
+DO NOT remain in effect after the subshell completes.
+
+{}
+Fromats: { list; }
+Placing a list of commands between curly braces causes the list to be executed in the current shell context. No subshell is created. 
+The SEMICOLON (or newline) following list is required.
+
+In addition to the creation of a subshell, there is a subtle difference between these two constructs due to historical reasons. 
+The braces are reserved words, so they must be separated from the list by BLANKs or other shell metacharacters. 
+The parentheses are operators, and are recognized as separate tokens by the shell even if they are not separated from the list 
+by whitespace.
+
+The exit status of both of these constructs is the exit status of list.
+
+
+
+--------------------------------------  subshell vs script -------------------------------------------------------------------------
+A subshell starts out as an almost identical copy of the original shell process.  Under the hood, the shell calls the
+fork system call1, which creates a new process whose code and memory are copies2. When the subshell is created, there
+are very few differences between it and its parent. In particular, they have the same variables. Even the $$ special
+variable keeps the same value in subshells: it's the original shell's process ID. Similarly $PPID is the PID of the
+parent of the original shell.
+
+A few shells change a few variables in the subshell. Bash sets BASHPID to the PID of the shell process, which changes in
+subshells. Bash, zsh and mksh arrange for $RANDOM to yield different values in the parent and in the subshell. But apart
+from built-in special cases like these, all variables have the same value in the subshell as in the original shell, the
+same export status, the same read-only status, etc. All function definitions, alias definitions, shell options and other
+settings are inherited as well.
+
+A subshell created by (…) has the same file descriptors as its creator. Some other means of creating subshells modify
+some file descriptors before executing user code; for example, the left-hand side of a pipe runs in a subshell3 with
+standard output connected to the pipe. The subshell also starts out with the same current directory, the same signal
+mask, etc. One of the few exceptions is that subshells do not inherit custom traps: ignored signals (trap '' SIGNAL)
+remain ignored in the subshell, but other traps (trap CODE SIGNAL) are reset to the default action4.
+
+A subshell is thus different from executing a script. A script is a separate program. This separate program might
+coincidentally be also a script which is executed by the same interpreter as the parent, but this coincidence doesn't
+give the separate program any special visibility on internal data of the parent.  Non-exported variables are internal
+data, so when the interpreter for the child shell script is executed, it doesn't see these variables. Exported
+variables, i.e.  environment variables, are transmitted to executed programs.
+
+Thus:
+x=1 (echo $x) prints 1 because the subshell is a replication of the shell that spawned it.
+
+x=1 sh -c 'echo $x' happens to run a shell as a child process of a shell, but the x on the second line has no more
+connection with the x on the second line than in
+
+x=1 perl -le 'print $x' or
+
+x=1 python -c 'print x'
+
+
+
