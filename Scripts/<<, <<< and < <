@@ -1,0 +1,83 @@
+----------------------------------- Here document --------------------------------------------------------------------------------
+
+<< is known as here-document structure. 
+You let the program know what will be the ending text, and whenever that delimiter is seen, the program will read all the stuff 
+you've given to the program as input and perform a task upon it.
+
+Here's what I mean:
+$ wc << EOF
+> one two three
+> four five
+> EOF
+ 2  5 24
+In this example we tell wc program to wait for EOF string, then type in five words, and then type in EOF to signal that 
+we're done giving input. In effect, it's similar to running wc by itself, typing in words, then pressing Ctrl+D
+
+
+------------------------------------- Here string -------------------------------------------------------------------------------
+<<< is known as here-string. 
+Instead of typing in text, you give a pre-made string of text to a program. For example, with such program as bc we can do 
+    $ bc <<< 5*4 
+    $ bc <<< 5+4                # note: no whitespaces between 5 and 4
+    $ bc <<< " 5 + 4 "
+to just get output for that specific case, no need to run bc interactively.
+
+Why is it useful?
+You can also feed a string to a command's stdin like this:
+    $ echo "$string" | command
+
+However in bash, introducing a pipe means the individual commands are run in subshells. Consider this:
+    $ echo "hello world" | read first second
+    $ echo $second $first
+
+The output of the 2nd echo command prints a single space. Whaaaa???? What happened to my variables? 
+Because the read command is in a pipeline, it is run in a subshell. 
+It correctly reads 2 words from its stdin and assigns to the variables. But then the command completes, the subshell exits 
+and the variables are lost.
+
+Sometimes you can work around this with braces:
+    $echo "hello world" | {
+        read first second
+        echo $second $first
+    }
+That's OK if your need for the values is contained, but you still don't have those variables in the current shell of your script. 
+To remedy this confusing situation, use a here-string
+    $ read first second <<< "hello world"
+    $ echo $second $first
+Ah, much better!
+
+
+-------------------------------------- Process Substitution ---------------------------------------------------------------------
+Process substitution feeds the output of a process (or processes) into the stdin of another process.
+
+So in effect this is similar to piping stdout of one command to the other , e.g. echo foobar barfoo | wc . 
+But notice: in the bash manpage you will see that it is denoted as <(list). So basically you can redirect output of multiple (!) commands.
+
+Note: technically when you say < < you aren't referring to one thing, but two redirection with 
+single < and process redirection of output from <( . . .).
+
+Now what happens if we do just process substitution?
+$ echo <(echo bar)
+/dev/fd/63
+As you can see, the shell creates temporary file descriptor /dev/fd/63 where the output goes (which according to Gilles's answer, 
+is an anonymous pipe). That means  < redirects that file descriptor as input into a command.
+
+$ cat <(echo bar)
+bar
+$ wc < <(echo bar; echo foo)
+      2       2       8
+So here we make shell create a file descriptor for all the output that happens in the parenthesis and redirect that as input to wc.
+As expected, wc receives that stream from two echo commands, which by itself would output two lines, each having a word, and 
+appropriately we have 2 words, 2 lines, and 6 characters plus two newlines counted. 
+
+How could we go around redirecting output of multiple commands into another command without process substitution? 
+Grouping plus piping!
+$ (echo foo;echo bar) | wc
+      2       2       8
+
+So if we can do grouping with piping, why do we need process substitution? Because sometimes we cannot use piping. 
+Consider the example below - comparing outputs of two commands with diff (which needs two files, and in this case 
+we are giving it two file descriptors)
+	
+diff <(ls /bin) <(ls /usr/bin)
+
