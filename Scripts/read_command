@@ -1,0 +1,71 @@
+Examples:
+
+$ read text                 # wait for a carriage return and then assign whatever was typed to the variable text.
+$ echo $text
+
+$ read                      # If no variable names were specified, the entire line of text is stored in the variable REPLY.
+$ echo $REPLY
+
+$ read -t 3 response                                # Wait for 3 seconds
+$ read -s password                                  # Do not echo keystrokes.
+$ echo "Hello, world!" | (read; echo "$REPLY")
+
+
+$ LINE="7.6.5.4"
+$ IFS=. read -a ARRAY <<< "$LINE"
+$ echo "$IFS"
+$ echo "${ARRAY[@]}"
+
+
+$ while read; do echo "$REPLY"; done                # Press Ctrl+D (EOF) on a new line to end the loop
+$ while read text; do echo "$text"; done
+
+
+Provides a prompt, and initial text for user input. The user can erase "My text is ", or leave it as part of the input. 
+$ while read -ep "Type something: " -i "My text is " text; do 
+>   echo "$text";
+> done
+
+
+---------------------------------------- complicated examples -------------------------------------------------------------
+$ while IFS= read -r -d $'\0' file; do
+>  echo "$file"
+> done < <(find . -print0)
+
+The above commands are the "proper" way to use find and read together to process files. It's especially useful 
+when you want to do something to a lot of files that have odd or unusual names. Let's take a look at specific parts 
+of the above example:
+
+while IFS=
+IFS= (with nothing after the equals sign) sets the internal field separator to "no value". Spaces, tabs, 
+and newlines are therefore considered part of a word, which will preserve white space in the file names.
+
+Note that IFS= comes after while, ensuring that IFS is altered only inside the while loop. For instance, it won't affect find.
+
+read -r
+Using the -r option is necessary to preserve any backslashes in the file names.
+
+-d $'\0'
+The -d option sets the newline delimiter. Here, we're setting it to the NULL character, ASCII code zero. 
+(An escaped zero enclosed in single quotes, preceded by a dollar sign, is interpreted by bash as NULL. 
+For more information, see Expanding strings with interpreted escapes in the bash documentation.)
+
+We're using NULL as the line delimiter because Linux file names can contain newlines, so we need to preserve them. 
+(This sounds awful, but yes, it happens.)
+
+However, a NULL can never be part of a Linux file name, so that's a reliable delimiter to use. 
+Luckily, find can use NULL to delimit its results, rather than a newline, if the -print0 option is specified:
+
+< <(find . -print0)
+Here, find . -print0 will create a list of every file in and under . (the working directory) and 
+delimit all file names with a NULL. When using -print0, all other arguments and options must precede it, 
+so make sure it's the last part of the command.
+
+Enclosing the find command in <( ... ) performs process substitution: the output of the command can 
+be read like a file. In turn, this output is redirected to the while loop using the first "<".
+
+For every iteration of the while loop, read reads one word (a single file name) and puts that value 
+into the variable file, which we specified as the last argument of the read command.
+
+When there are no more file names to read, read will return false, which triggers the end of the while loop, 
+and the command sequence terminates.
