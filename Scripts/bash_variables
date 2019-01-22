@@ -196,8 +196,37 @@ $ MAILCHECK=1 MAILPATH='/tmp/a?New mail in <$_>' bash
 bash$ echo test >> /tmp/a
 New mail in </tmp/a>
 
-----------------------------------------------------------------------------------------------------------------
 
 
+------------------------------------------- IFS -----------------------------------------------------------
+Q: How do I split a string on a delimiter in Bash?
+I have this string stored in a variable:
+IN="bla@some.com;john@home.com"
+Now I would like to split the strings by ; delimiter so that I have:
+ADDR1="bla@some.com"
+ADDR2="john@home.com"
+
+A:
+You can set the internal field separator (IFS) variable, and then let it parse into an array. When this happens in a command, 
+then the assignment to IFS only takes place to that single command's environment (to read ). It then parses the input according 
+to the IFS variable value into an array, which we can then iterate over.
+
+$ IFS=';' read -ra ADDR <<< "$IN"
+$ for i in "${ADDR[@]}"; do
+>    # process "$i"
+> done
+
+It will parse one line of items separated by ;, pushing it into an array. Stuff for processing whole of $IN, each time one line 
+of input separated by ;:
+
+$ while IFS=';' read -ra ADDR; do
+>   for i in "${ADDR[@]}"; do
+>          # process "$i"
+>   done
+> done <<< "$IN"
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------
 More information:
 https://ryanstutorials.net/bash-scripting-tutorial/bash-variables.php
