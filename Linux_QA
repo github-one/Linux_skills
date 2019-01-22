@@ -1,3 +1,15 @@
+Q: How to split string by delimiter and get N-th element.
+    There is a string:  one_two_three_four_five
+    I need to save in a variable A value two and in variable B value four from the above string.
+A:  Use cut with _ as the field delimiter and get desired fields:
+    $ A="$(cut -d'_' -f2 <<<'one_two_three_four_five')"
+    $ B="$(cut -d'_' -f4 <<<'one_two_three_four_five')"
+    
+    You can also use echo and pipe instead of Here string:
+    $ A="$(echo 'one_two_three_four_five' | cut -d'_' -f2)"
+    $ B="$(echo 'one_two_three_four_five' | cut -d'_' -f4)"    
+
+
 Q:  How to unset readonly variable in bash?
 A:  Once you've set a variable readonly you can't do anything but kill the shell.
     If you need to change a variable, don't make it readonly.
