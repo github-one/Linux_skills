@@ -1,0 +1,23 @@
+Q:  How to copy a file from a remote server to a local machine?
+A:  
+$ scp /file/to/send username@remote:/where/to/put
+$ scp username@remote:/file/to/send /where/to/put
+$ scp username@remote_1:/file/to/send username@remote_2:/where/to/put
+$ scp username@source:/location/to/file username@destination:/where/to/put
+
+Q:  How to pass password to scp?  
+A:  Use sshpass:
+        $ sshpass -p "password" scp -r user@example.com:/some/remote/path /some/local/path
+    or so the password does not show in the bash history
+        $ sshpass -f "/path/to/passwordfile" scp -r user@example.com:/some/remote/path /some/local/path
+        
+
+Note:
+There is a linux utility called sshpass. It allows you to do exactly what you want and will take a server password 
+either as a command line argument, or from a file (i prefer this way, so i do not have my server password show up 
+in shell history) and you use it like so:
+$ sshpass -f file_with_password ssh user@server ls -la
+
+This will ssh into a server and run ls -la. One thing, however, you have to manually ssh into a server first 
+(if you haven't done so already), so the server gets added to your ~/.ssh/known_hosts. 
+If you don't do that, sshpass will not work.
