@@ -1,0 +1,38 @@
+$ kill -2 pid               # try first
+$ kill -1 pid               # try second
+$ kill -9 pid               # the last resort
+
+
+
+Don't use kill -9! This command is meant to be used in some specific extreme cases only.
+According to the man page (on my Solaris box):
+
+DESCRIPTION 
+The kill utility sends a signal to the process or  processes specified by each pid operand.
+
+For each pid operand, the kill utility will perform  actions equivalent to the kill(2) function called with the
+following arguments:
+
+ 1.  The value of the pid operand will be  used  as  the  pid argument.
+
+ 2.  The sig argument  is  the  value  specified  by  the  -s option,  the  -signal_name option, or the -signal_number
+option, or, if none of these options  is  specified,  by SIGTERM.
+
+ The signaled process must belong to the current user  unless the user is the super-user.  When you don't specify any
+signal, kill will send SIGTERM (kill -15) to your process. There are more aggressive signals you can send that are less
+violent than SIGKILL (kill -9).
+
+Why avoid kill -9?
+
+SIGKILL is a very violent signal. It cannot be caught by the process, which means that the process that recieves it has
+to drop everything instantly and exit. It doesn't take the time to liberates resources it has locked (like network
+sockets or files) nor to inform other processes of exiting. Often, it will leave your machine in an unstable state.
+Drawing an analogy, you could say that killing a process with SIGKILL is as bad as turning off the machine with the
+Power button (as opposed to the shutdown command).
+
+As a matter of facts, SIGKILL should be avoided as much as you can. Instead, as mentioned in the article, it's suggested
+that you try kill -2 and if that doesn't work kill -1.
+
+I've seen people rush into sending SIGKILL all the time (even in daily clean up scripts!). I fight with my teammates
+daily about this. Please, don't use kill -9 blindly.
+
