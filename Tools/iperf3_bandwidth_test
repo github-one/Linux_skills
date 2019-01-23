@@ -4,5 +4,8 @@ $ iperf3 -s -D                      # Start sever as deamon mode
 $ iperf3 -c 10.1.1.10               # Connecting to a server from client
 $ iperf3 -c 10.1.1.10 -t 60         # Connecting to a server from client for 60 seconds
 
+$ ps -ef | grep iperf3              # Search iperf3 deamon PID
+$ kill -2 iperf3_PID                # or kill -1 iperf3_PID, or the last resort:  kill -9 iperf3_PID
+
 Note:
 1. UDP mode is specail. Don't use it.
