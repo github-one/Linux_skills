@@ -1,0 +1,84 @@
+Q:  Is there a difference between “.” and “source” in bash, after all?
+
+I was looking for the difference between the "." and "source" builtin commands and a few sources (e.g., in this
+discussion, and the bash manpage) suggest that these are just the same.
+
+However, following a problem with environment variables, I conducted a test. I created a file testenv.sh that contains:
+#!/bin/bash echo $MY_VAR In the command prompt, I performed the following:
+
+> chmod +x testenv.sh MY_VAR=12345 ./testenv.sh
+
+> source testenv.sh
+12345
+> MY_VAR=12345 ./testenv.sh
+12345 [note that the 1st form returned an empty string]
+
+So, this little experiment suggests that there is a difference after all, where for the "source" command, the child
+environment inherits all the variables from the parent one, where for the "." it does not.
+Am I missing something, or is this is an undocumented/deprecated feature of bash?
+
+
+A:
+
+[Short Answer]
+In your question, the second command uses neither the . shell built-in nor the source built-in. Instead, you are
+actually running the script in a separate shell, by invoking it by name (like any other executable file). This does give
+it a separate set of environment variables (though if you export an environment variable in its parent shell, it'll be
+included). If you change the / to a space, then that would run it with the . built-in, which is equivalent to source.
+
+[Extended Explanation]
+This is the syntax of the source shell built-in, which executes the contents of a script in the current shell (and thus
+with the current shell's environment variables):
+source testenv.sh 
+
+This is the syntax of the . built-in, which does do the same thing as source:
+. testenv.sh 
+
+However, this syntax runs the script as an executable file, launching a new shell to run it:
+./testenv.sh 
+
+That is not using the . built-in. Rather, . is part of the path to the file you are executing. Generally
+speaking, you can run any executable file in a shell by invoking it with a name that contains at least one / character.
+To run a file in the current directory, preceding it by ./ is thus the easiest way. Unless the current directory is in
+your PATH, you cannot run the script with the command testenv.sh. This is to prevent people from accidentally executing
+files in the current directory when they intend to execute a system command or some other file that exists in some
+directory listed in the PATH environment variable.
+
+Since running a file by name (rather than with source or .) runs it in a new shell, it will have its own set of
+environment variables. The environment variables do inherit from the environment variables of the calling process (which
+in this case is your interactive shell). However, for an environment variable to be passed to the new shell, one of the
+following must be the case:
+
+The environment variable has been exported. Use the export shell built-in for this. In your example, you can use export
+MY_VAR=12345 to set and export the variable in one step, or if it is already set you can simply use export MY_VAR.
+
+The environment variable is explicitly set and passed for the command you're running. This usually accomplishes that:
+MY_VAR=12345 ./testenv.sh 
+
+[./ Syntax for Scripts Requires a Hashbang Line to Work (Correctly)]
+By the way, please note that, when you invoke an executable by name as above (and not with the . or source shell built-ins), 
+what shell program is used to run it is not usually determined by what shell you're running it from. Instead:
+
+For binary files, the kernel may be configured to run files of that particular type. It examines the first two bytes of
+the file for a "magic number" that indicates what sort of binary executable it is. This is how executable binaries are
+able to run.
+
+This is, of course, extremely important, because a script can't run without a shell or other interpreter, which is an
+executable binary! Plus, many commands and applications are compiled binaries rather than scripts.
+
+(#! is the text representation of the "magic number" indicating a text executable.)
+
+For files that are supposed to run in a shell or other interpreted language, the first line looks like:
+
+#!/bin/sh /bin/sh may be replaced with whatever other shell or interpreter is intended to run the program. For example,
+a Python program might start with the line:
+
+#!/usr/bin/python These lines are called hashbang, shebang, and a number of other similar names. 
+
+If a text file is marked executable and you run it from your shell (like ./filename) but it doesn't begin with #!, the
+kernel fails to execute it. However, seeing that this has happened, your shell will try to run it by passing its name to
+some shell. There are few requirements placed on what shell that is ("the shell shall execute a command equivalent to
+having a shell invoked..."). In practice, some shells--including bash*--run another instance of themselves, while others
+use /bin/sh. I highly recommend you avoid this and use a hashbang line instead (or run the script by passing it to the
+desired interpreter, e.g., bash filename).
+
