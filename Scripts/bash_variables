@@ -1,4 +1,4 @@
-------------------------------  Setting an reading ----------------------------------
+------------------------------  Setting and reading ----------------------------------
 A variable in bash can contain a number, a character, a string of characters.
 There are no data types for bash variables. 
 When referring to or reading a variable we place a $ sign before the variable name.
@@ -224,6 +224,62 @@ $ while IFS=';' read -ra ADDR; do
 >          # process "$i"
 >   done
 > done <<< "$IN"
+
+
+----------------------------------------------------- $* vs $@ ---------------------------------------------------------------------
+
+They aren't the same.  $* is a single string, whereas $@ is an actual array. 
+To see the difference, execute the following script like so:
+
+ > ./test.sh one two "three four"
+The script:
+
+#!/bin/bash
+
+echo "Using \"\$*\":"
+for a in "$*"; do
+    echo $a;
+done
+
+echo -e "\nUsing \$*:"
+for a in $*; do
+    echo $a;
+done
+
+echo -e "\nUsing \"\$@\":"
+for a in "$@"; do
+    echo $a;
+done
+
+echo -e "\nUsing \$@:"
+for a in $@; do
+    echo $a;
+done              
+The four cases are:
+
+Using "$*":
+one two three four
+Here, the parameters are regarded as one long quoted string. Unquoted:
+
+Using $*:
+one
+two
+three
+four
+The string is broken into words by the for loop.
+
+Using "$@":
+one
+two
+three four
+This treats each element of $@ as a quoted string.
+
+Using $@:
+one
+two
+three
+four
+This treats each element as an unquoted string, so the last one is again split by what amounts to for three four.
 
 
 
