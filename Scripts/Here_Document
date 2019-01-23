@@ -13,7 +13,10 @@ Here the shell interprets the << operator as an instruction to read input until 
 All the input lines up to the line containing the delimiter are then fed into the standard input of the command.
 The delimiter tells the shell that the here document has completed. 
 Without it, the shell continues to read the input forever. 
-The delimiter must be A SINGLE WORD that does not contain SPACEs or TABs.
+Note:
+1. The delimiter must be A SINGLE WORD that does not contain SPACEs or TABs.
+2. The second delimiter must at the start of the line, withou any blanks before or after.
+
 
 Examples:
 
