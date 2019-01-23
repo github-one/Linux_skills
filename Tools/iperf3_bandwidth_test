@@ -1,0 +1,8 @@
+$ iperf3 -s                         # Start sever
+$ iperf3 -s -D                      # Start sever as deamon mode
+
+$ iperf3 -c 10.1.1.10               # Connecting to a server from client
+$ iperf3 -c 10.1.1.10 -t 60         # Connecting to a server from client for 60 seconds
+
+Note:
+1. UDP mode is specail. Don't use it.
