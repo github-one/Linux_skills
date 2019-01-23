@@ -1,0 +1,81 @@
+Examples:
+
+$ ps                                    # Just diplay processes for the current shell
+$ ps -A                                 # Display every active process in generic format.
+$ ps -e                                 # The same as above
+$ ps aux                                # Display all processs in BSD format
+$ ps -aux
+$ ps -ef                                # Dispaly all processes with common information.
+$ ps -eF                                # The same as above, plus SZ,RSS and PSR information.
+
+$ ps -x                                 # Display all processes owned by you
+$ ps -fU <user name>
+$ ps -fu <user RUID>
+$ ps -U root -u root                    # Dispaly very process with root user privileges( real & effective ID )
+
+$ ps -fp <PID>                          
+$ ps -f --ppid <PPID>                          
+$ PS -fp <PID1>,<PID2>,<PID3>
+
+$ ps -t pst/0
+$ ps -t pst/1
+$ ps -ft tty1
+
+$ ps -e --forest                                        # Display process tree
+$ ps axjf                                               # Display process tree with more information
+$ ps -e --forest -C <process name>
+
+$ ps -fL -C <process name>                              # Display process threads
+$ ps -C <process name>                                  # Display parent an child processes
+
+$ ps -eo pdi,ppid,user,cmd                              # Display by user-defined formats 
+$ ps -e --format="uid uname cmd time"
+$ ps -p <PID> -o pdi,ppid,fgroup,ni,lstart,etime        
+
+$ ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%mem | head
+$ ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head
+$ ps -ef --sort usr,pid
+
+$ top                                   # Display and update sorted information
+$ atop                                  # Advanced top
+$ htop                                  # Interactive process viewer 
+$ pgrep                                 # Look up signal or process based on name and other attributes
+$ pstree                                # Display a tree of processes
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+Q:  How to get the whole command line arguments from a process?
+
+How can I get the command arguments or the whole command line from a running process using its process name?
+For example this process:
+# ps
+PID   USER     TIME   COMMAND
+ 1452 root       0:00 /sbin/udhcpc -b -T 1 -A 12 -i eth0 -p /var/run/udhcpc.eth0.pid
+And what I want is /sbin/udhcpc -b -T 1 -A 12 -i eth0 -p /var/run/udhcpc.eth0.pid or the arguments. 
+I know the process name and want its arguments.
+
+A:   $ ps -eo args
+
+You could use the -o switch to specify your output format:
+$ ps -eo args
+
+You may also use the -p switch to select a specific PID:
+$ ps -p [PID] -o args
+pidof may also be used to switch from process name to PID, hence allowing the use of -p with a name:
+$ ps -p $(pidof dhcpcd) -o args
+Of course, you may also use grep for this (in which case, you must add the -e switch):
+
+$ ps -eo args | grep dhcpcd | head -n -1
+GNU ps will also allow you to remove the headers (of course, this is unnecessary when using grep):
+
+$ ps -p $(pidof dhcpcd) -o args --no-headers
+On other systems, you may pipe to AWK or sed:
+
+$ ps -p $(pidof dhcpcd) -o args | awk 'NR > 1'
+$ ps -p $(pidof dhcpcd) -o args | sed 1d
+If you want to catch this line into a variable, just use $(...) as usual:
+
+$ CMDLINE=$(ps -p $(pidof dhcpcd) -o args --no-headers)
+or, with grep :
+$ CMDLINE=$(ps -eo args | grep dhcpcd | head -n -1)
+
