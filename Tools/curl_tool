@@ -40,3 +40,11 @@ A:  This should work for you if the web server is able to respond to HEAD reques
     $ curl -s -o /dev/null -I -w "%{http_code}" http://www.example.org/
     
     
+--------------------------------------------------- troubleshooting ------------------------------------------------------------------
+1 $ curl -k                 # disablbe security required
+2 $ curl -v                 # for more information
+3 NSS error -9191 (SEC_ERROR_EXPIRED_CERTIFICATE),  update CA file or use ntp to update network time.
+4 update curl software
+
+
+
