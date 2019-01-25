@@ -1,0 +1,42 @@
+
+$ curl http://www.linux.com
+$ curl http://www.linux.com >> linux.html
+$ curl -o linux.html http://www.linux.com
+$ curl -O http://www.linux.com/hello.sh                   # -O for files download
+$ curl -o /dev/null -s -w %{http_code} www.linux.com      # test return code from website
+# curl -x 192.168.100.100:1080 http://www.linux.com       # -x for proxy 
+
+
+# curl -o dodo1.jpg http:www.linux.com/dodo1.JPG
+# curl -O http://www.linux.com/dodo1.JPG
+# curl -O http://www.linux.com/dodo[1-5].JPG
+# curl -O http://www.linux.com/{hello,bb}/dodo[1-5].JPG                     # override problem ocurr!
+# curl -o #1_#2.JPG http://www.linux.com/{hello,bb}/dodo[1-5].JPG           # first file: hello_dodo1, second file: bb_dodo1
+
+# curl -O -u username:password ftp://www.linux.com/dodo1.JPG
+# curl -O ftp://username:password@www.linux.com/dodo1.JPG
+# curl -T dodo1.JPG -u username:password ftp://www.linux.com/img/           # upload file     
+
+# curl -# -O http://www.linux.com/dodo1.JPG                 # display the process
+# curl -s -O http://www.linux.com/dodo1.JPG                 # don't display the process
+
+
+Q:  Getting curl to output HTTP status code?
+    I'm using curl at the command line on Linux to issue HTTP requests. The response bodies are printed to standard out, 
+    which is fine, but I can't see from the man page how to get curl to print the HTTP status code from the response (404, 403 etc). 
+    Is this possible?
+    
+A:  This should work for you if the web server is able to respond to HEAD requests (this will not perform a GET):    
+    $ curl -I http://www.example.org
+    As an addition, to let cURL follow redirects (3xx statuses) add -L.
+    
+    A more specific way to print out just the HTTP status code is something along the lines of:
+    $ curl -s -o /dev/null -w "%{http_code}" http://www.example.org/
+    A lot easier to work with in scripts, as it doesn't require any parsing :-)
+
+    The parameter -I might be added to improve response load performance. This parameter just request for status/headers 
+    of response, without download response body. (%{http_code} returns on first line of HTTP payload)
+    i.e.:
+    $ curl -s -o /dev/null -I -w "%{http_code}" http://www.example.org/
+    
+    
