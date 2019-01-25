@@ -1,3 +1,20 @@
+Q:  How can I copy the contents of a folder to another folder in a different directory?
+A:  You can copy the content of a folder /source to another existing folder /dest with the command
+    $ cp -a /source/. /dest/
+    
+    The -a option is an improved recursive option, that preserve all file attributes, and also preserve symlinks.
+    The . at end of the source path is a specific cp syntax that allow to copy all files and folders, included hidden ones.        
+    ( -a equal -dR )
+
+    $ cp -R path_to_source path_to_destination/
+    $ cp -r path_to_source path_to_destination/
+    If destination doesn't exist, it will be created.
+    -R means copy directories recursively. You can also use -r since it's case-insensitive.    
+    If you don't want to include the source and you want to make sure everything is copied (symlinks, hidden files)
+    without copying the source parent folder is to use -ra source/. destination. This will make sure the content of the folder 
+    is copied, but not the parent folder itself, which is sometimes handy. And the difference is the /. 
+    
+
 Q:  Where is the bash manual?
 A:  https://www.gnu.org/software/bash/manual/bashref.html
 
