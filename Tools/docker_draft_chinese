@@ -1,3 +1,6 @@
+More information:
+https://yeasy.gitbooks.io/docker_practice/advanced_network/
+
 -----------------------------------------------  Proxy Configuration  ----------------------------------------------------------------
 
 Docker镜像库的代理配置（Docker daemon的的代理），官方地址：
