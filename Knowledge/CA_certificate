@@ -2,6 +2,7 @@ CA:  Certificate Authorities
 SSL: Secure Scoket Layer, SSL is the old name. It is called TLS these days.
 TSL: Transport Layer Security
 
+--------------------------------------------------- SSL vs TSL -----------------------------------------------------------------
 SSL was originally developed by Netscape and first came onto the scene way back in 1995 with SSL 2.0 
 (1.0 was never released to the public).  Version 2.0 was quickly replaced by SSL 3.0 in 1996 after a number of 
 vulnerabilities were found.  Note: Versions 2.0 and 3.0 are sometimes written as SSLv2 and SSLv3.
@@ -26,8 +27,8 @@ HTTPS要使客户端与服务器端的通信过程得到安全保证，必须使
 来保证非对称加密过程本身的安全。这样通过这些机制协商出一个对称加密算法，就此双方使用该算法进行加密解密。从而解决了客户端与服务器端之间的
 通信安全问题。
 
-CA Types
 
+--------------------------------------------------- CA Types -----------------------------------------------------------------
 DV SSL
 DV SSL证书是只验证网站域名所有权的简易型（Class 1级）SSL证书，可10分钟快速颁发，能起到加密传输的作用，但无法向用户证明网站的真实身份。
 目前市面上的免费证书都是这个类型的，只是提供了对数据的加密，但是对提供证书的个人和机构的身份不做验证。
@@ -48,9 +49,34 @@ EV SSL
 注意，通配符版只有 DVSSL 和 OVSSL 具有， EVSSL 不具有通配符版本。
 
 
+------------------------------------------- CA Public Certificate Bundle for cURL-----------------------------------------------
 What is the SSL Certificate Chain?
 https://support.dnsimple.com/articles/what-is-ssl-certificate-chain/
 
+Question: 
+I have a SSL enabled eCommerce website which uses cURL for payment processing. Everything is running well but recently 
+I learned about "CA Public Certification Bundle for cUrl" that its a good idea to use it for cURL connections.
+If this is true than can someone tell me how or how is it better/different than using the standard SSL?
 
+Answer:
+A "CA certificate bundle" would be a set of trust anchors. You can build your own by looking for CAs you're willing to
+trust, or you can use an existing bundle. Most OSes or browser come with an existing bundle. cURL in itself doesn't but
+it can rely on a pre-defined location (set at compile time) or it also suggests to use the Firefox bundle (via a
+conversion mechanism). (You can override default setting via extra options, on the command line or via the API.)
+
+Certificate Pinning (which you also mention) has nothing to do with a CA cert bundle. In fact, it's almost the opposite.
+Instead of relying on 3rd party trust anchors (the certification authorities), you explicitly "pin" a set of server
+certificates you know as directly trusted. They're not used to verify other certificates, instead, you compare the
+certificate you get with the exact certificate you're expecting for that host (or at least you compare public keys).
+This is more like having a reference mapping from server name to certificate (or to public key) and comparing what you
+get from that host with the reference you have. Of course, this can only work for a reasonably small set of certificates
+in practice, unlike the CA (PKI) approach which is designed to let you authenticate parties you have never encountered
+before (via a 3rd party: the CA).
+
+Using a CA certificate bundle isn't different than using "standard SSL", it is what's commonly used for SSL/TLS
+connections. You often don't see it because that CA bundle is often supplied with your client (or with the OS). Note
+that strictly speaking, this is orthogonal to SSL/TLS itself, which mainly just says you should authenticate the server.
+Certificate verification (the PKI way, via CA certificates) is defined in a different specification, also complemented
+by a specification on how to verify the name in the certificate (and the HTTPS specification of course).
 
 
