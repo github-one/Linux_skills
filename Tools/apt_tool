@@ -1,0 +1,54 @@
+Q:  How to add a GPG key to the apt sources keyring?
+A:  It is advisable that you add the Opera GPG key.
+    $ wget -qO - http://deb.opera.com/archive.key | sudo apt-key add -
+    
+    Now to verify that it worked, run this command (from this answer):
+    $ apt-key list
+    This will list the keys added and the key from Opera should be listed on the bottom like this:
+    pub   1024D/30C18A2B 2012-10-29 [expires: 2014-10-29]
+    uid                  Opera Software Archive Automatic Signing Key 2013 <packager@opera.com>
+    sub   4096g/C528FCA9 2012-10-29 [expires: 2014-10-29]
+    
+    You can remove the key if needed, using:
+    sudo apt-key del 30C18A2B
+    with 30C18A2B being the key-id from the list.
+
+    After performing that command, and setting up the sources exactly like in your screen-shot, do:
+    sudo apt-get update
+    sudo apt-get install opera
+
+
+
+
+== Question ==
+what is the function of /etc/apt/sources.list.d?
+I added LLVM Debian/Ubuntu nightly packages in the /etc/apt/sources.list.d directory as llvm.list. Then I ran apt-get
+update, but got the following error
+
+GPG Error: The LLVM Compiler Infrastructure Project llvm-toolchain-trusty InRelease: no public key，can not qulify the
+signature: NO_PUBKEY 15CF4D18AF4F7421 I thought if I added the source as a file in the directory, it will be seen as a
+package source. What else do I need to do?
+
+
+== Answer ==
+The function of the /etc/apt/sources.list.d directory is as follows:
+
+Using the directory you can easily add new repositories without the need to edit the central /etc/apt/sources.list file.
+I.e. you can just put a file with a unique name and the same format as /etc/apt/sources.list into this folder and it is
+used by apt.
+
+In order to remove this source again you can just remove that specific file without the need for handling side effects,
+parsing or mangling with /etc/apt/sources.list. It's mainly for scripts or other packages to put their repositories
+there automatically - if you manually add repositories you could add them to /etc/apt/sources.list manually.
+
+This answers your question, however, it won't solve your problem. APT is complaining about a missing GPG key which you
+have to manually import before you can use your newly added repository (GPG verifies all data cryptographically and
+needs the public keys of the owners for this).
+
+This can be done calling sudo apt-key add public-key-file or wget -qO - http://example.com/archive.key | sudo apt-key
+add - where http://example.com/archive.keyis the URL for the public key (which you should verify before using).
+
+In case of llvm, you could issue wget -O - http://llvm.org/apt/llvm-snapshot.gpg.key|sudo apt-key add - (according to
+http://llvm.org/apt/)
+
+
