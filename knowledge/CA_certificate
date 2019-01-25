@@ -1,0 +1,49 @@
+CA:  Certificate Authorities 
+SSL: Secure Scoket Layer, SSL is the old name. It is called TLS these days.
+TSL: Transport Layer Security
+
+SSL was originally developed by Netscape and first came onto the scene way back in 1995 with SSL 2.0 
+(1.0 was never released to the public).  Version 2.0 was quickly replaced by SSL 3.0 in 1996 after a number of 
+vulnerabilities were found.  Note: Versions 2.0 and 3.0 are sometimes written as SSLv2 and SSLv3.
+
+TLS was introduced in 1999 as a new version of SSL and was based on SSL 3.0:
+" The differences between this protocol and SSL 3.0 are not dramatic, but they are significant enough that TLS 1.0 and SSL 3.0 
+do not interoperate. "
+TLS is currently at v. 1.3 (defined in FRF 8446 in August 2018).
+
+it’s important to note that certificates are not dependent on protocols. 
+That is, you don’t need to use a TLS Certificate vs. an SSL Certificate. While many vendors tend to use 
+the phrase “SSL/TLS Certificate”, it may be more accurate to call them “Certificates for use with SSL and TLS", 
+since the protocols are determined by your server configuration, not the certificates themselves.
+
+It’s worth noting here that SSL and TLS simply refer to the handshake that takes place between a client and a server. 
+The handshake doesn’t actually do any encryption itself, it just agrees on a shared secret and type of encryption 
+that is going to be used.
+
+
+HTTPS要使客户端与服务器端的通信过程得到安全保证，必须使用的对称加密算法，但是协商对称加密算法的过程，需要使用非对称加密算法来保证安全，
+然而直接使用非对称加密的过程本身也不安全，会有中间人篡改公钥的可能性，所以客户端与服务器不直接使用公钥，而是使用数字证书签发机构颁发的证书
+来保证非对称加密过程本身的安全。这样通过这些机制协商出一个对称加密算法，就此双方使用该算法进行加密解密。从而解决了客户端与服务器端之间的
+通信安全问题。
+
+CA Types
+
+DV SSL
+DV SSL证书是只验证网站域名所有权的简易型（Class 1级）SSL证书，可10分钟快速颁发，能起到加密传输的作用，但无法向用户证明网站的真实身份。
+目前市面上的免费证书都是这个类型的，只是提供了对数据的加密，但是对提供证书的个人和机构的身份不做验证。
+
+OV SSL
+OV SSL,提供加密功能,对申请者做严格的身份审核验证,提供可信×××明。
+和DV SSL的区别在于，OV SSL 提供了对个人或者机构的审核，能确认对方的身份，安全性更高。所以这部分的证书申请是收费的~
+
+EV SSL
+超安=EV=最安全、最严格 超安EV SSL证书遵循全球统一的严格身份验证标准，是目前业界安全级别最高的顶级 (Class 4级)SSL证书。
+金融证券、银行、第三方支付、网上商城等，重点强调网站安全、企业可信形象的网站，涉及交易支付、客户隐私信息和账号密码的传输。
+这部分的验证要求最高，申请费用也是最贵的。
+
+根据保护域名的数量需求，SSL证书又分为：
+单域名版：只保护一个域名，例如 www.abc.com 或者 login.abc.com 之类的单个域名
+多域名版：一张证书可以保护多个域名，例如同时保护 www.abc.com , www.bcd.com, pay.efg.com 等
+通配符版：一张证书保护同一个主域名下同一级的所有子域名，不限个数，形如 *.abc.com 。
+注意，通配符版只有 DVSSL 和 OVSSL 具有， EVSSL 不具有通配符版本。
+
