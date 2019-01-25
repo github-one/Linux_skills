@@ -75,3 +75,25 @@ Docker 引擎无法获得这些位置的文件。如果真的需要，应该将�
 
 
 
+-----------------------------------------------  Nginx docker example  -----------------------------------------------------------
+$ docker pull nginx
+$ docker run -p 8080:80 -it nginx /bin/bash
+(nginx_docker prompt)$ nginx                      # run nginx
+
+Now open a browser on another computer: http://host_ip:8080
+If nginx web shows up, it means it works!
+Note: use host ip not docker container ip.
+
+Make a little change.
+$ docker cp <nginx_container_id>:/usr/share/nginx/html ~/nginx        # copy the container html directory
+$ vim ~/nginx/html/index.html                     # make a little change.
+Exit container now.
+$ docker run -p 8080:80 -v ~/nginx/html/:/usr/share/nginx/html -it nginx /bin/bash
+(nginx_docker prompt)$ nginx
+Now update the address to confirm the new webpage: http://host_ip:8080
+
+
+
+
+
+
