@@ -47,3 +47,10 @@ EV SSL
 通配符版：一张证书保护同一个主域名下同一级的所有子域名，不限个数，形如 *.abc.com 。
 注意，通配符版只有 DVSSL 和 OVSSL 具有， EVSSL 不具有通配符版本。
 
+
+What is the SSL Certificate Chain?
+https://support.dnsimple.com/articles/what-is-ssl-certificate-chain/
+
+
+
+
