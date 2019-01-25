@@ -1,0 +1,19 @@
+More information:
+https://www.zdnet.com/article/wannacry-ransomware-crisis-one-year-on-are-we-ready-for-the-next-global-cyber-attack/
+
+It's been a year since the gigantic WannaCry ransomware cyber attack caused chaos across the world, hitting more than 
+230,000 computers in total.
+The hard-drive encrypting malware spread so fast because the group behind it had combined normal malware with EternalBlue, 
+a leaked NSA hacking tool which allowed WannaCry to use worm-like capabilities to self-propagate on vulnerable Windows systems.
+
+
+2017年5月12日，WannaCry蠕虫通过MS17-010漏洞在全球范围大爆发，感染了大量的计算机，该蠕虫感染计算机后会向计算机中植入敲诈者病毒，
+导致电脑大量文件被加密。受害者电脑被黑客锁定后，病毒会提示支付价值相当于300美元（约合人民币2069元）的比特币才可解锁。
+
+WannaCry（又叫Wanna Decryptor），一种“蠕虫式”的勒索病毒软件，大小3.3MB，由不法分子利用NSA（National Security Agency，美国国家安全局）
+泄露的危险漏洞“EternalBlue”（永恒之蓝）进行传播。勒索病毒肆虐，俨然是一场全球性互联网灾难，给广大电脑用户造成了巨大损失。
+最新统计数据显示，100多个国家和地区超过10万台电脑遭到了勒索病毒攻击、感染。
+勒索病毒是自熊猫烧香以来影响力最大的病毒之一。WannaCry勒索病毒全球大爆发，至少150个国家、30万名用户中招，造成损失达80亿美元，已经影响到
+金融，能源，医疗等众多行业，造成严重的危机管理问题。中国部分Windows操作系统用户遭受感染，校园网用户首当其冲，受害严重，大量实验室数据和
+毕业设计被锁定加密。部分大型企业的应用系统和数据库文件被加密后，无法正常工作，影响巨大。
+
