@@ -2,7 +2,13 @@
 -----------------------------------------------  Nginx docker example  -----------------------------------------------------------
 $ docker pull nginx
 $ docker run -p 8080:80 -it nginx /bin/bash
-(nginx_docker prompt)$ nginx                      # run nginx
+(nginx_docker prompt)$ nginx                      # run nginx manually
+or
+$ docker run -p 8080:80 -d nginx                  # run nginx docker background
+Note: 
+1. nginx will automatically execute command: nginx -g "daemon off". 
+2. You may know it by "$ docker ps" or "$ docker inspect <nginx_id>" commands (notice "command" or "CMD" fields)
+
 
 Now open a browser on another computer: http://host_ip:8080
 If nginx web shows up, it means it works!
@@ -11,16 +17,14 @@ Note: use host ip not docker container ip.
 Make a little change.
 $ docker cp <nginx_container_id>:/usr/share/nginx/html ~/nginx        # copy the container html directory
 $ vim ~/nginx/html/index.html                     # make a little change.
-Exit container now.
-$ docker run -p 8080:80 -v ~/nginx/html/:/usr/share/nginx/html -it nginx /bin/bash
-(nginx_docker prompt)$ nginx
+Exit or stop nginx container now.
+$ docker run -p 8080:80 -v ~/nginx/html/:/usr/share/nginx/html -d nginx
 Now update the address to confirm the new webpage: http://host_ip:8080
 
 Make more changes.
 $ cp -r ~/ngnix/html ~/nginx/html_2
 $ vim ~/nginx/html_2/index.html                     # make a little change.
-$ docker run -p 8081:80 -v ~/nginx/html/:/usr/share/nginx/html -it nginx /bin/bash
-(nginx_docker prompt)$ nginx
+$ docker run -p 8081:80 -v ~/nginx/html/:/usr/share/nginx/html -d nginx
 Now update the address to confirm the new webpage: http://host_ip:8081
 Note: 8080 -> 8081
 
