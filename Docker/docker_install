@@ -43,3 +43,27 @@ $ docker pull hello-world
   "registry-mirrors": ["http://hub-mirror.c.163.com"]
 }
 
+
+-----------------------------------------------  Proxy for containers  --------------------------------------------------------------
+On the Docker client, create or edit the file ~/.docker/config.json in the home directory of the user which starts containers. 
+Add JSON such as the following, substituting the type of proxy with httpsProxy or ftpProxy if necessary, and substituting 
+the address and port of the proxy server. You can configure multiple proxy servers at the same time.
+
+You can optionally exclude hosts or ranges from going through the proxy server by setting a noProxy key to one or more 
+comma-separated IP addresses or hosts. Using the * character as a wildcard is supported, as shown in this example.
+
+{
+ "proxies":
+ {
+   "default":
+   {
+     "httpProxy": "http://username:password@proxyserver.company.com:8080",
+     "noProxy": "*.test.example.com,.example2.com"
+   }
+ }
+}
+
+Save the file.
+When you create or start new containers, the environment variables are set automatically within the container.
+
+
