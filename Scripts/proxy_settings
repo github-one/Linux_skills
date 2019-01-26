@@ -17,7 +17,7 @@ Ubuntu
     FTP_PROXY="http://myproxy.server.com:8080/"
     NO_PROXY="localhost,127.0.0.1,localaddress,.localdomain.com"
     
-    apt-get, aptitude, etc. will not obey teh environment variables when used normally with sudo.
+    apt-get, aptitude, etc. will not obey the environment variables when used normally with sudo.
     
 Ubuntu apt proxy settings
     Add the following lines in the file /etc/apt/apt.conf
