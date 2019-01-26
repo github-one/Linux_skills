@@ -1,0 +1,21 @@
+Q:  How to start a stopped Docker container with a different command?
+    I would like to start a stopped Docker container with a different command, as the default command crashes - meaning 
+    I can't start the container and then use 'docker exec'. 
+    Basically I would like to start a shell so I can inspect the contents of the container.
+    Luckily I created the container with the -it option!
+    
+A:  Find your stopped container id
+    $ docker ps -a
+    Commit the stopped container:
+    This command saves modified container state into a new image user/test_image
+
+    $ docker commit $CONTAINER_ID user/test_image
+    Start/run with a different entry point:
+    $ docker run -ti --entrypoint=sh user/test_image
+    
+    Note:
+    Steps above just start a stopped container with the same filesystem state. That is great for a quick investigation. 
+    But environment variables, network configuration, attached volumes and other staff is not inherited, you should 
+    specify all these arguments explicitly.
+    
+    
