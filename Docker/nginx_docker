@@ -1,3 +1,6 @@
+More information:
+http://nginx.org/en/docs/
+
 
 -----------------------------------------------  Nginx docker example  -----------------------------------------------------------
 $ docker pull nginx
