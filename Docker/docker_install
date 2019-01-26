@@ -66,4 +66,6 @@ comma-separated IP addresses or hosts. Using the * character as a wildcard is su
 Save the file.
 When you create or start new containers, the environment variables are set automatically within the container.
 
-
+Note:
+1. For the official ubuntu images, execute the following command before install softwares:
+    $ apt-get update    
