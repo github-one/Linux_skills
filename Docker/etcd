@@ -3,9 +3,7 @@ ectd: A distributed, reliable key-value store for the most critical data of a di
 More information:
 https://www.infoq.cn/article/etcd-interpretation-application-scenario-implement-principle           # in Chinese
 
-
-
-
+---------------------------------------  Introduction ------------------------------------------------------------------
 etcd is a distributed key value store that provides a reliable way to store data across a cluster of machines. 
 It’s open-source and available on GitHub. etcd gracefully handles leader elections during network partitions and 
 will tolerate machine failure, including the leader.
@@ -25,7 +23,22 @@ etcd 作为一个受到 ZooKeeper 与 doozer 启发而催生的项目，除了�
 对于应用数据，只推荐数据量很小，但是更新访问频繁的情况。
 
 
-
+---------------------------------------  Install and Examples ------------------------------------------------------------------
+$ apt-get install etcd
+$ apt-get install jq                         # a command line tool for json file processor.
+$ etcd -version                              # v2 or v3
+$ etcd                                       # the following examples is for v2
+$ curl -s http://127.0.0.1:2379/v2/keys/message -X PUT -d value="Hello world" | jq .            # set value          
+$ curl -s http://127.0.0.1:2379/v2/keys/message | jq .                                          # get value          
+$ curl -s http://127.0.0.1:2379/v2/keys/message -X PUT -d value="Hello etcd" | jq .             # change value
+$ curl -s http://127.0.0.1:2379/v2/keys/message -X DELETE | jq .
+$ curl -s http://127.0.0.1:2379/v2/keys/foo -X PUT -d value=bar -d ttl=5 |jq .
+$ curl -s http://127.0.0.1:2379/v2/keys/foo?wait=true
+$ curl -s http://127.0.0.1:2379/v2/keys/dir -XPUT -d dir=true | jq .
+$ curl -s http://127.0.0.1:2379/v2/keys/dir
+$ curl -s http://127.0.0.1:2379/v2/keys/dir?recursive=true
+$ curl -s http://127.0.0.1:2379/v2/keys/dir?recursive=true&wait=true
+$ curl -s http://127.0.0.1:2379/v2/keys/dir?dir=true -XDELETE
 
 
 ---------------------------------------  Raft consensus algorithm ------------------------------------------------------------------
@@ -118,8 +131,5 @@ Etcd 是coreos公司旗下的开源产品，比较新，以其简单好用的res
 虽然v3为了性能也改成二进制rpc接口了，但其易用性上比 Zookeeper 还是好一些。 而 Consul 的目标则更为具体一些，Etcd 和 Zookeeper 提供的是
 分布式一致性存储能力，具体的业务场景需要用户自己实现，比如服务发现，比如配置变更。而Consul 则以服务发现和配置变更为主要目标，同时附带了kv存储。
 在软件生态中，越抽象的组件适用范围越广，但同时对具体业务场景需求的满足上肯定有不足之处。           
-
-
-
 
 
