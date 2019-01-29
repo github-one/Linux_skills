@@ -59,6 +59,70 @@ $ curl -s http://127.0.0.1:2379/v2/keys/dir?recursive=true&wait=true
 $ curl -s http://127.0.0.1:2379/v2/keys/dir?dir=true -XDELETE
 
 
+---------------------------------------  Cluster Configuration ------------------------------------------------------------------
+192.168.10.147 # master节点(etcd,kubernetes-master)
+192.168.10.148 # node节点(etcd,kubernetes-node,docker,flannel)
+192.168.10.149 # node节点(etcd,kubernetes-node,docker,flannel)
+
+for master:
+$ vi /etc/etcd/etcd.conf
+# [member]
+ETCD_NAME=etcd1
+ETCD_DATA_DIR="/var/lib/etcd/etcd1.etcd"
+ETCD_LISTEN_PEER_URLS="http://192.168.10.147:2380"
+ETCD_LISTEN_CLIENT_URLS="http://192.168.10.147:2379,http://127.0.0.1:2379"
+CD_MAX_SNAPSHOTS="5"
+#
+#[cluster]
+ETCD_INITIAL_ADVERTISE_PEER_URLS="http://192.168.10.147:2380"
+# if you use different ETCD_NAME (e.g. test), set ETCD_INITIAL_CLUSTER value for this name, i.e. "test=http://..."
+ETCD_INITIAL_CLUSTER="etcd1=http://192.168.10.147:2380,etcd2=http://192.168.10.148:2380,etcd3=http://192.168.10.149:2380"
+ETCD_ADVERTISE_CLIENT_URLS="http://192.168.10.147:2379"
+
+for node1
+vi /etc/etcd/etcd.conf
+# [member]
+ETCD_NAME=etcd2
+ETCD_DATA_DIR="/var/lib/etcd/etcd2"
+ETCD_LISTEN_PEER_URLS="http://192.168.10.148:2380"
+ETCD_LISTEN_CLIENT_URLS="http://192.168.10.148:2379,http://127.0.0.1:2379"
+#
+#[cluster]
+ETCD_INITIAL_ADVERTISE_PEER_URLS="http://192.168.10.148:2380"
+# if you use different ETCD_NAME (e.g. test), set ETCD_INITIAL_CLUSTER value for this name, i.e. "test=http://..."
+ETCD_INITIAL_CLUSTER="etcd1=http://192.168.10.147:2380,etcd2=http://192.168.10.148:2380,etcd3=http://192.168.10.149:2380"
+ETCD_ADVERTISE_CLIENT_URLS="http://192.168.10.148:2379"
+
+for node2
+...
+
+至此etcd集群就部署完了，然后每个节点上启动
+$ systemctl start kube-apiserver
+验证：
+[root@k8s1 ~]# etcdctl cluster-health
+member 35300bfb5308e02c is healthy: got healthy result from http://192.168.10.147:2379
+member 776c306b60e6f972 is healthy: got healthy result from http://192.168.10.149:2379
+member a40f86f061be3fbe is healthy: got healthy result from http://192.168.10.148:2379
+
+
+针对几个URLS做下简单的解释：
+[member]
+ETCD_NAME ：ETCD的节点名
+ETCD_DATA_DIR：ETCD的数据存储目录
+ETCD_SNAPSHOT_COUNTER：多少次的事务提交将触发一次快照
+ETCD_HEARTBEAT_INTERVAL：ETCD节点之间心跳传输的间隔，单位毫秒
+ETCD_ELECTION_TIMEOUT：该节点参与选举的最大超时时间，单位毫秒
+ETCD_LISTEN_PEER_URLS：该节点与其他节点通信时所监听的地址列表，多个地址使用逗号隔开，其格式可以划分为scheme://IP:PORT，
+这里的scheme可以是http、https
+ETCD_LISTEN_CLIENT_URLS：该节点与客户端通信时监听的地址列表
+[cluster]
+ETCD_INITIAL_ADVERTISE_PEER_URLS：该成员节点在整个集群中的通信地址列表，这个地址用来传输集群数据的地址。
+因此这个地址必须是可以连接集群中所有的成员的。
+ETCD_INITIAL_CLUSTER：配置集群内部所有成员地址，其格式为：ETCD_NAME=ETCD_INITIAL_ADVERTISE_PEER_URLS，如果有多个使用逗号隔开
+ETCD_ADVERTISE_CLIENT_URLS：广播给集群中其他成员自己的客户端地址列表
+
+
+
 ---------------------------------------  Raft consensus algorithm ------------------------------------------------------------------
 More information:
 https://www.brianstorti.com/raft/
