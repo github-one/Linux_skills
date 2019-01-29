@@ -1,6 +1,7 @@
 ectd: A distributed, reliable key-value store for the most critical data of a distributed system.
 
 More information:
+https://coreos.com/etcd/
 https://www.infoq.cn/article/etcd-interpretation-application-scenario-implement-principle           # in Chinese
 
 ---------------------------------------  Introduction ------------------------------------------------------------------
@@ -24,10 +25,26 @@ etcd 作为一个受到 ZooKeeper 与 doozer 启发而催生的项目，除了�
 
 
 ---------------------------------------  Install and Examples ------------------------------------------------------------------
+More information: https://coreos.com/etcd/docs/latest/getting-started-with-etcd.html
+
 $ apt-get install etcd
 $ apt-get install jq                         # a command line tool for json file processor.
 $ etcd -version                              # v2 or v3
 $ etcd                                       # the following examples is for v2
+
+$ etcdctl set /message Hello
+Hello
+$ etcdctl get /message
+Hello
+$ etcdctl rm /message
+$ etcdctl mkdir /foo-service
+Cannot print key [/foo-service: Is a directory]
+$ etcdctl set /foo-service/container1 localhost:1111
+localhost:1111
+$ etcdctl ls /foo-service
+/foo-service/container1
+$ etcdctl watch --recursive /foo-service
+
 $ curl -s http://127.0.0.1:2379/v2/keys/message -X PUT -d value="Hello world" | jq .            # set value          
 $ curl -s http://127.0.0.1:2379/v2/keys/message | jq .                                          # get value          
 $ curl -s http://127.0.0.1:2379/v2/keys/message -X PUT -d value="Hello etcd" | jq .             # change value
