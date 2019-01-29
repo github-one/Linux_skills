@@ -2,7 +2,8 @@ Official website:
     https://kubernetes.io/zh/docs/
 
 Conception reference:  
-    http://www.dockone.io/article/932
-    https://www.cnblogs.com/menkeyi/p/7134460.html
-    https://www.kubernetes.org.cn/doc-11
-    https://blog.csdn.net/real_myth/article/details/78719244
+    http://www.dockone.io/article/932                               # 十分钟带你理解Kubernets核心概念
+    https://www.cnblogs.com/menkeyi/p/7134460.html                  # K8s基础概念
+    https://www.kubernetes.org.cn/doc-11                            # Kubernetes中文文档
+    https://blog.csdn.net/real_myth/article/details/78719244        # k8s docker集群搭建
+    https://www.cnblogs.com/galengao/p/5780938.html                 # Kubernetes集群的安全部署，比较简单易懂介绍
