@@ -1,0 +1,95 @@
+ectd: A distributed, reliable key-value store for the most critical data of a distributed system.
+
+
+etcd is a distributed key value store that provides a reliable way to store data across a cluster of machines. 
+It’s open-source and available on GitHub. etcd gracefully handles leader elections during network partitions and 
+will tolerate machine failure, including the leader.
+
+Your applications can read and write data into etcd. A simple use-case is to store database connection details or 
+feature flags in etcd as key value pairs. These values can be watched, allowing your app to reconfigure itself when they change.
+Advanced uses take advantage of the consistency guarantees to implement database leader elections or do distributed locking 
+across a cluster of workers.
+
+
+---------------------------------------  Raft consensus algorithm ------------------------------------------------------------------
+More information:
+https://www.brianstorti.com/raft/
+https://www.geeksforgeeks.org/raft-consensus-algorithm/
+https://raft.github.io/
+https://www.cnblogs.com/softidea/p/6517959.html     #中文介绍
+
+
+Introduction:
+Raft protocol was developed by Diego Ongaro and John Ousterhout (Stanford University) which won Diego his Ph.D in 2014. 
+Raft was designed for better understandability of how Consensus can be achieved considering that its predecessor, the Paxos Algorithm, 
+developed by Lesli Lamport is very difficult to understand and implement. Before Raft, Paxos was considered the holy grail 
+in achieving Consensus.
+
+Consensus:
+Consensus means multiple servers agreeing on same information, something imperative to design fault-tolerant distributed systems.
+
+A consensus protocol tolerating failures must have the following features :
+Validity : If a process decides(read/write) a value, then it must have been proposed by some other correct process
+Agreement : Every correct process must agree on the same value
+Termination : Every correct process must terminate after a finite number of steps.
+Integrity : If all correct processes decide on the same value, then any process has the said value.
+
+We shall now define some terms used to refer individual servers in a distributed system.
+Leader – Only the server elected as leader can interact with the client. All other servers sync up themselves with the leader. 
+         At any point of time, there can be at most one leader(possibly 0, which we shall explain later)
+Follower – Follower servers sync up their copy of data with that of the leader’s after every regular time intervals. 
+           When the leader server goes down(due to any reason), one of the followers can contest an election and become the leader.
+Candidate – At the time of contesting an election to choose the leader server, the servers can ask other servers for votes. 
+            Hence, they are called candidates when they have requested votes. Initially, all servers are in the Candidate state.
+        
+        
+Raft协议主要分为三个部分：选主，日志复制，安全性。
+5.1 选主
+Raft协议是用于维护一组服务节点数据一致性的协议。这一组服务节点构成一个集群，并且有一个主节点来对外提供服务。当集群初始化，或者主节点挂掉后，
+面临一个选主问题。集群中每个节点，任意时刻处于Leader, Follower, Candidate这三个角色之一。选举特点如下：
+
+当集群初始化时候，每个节点都是Follower角色；
+集群中存在至多1个有效的主节点，通过心跳与其他节点同步数据；
+当Follower在一定时间内没有收到来自主节点的心跳，会将自己角色改变为Candidate，并发起一次选主投票；当收到包括自己在内超过半数节点赞成后，
+选举成功；当收到票数不足半数选举失败，或者选举超时。若本轮未选出主节点，将进行下一轮选举（出现这种情况，是由于多个节点同时选举，所有节点均为
+获得过半选票）。
+Candidate节点收到来自主节点的信息后，会立即终止选举过程，进入Follower角色。
+
+为了避免陷入选主失败循环，每个节点未收到心跳发起选举的时间是一定范围内的随机值，这样能够避免2个节点同时发起选主。
+
+5.2 日志复制
+所谓日志复制，是指主节点将每次操作形成日志条目，并持久化到本地磁盘，然后通过网络IO发送给其他节点。其他节点根据日志的逻辑时钟(TERM)和
+日志编号(INDEX)来判断是否将该日志记录持久化到本地。当主节点收到包括自己在内超过半数节点成功返回，那么认为该日志是可提交的(committed），
+并将日志输入到状态机，将结果返回给客户端。
+
+这里需要注意的是，每次选主都会形成一个唯一的TERM编号，相当于逻辑时钟。每一条日志都有全局唯一的编号。
+
+主节点通过网络IO向其他节点追加日志。若某节点收到日志追加的消息，首先判断该日志的TERM是否过期，以及该日志条目的INDEX是否比当前以及提交的
+日志的INDEX跟早。若已过期，或者比提交的日志更早，那么就拒绝追加，并返回该节点当前的已提交的日志的编号。否则，将日志追加，并返回成功。
+
+当主节点收到其他节点关于日志追加的回复后，若发现有拒绝，则根据该节点返回的已提交日志编号，发生其编号下一条日志。
+
+主节点像其他节点同步日志，还作了拥塞控制。具体地说，主节点发现日志复制的目标节点拒绝了某次日志追加消息，将进入日志探测阶段，一条一条发送日志，
+直到目标节点接受日志，然后进入快速复制阶段，可进行批量日志追加。
+
+按照日志复制的逻辑，我们可以看到，集群中慢节点不影响整个集群的性能。另外一个特点是，数据只从主节点复制到Follower节点，这样大大简化了逻辑流程。
+
+5.3 安全性
+截止此刻，选主以及日志复制并不能保证节点间数据一致。试想，当一个某个节点挂掉了，一段时间后再次重启，并当选为主节点。而在其挂掉这段时间内，
+集群若有超过半数节点存活，集群会正常工作，那么会有日志提交。这些提交的日志无法传递给挂掉的节点。当挂掉的节点再次当选主节点，它将缺失部分
+已提交的日志。在这样场景下，按Raft协议，它将自己日志复制给其他节点，会将集群已经提交的日志给覆盖掉。
+
+这显然是不可接受的。
+
+其他协议解决这个问题的办法是，新当选的主节点会询问其他节点，和自己数据对比，确定出集群已提交数据，然后将缺失的数据同步过来。这个方案有明显缺陷，
+增加了集群恢复服务的时间（集群在选举阶段不可服务），并且增加了协议的复杂度。
+
+Raft解决的办法是，在选主逻辑中，对能够成为主的节点加以限制，确保选出的节点已定包含了集群已经提交的所有日志。如果新选出的主节点已经包含了集群
+所有提交的日志，那就不需要从和其他节点比对数据了。简化了流程，缩短了集群恢复服务的时间。
+
+这里存在一个问题，加以这样限制之后，还能否选出主呢？答案是：只要仍然有超过半数节点存活，这样的主一定能够选出。因为已经提交的日志必然被集群中
+超过半数节点持久化，显然前一个主节点提交的最后一条日志也被集群中大部分节点持久化。当主节点挂掉后，集群中仍有大部分节点存活，那这存活的节点中
+一定存在一个节点包含了已经提交的日志了。
+
+           
+            
