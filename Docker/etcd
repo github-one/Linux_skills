@@ -4,6 +4,7 @@ More information:
 https://coreos.com/etcd/
 https://www.infoq.cn/article/etcd-interpretation-application-scenario-implement-principle           # in Chinese
 
+
 ---------------------------------------  Introduction ------------------------------------------------------------------
 etcd is a distributed key value store that provides a reliable way to store data across a cluster of machines. 
 It’s open-source and available on GitHub. etcd gracefully handles leader elections during network partitions and 
