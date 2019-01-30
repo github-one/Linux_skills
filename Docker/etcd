@@ -76,6 +76,8 @@ etcd 集群启动时的配置信息目前变为完全固定，这样有助于用
 192.168.10.148 # node节点(etcd,kubernetes-node,docker,flannel)
 192.168.10.149 # node节点(etcd,kubernetes-node,docker,flannel)
 
+systemd file: /usr/bin/systemd/system/etcd.service
+
 for master:
 $ vi /etc/etcd/etcd.conf
 # [member]
