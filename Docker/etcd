@@ -60,6 +60,16 @@ $ curl -s http://127.0.0.1:2379/v2/keys/dir?recursive=true&wait=true
 $ curl -s http://127.0.0.1:2379/v2/keys/dir?dir=true -XDELETE
 
 
+--------------------------------------- Version Differences ------------------------------------------------------------------
+获得了 IANA 认证的端口，2379 用于客户端通信，2380 用于节点通信，与原先的（4001 peers / 7001 clients）共用。
+每个节点可监听多个广播地址。监听的地址由原来的一个扩展到多个，用户可以根据需求实现更加复杂的集群环境，如一个是公网 IP，
+一个是虚拟机（容器）之类的私有 IP。
+etcd 集群和集群中的节点都有了自己独特的 ID。这样就防止出现配置混淆，不是本集群的其他 etcd 节点发来的请求将被屏蔽。
+etcd 集群启动时的配置信息目前变为完全固定，这样有助于用户正确配置和启动。
+
+新版 etcd 区别于旧版的一大特性: 它摒弃了使用配置文件进行参数配置的做法，转而使用命令行参数或者环境变量的做法来配置参数。
+
+
 ---------------------------------------  Cluster Configuration ------------------------------------------------------------------
 192.168.10.147 # master节点(etcd,kubernetes-master)
 192.168.10.148 # node节点(etcd,kubernetes-node,docker,flannel)
@@ -122,6 +132,39 @@ ETCD_INITIAL_ADVERTISE_PEER_URLS：该成员节点在整个集群中的通信地
 ETCD_INITIAL_CLUSTER：配置集群内部所有成员地址，其格式为：ETCD_NAME=ETCD_INITIAL_ADVERTISE_PEER_URLS，如果有多个使用逗号隔开
 ETCD_ADVERTISE_CLIENT_URLS：广播给集群中其他成员自己的客户端地址列表
 
+------------------------------  Configuration by Environment Variables and Startup arguments ---------------------------------------
+
+在每个 etcd 机器启动时，配置环境变量或者添加启动参数的方式如下。
+ETCD_INITIAL_CLUSTER="infra0=http://10.0.1.10:2380,infra1=http://10.0.1.11:2380,infra2=http://10.0.1.12:2380"
+ETCD_INITIAL_CLUSTER_STATE=new
+
+参数方法：
+-initial-cluster 
+infra0=http://10.0.1.10:2380,http://10.0.1.11:2380,infra2=http://10.0.1.12:2380 \
+ -initial-cluster-state new
+值得注意的是，-initial-cluster参数中配置的 url 地址必须与各个节点启动时设置的initial-advertise-peer-urls参数相同。
+（initial-advertise-peer-urls参数表示节点监听其他节点同步信号的地址）
+如果你所在的网络环境配置了多个 etcd 集群，为了避免意外发生，最好使用-initial-cluster-token参数为每个集群单独配置一个 token 认证。
+这样就可以确保每个集群和集群的成员都拥有独特的 ID。
+
+综上所述，如果你要配置包含 3 个 etcd 节点的集群，那么你在三个机器上的启动命令分别如下所示。
+$ etcd -name infra0 -initial-advertise-peer-urls http://10.0.1.10:2380 \
+  -listen-peer-urls http://10.0.1.10:2380 \
+  -initial-cluster-token etcd-cluster-1 \
+  -initial-cluster infra0=http://10.0.1.10:2380,infra1=http://10.0.1.11:2380,infra2=http://10.0.1.12:2380 \
+  -initial-cluster-state new
+
+$ etcd -name infra1 -initial-advertise-peer-urls http://10.0.1.11:2380 \
+  -listen-peer-urls http://10.0.1.11:2380 \
+  -initial-cluster-token etcd-cluster-1 \
+  -initial-cluster infra0=http://10.0.1.10:2380,infra1=http://10.0.1.11:2380,infra2=http://10.0.1.12:2380 \
+  -initial-cluster-state new
+
+$ etcd -name infra2 -initial-advertise-peer-urls http://10.0.1.12:2380 \
+  -listen-peer-urls http://10.0.1.12:2380 \
+  -initial-cluster-token etcd-cluster-1 \
+  -initial-cluster infra0=http://10.0.1.10:2380,infra1=http://10.0.1.11:2380,infra2=http://10.0.1.12:2380 \
+  -initial-cluster-state new
 
 
 ---------------------------------------  Raft consensus algorithm ------------------------------------------------------------------
