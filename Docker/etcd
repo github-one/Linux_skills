@@ -3,6 +3,7 @@ ectd: A distributed, reliable key-value store for the most critical data of a di
 More information:
 https://coreos.com/etcd/
 https://www.infoq.cn/article/etcd-interpretation-application-scenario-implement-principle           # in Chinese
+https://coreos.com/etcd/docs/latest/v2/clustering.html          # Clustering Guide
 
 
 
