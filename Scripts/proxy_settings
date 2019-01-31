@@ -93,8 +93,8 @@ SUSE proxy settings
     ...
     
     then logout, then login, you may confirm the settings by the following commands:
-    #curl www.google.com
-    #wget www.google.com
+    # curl www.google.com
+    # wget www.google.com
     
     
 --------------------------------- no_proxy -----------------------------------------------    
