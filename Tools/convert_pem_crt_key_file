@@ -1,6 +1,7 @@
 More information:
 https://stackoverflow.com/questions/13732826/convert-pem-to-crt-and-key
 https://www.digicert.com/ssl-support/pem-ssl-creation.htm
+https://blog.hqcodeshop.fi/archives/157-Installing-own-CA-root-certificate-into-openSUSE.html
 
 
 -----Converting Using OpenSSL----
