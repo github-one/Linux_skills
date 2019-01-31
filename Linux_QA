@@ -1,3 +1,9 @@
+Q:  How to find linux processor/chip architecture?
+A:  $ uname -a
+    $ uname -p
+    $ cat /proc/cupinfo
+    $ lscpu
+
 Q:  How can I copy the contents of a folder to another folder in a different directory?
 A:  You can copy the content of a folder /source to another existing folder /dest with the command
     $ cp -a /source/. /dest/
