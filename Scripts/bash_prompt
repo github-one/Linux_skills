@@ -1,0 +1,124 @@
+More inoformation:
+https://www.gnu.org/software/bash/manual/bashref.html
+https://www.thegeekstuff.com/2008/09/bash-shell-ps1-10-examples-to-make-your-linux-prompt-like-angelina-jolie/
+
+
+PS stands for prompt statement. 
+PS1 – Default interaction prompt. PS1 stands for "Prompt String One" or "Prompt Statement One", the first prompt string 
+      (that you see at a command line).
+PS2 – Continuation interactive prompt
+PS3 – Prompt used by “select” inside shell script
+PS4 – Used by “set -x” to prefix tracing output
+
+
+-------------------------------------------------  Examples  ---------------------------------------------------------------------
+$ echo $PS1
+$ PS1="touch me : "
+$ export PS1="\u@\h \w> "                       # Display username, hostname and current working directory 
+$ export PS1="\u@\h [\$(date +%k:%M:%S)]> "     # Display current time in the prompt
+$ export PS1="\u@\h [\t]> "
+$ export PS1="[\@] \u@\h> "
+
+$ kernel_version=$(uname -r)
+$ export PS1="\!|\h|$kernel_version|\$?> "
+
+$ export PS1="\e[0;34m\u@\h \w> \e[m"           # This is for light blue prompt
+$ export PS1="\e[1;34m\u@\h \w> \e[m"           # This is for dark blue prompt
+$ export PS1="\e[47m\u@\h \w> \e[m"             # This is for Light Gray background
+$ export PS1="\e[0;34m\e[47m\u@\h \w> \e[m"     # This is for Light Blue foreground and Light Gray background
+
+$ export PS1="\[$(tput bold)$(tput setb 4)$(tput setaf 7)\]\u@\h:\w $ \[$(tput sgr0)\]"
+
+
+-------------------------------------------  Controling the Prompt  --------------------------------------------------------------
+\d              The date, in "Weekday Month Date" format (e.g., "Tue May 26").
+\D{format}      The format is passed to strftime(3) and the result is inserted into the prompt string; an empty format results in 
+                    a locale-specific time representation. The braces are required.
+\t              The time, in 24-hour HH:MM:SS format.
+\T              The time, in 12-hour HH:MM:SS format.
+\@              The time, in 12-hour am/pm format.
+\A              The time, in 24-hour HH:MM format.
+
+\h              The hostname, up to the first ‘.’.
+\H              The hostname.
+\s              The name of the shell, the basename of $0 (the portion following the final slash).
+\u              The username of the current user.
+\v              The version of Bash (e.g., 2.00)
+\V              The release of Bash, version + patchlevel (e.g., 2.00.0)
+\w              The current working directory, with $HOME abbreviated with a tilde (uses the $PROMPT_DIRTRIM variable).
+                Full pathname of current directory. When you are in the home directory, this will display only '~'.
+\W              The basename of $PWD, with $HOME abbreviated with a tilde.
+\!              The history number of this command.
+\#              The command number of this command.
+\$              If the effective uid is 0, #, otherwise $.
+
+\n              A newline.
+\r              A carriage return.
+\nnn            The character whose ASCII code is the octal value nnn.
+\\              A backslash.
+\[              Begin a sequence of non-printing characters. This could be used to embed a terminal control sequence into the prompt.
+\]              End a sequence of non-printing characters.
+
+-------------------------------------------  Color Setting  --------------------------------------------------------------
+\e[             Indicates the beginning of color prompt
+x;ym            Indicates color code. Use the color code values mentioned below.
+\e[m            indicates the end of color prompt
+
+Color Code Table:
+Black 0;30
+Blue 0;34
+Green 0;32
+Cyan 0;36
+Red 0;31
+Purple 0;35
+Brown 0;33
+[Note: Replace 0 with 1 for dark color]
+
+Using the following background color and choose the one that suites your taste:
+\e[40m
+\e[41m
+\e[42m
+\e[43m
+\e[44m
+\e[45m
+\e[46m
+\e[47m
+
+
+Make the color change permanent by adding the following lines to .bash_profile or .bashrc
+STARTCOLOR='\e[0;34m';
+ENDCOLOR="\e[0m"
+export PS1="$STARTCOLOR\u@\h \w> $ENDCOLOR"
+
+Add the following to the .bash_profile or .bashrc to make the background and foreground color permanent.
+STARTFGCOLOR='\e[0;34m';
+STARTBGCOLOR="\e[47m"
+ENDCOLOR="\e[0m"
+export PS1="$STARTFGCOLOR$STARTBGCOLOR\u@\h \w> $ENDCOLOR"
+
+tput Color Capabilities:
+tput setab [1-7] – Set a background color using ANSI escape
+tput setb [1-7] – Set a background color
+tput setaf [1-7] – Set a foreground color using ANSI escape
+tput setf [1-7] – Set a foreground color
+
+tput Text Mode Capabilities:
+tput bold – Set bold mode
+tput dim – turn on half-bright mode
+tput smul – begin underline mode
+tput rmul – exit underline mode
+tput rev – Turn on reverse mode
+tput smso – Enter standout mode (bold on rxvt)
+tput rmso – Exit standout mode
+tput sgr0 – Turn off all attributes
+
+Color Code for tput:
+0 – Black
+1 – Red
+2 – Green
+3 – Yellow
+4 – Blue
+5 – Magenta
+6 – Cyan
+7 – White
+
