@@ -46,5 +46,17 @@ A:  This should work for you if the web server is able to respond to HEAD reques
 3 NSS error -9191 (SEC_ERROR_EXPIRED_CERTIFICATE),  update CA file or use ntp to update network time.
 4 update curl software
 
+执行 curl https://xxx/apt/doc/apt-key.gpg
+output: gpg:  no valid openPGP data found.
+原因：缺https证书。从IE中导出公司的web安全证书（选BASE64编码），证书名字随意。
+方法：
+1.  internet选项-内容-受信任的根证书颁发机构-Huawei Web Secure Internet Gateway CA-导出-BASE64编码
+2.  将证书后缀修改为crt，放到/usr/local/share/ca-certificates目录下
+3.  $ update-ca-certificates
+4.  $ curl https://xxx/apt/doc/apt-key.gpg
+
+
+
+
 
 
