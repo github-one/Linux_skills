@@ -1,0 +1,33 @@
+
+由于AMD64和Intel64基本上一致，很多软硬件产品都使用一种不倾向任何一方的词汇来表明它们对两种架构的同时兼容。
+出于这个目的，AMD对这种CPU架构的原始称呼——“x86-64”被不时地使用，还有变体“x86_64”。
+其他公司如微软和太阳计算机系统公司在营销资料中使用“x64”作为对“x86-64”的缩写。
+许多操作系统及产品，尤其那些是在Intel进入这块市场之前就引入“x86-64”支持的，使用“AMD64”或“amd64”同时指代AMD64和Intel64。
+BSD系统，如FreeBSD、NetBSD和OpenBSD将AMD64和Intel64都称作“amd64”。
+Debian、Ubuntu、和Gentoo将AMD64和Intel64都称作“amd64”。
+Fedora PackageKit称64位架构为“x86_64”。
+Java Development Kit（JDK）：包含x86-64文件的目录命名为“amd64”。
+Mac OS X：终端下的命令arch以及开发人员文档都表明苹果称64位架构为“x86_64”。
+Microsoft Windows：x64版本的Windows使用AMD64标明在IA-32处理器上使用64位技术的各种组件。
+例如，Windows x64版安装CD上的系统目录命名为“AMD64”，而32位版本上用“i386”。
+Solaris：操作系统的命令isalist将AMD64和Intel64都定义成“amd64”。
+
+x86_64 is name of specific 64-bit ISA. This instruction set was released in 1999 by AMD (Advanced Micro Devices). 
+AMD later rebranded it to amd64.
+Other 64-bit ISA different from x86_64 is IA-64 (released by Intel in 1999).
+
+
+英特尔出了划时代的8086之后，后来使用该架构出了80286、80386等等，这一系列CPU就称作x86，正式一点称作IA-32（Intel Architecture 32-bit）。
+
+x86指的是一种cpu的架构，X与处理器没有任何关系，它是一个对所有*86系统的简单的通配符定义，是一个intel通用计算机系列的编号,
+也标识一套通用的计算机指节集合，例如：i386, 586,奔腾(pentium)。x86架构的特点是cpu的寄存器是32位的，因此也叫32位cpu。
+基于32位cpu开发的操作系统就叫32位操作系统，因为目前x86架构在32位cpu的知名度，32位操作系统也通常被称为x86系统。
+
+AMD领先Intel率先制造出了商用的兼容x86的64位CPU，AMD称之为AMD64，抢了64位PC的第一桶金，得到了用户的认同。
+The first AMD64-based processor, the Opteron, was released in April 2003.
+Intel选择了设计一种不兼容x86的全新64为指令集，称之为IA-64，但是比amd晚了一步，而且IA-64也挺惨淡的，因为是全新设计的CPU，没有编译器，
+也不支持windows（微软把intel给忽悠了，承诺了会出安腾版windows server版，但是迟迟拿不出东西），不得不在时机落后的情况下也开始支持AMD64的指令集，
+但是换了个名字，叫x86_64，表示是x86指令集的64扩展。
+
+实际上，x86_64,x64,AMD64基本上是同一个东西，我们现在用的intel/amd的桌面级CPU基本上都是x86_64
+
