@@ -1,5 +1,7 @@
 More information:
 https://stackoverflow.com/questions/13732826/convert-pem-to-crt-and-key
+https://www.digicert.com/ssl-support/pem-ssl-creation.htm
+
 
 -----Converting Using OpenSSL----
 Convert a DER file (.crt .cer .der) to PEM
