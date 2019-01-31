@@ -14,6 +14,7 @@ PS4 – Used by “set -x” to prefix tracing output
 -------------------------------------------------  Examples  ---------------------------------------------------------------------
 $ echo $PS1
 $ PS1="touch me : "
+$ export PS1="\u \\$ "
 $ export PS1="\u@\h \w> "                       # Display username, hostname and current working directory 
 $ export PS1="\u@\h [\$(date +%k:%M:%S)]> "     # Display current time in the prompt
 $ export PS1="\u@\h [\t]> "
