@@ -27,7 +27,7 @@ $ export PS1="\e[0;34m\u@\h \w> \e[m"           # This is for light blue prompt
 $ export PS1="\e[1;34m\u@\h \w> \e[m"           # This is for dark blue prompt
 $ export PS1="\e[47m\u@\h \w> \e[m"             # This is for Light Gray background
 $ export PS1="\e[0;34m\e[47m\u@\h \w> \e[m"     # This is for Light Blue foreground and Light Gray background
-$ PS1="\e[1;31m[\t SUSE-1:\w\\\$ "              # for SUSE 
+$ PS1="\e[1;31m[\t SUSE-1:\w]\\$ \e[m"          # for SUSE 
 
 $ export PS1="\[$(tput bold)$(tput setb 4)$(tput setaf 7)\]\u@\h:\w $ \[$(tput sgr0)\]"
 
