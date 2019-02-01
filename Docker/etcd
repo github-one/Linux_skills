@@ -27,7 +27,7 @@ etcd 作为一个受到 ZooKeeper 与 doozer 启发而催生的项目，除了�
 对于应用数据，只推荐数据量很小，但是更新访问频繁的情况。
 
 
----------------------------------------  Install and Examples ------------------------------------------------------------------
+---------------------------------------  Install and Examples for V2 -----------------------------------------------------------
 More information: https://coreos.com/etcd/docs/latest/getting-started-with-etcd.html
 
 $ apt-get install etcd
@@ -59,6 +59,19 @@ $ curl -s http://127.0.0.1:2379/v2/keys/dir
 $ curl -s http://127.0.0.1:2379/v2/keys/dir?recursive=true
 $ curl -s http://127.0.0.1:2379/v2/keys/dir?recursive=true&wait=true
 $ curl -s http://127.0.0.1:2379/v2/keys/dir?dir=true -XDELETE
+
+
+---------------------------------------  Install and Examples for V3 ---------------------------------------------------------
+$ curl -L https://github.com/etcd-io/etcd/releases/download/v3.3.11/etcd-v3.3.11-linux-amd64.tar.gz -o etcd-v3.3.11.tar.gz
+$ tar xzvf etcd-v3.3.11.tar.gz && cd etcd-v3.3.11
+$ cp etcd /usr/bin
+$ cp etcdctl /usr/bin
+$ etcd --version
+$ etcdctl --version
+$ etcd
+$ export ETCDCTL_API=3
+$ etcdctl put foo "hello world"
+$ etcdctl get foo
 
 
 --------------------------------------- Version Differences ------------------------------------------------------------------
