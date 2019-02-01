@@ -1,3 +1,10 @@
+Q:  The dash before the path?
+    [Service]
+    EnvironmentFile=-/etc/environment
+A:  The dash before the path signifies "go ahead and start if this file is missing" ,
+    otherwise if the file doesn't exist, the unit file would fail to start.  
+
+
 Q:  How to find linux processor/chip architecture?
 A:  $ uname -a
     $ uname -p
