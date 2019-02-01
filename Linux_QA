@@ -1,7 +1,10 @@
 Q:  The dash before the path?
     [Service]
     EnvironmentFile=-/etc/environment
-A:  The dash before the path signifies "go ahead and start if this file is missing" ,
+A:  The argument passed should be an absolute filename or wildcard expression, optionally prefixed with "-", 
+    which indicates that if the file does not exist, it will not be read and no error or warning message is logged.
+    
+    The dash before the path signifies "go ahead and start if this file is missing" ,
     otherwise if the file doesn't exist, the unit file would fail to start.  
 
 
