@@ -90,6 +90,9 @@ SUSE proxy settings
     
     PROXY_ENABLED="yes"
     HTTP_PROXY="http://myname:mypassword@myproxy.server.com:8080"
+    HTTPS_PROXY="http://myname:mypassword@myproxy.server.com:8080"
+    FTP_PROXY="http://myname:mypassword@myproxy.server.com:8080"
+    NO_PROXY="localhost, 127.0.0.1"
     ...
     
     then logout, then login, you may confirm the settings by the following commands:
