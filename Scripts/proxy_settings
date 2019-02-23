@@ -1,4 +1,4 @@
-
+---------------------------------------------- Ubuntu -------------------------------------------------------    
 Ubuntu
     System-wide proxies in Ubuntu must be set as environment variables. 
     For temporary settings, you may use "export" command to set proxy variables.
@@ -57,7 +57,7 @@ Ubuntu curl proxy settings
     http_proxy=http://myname:mypassowrd@myproxy.server.com:8080
     http_proxy=http://myname:mypassowrd@myproxy.server.com:8080
     
-    
+------------------------------------------------- CentOS ----------------------------------------------------------
 CentOS curl proxy settings
     Add the following lines in the file: /etc/profile
     
@@ -82,9 +82,27 @@ CentOS wget proxy settings
     https_proxy=myproxy.server.com:8080
     ftp_proxy=myproxy.server.com:8080
     proxy_user=myname
-    proxy_password=mypassword
+    proxy_password=mypassword    
+        
+CentOS curl proxy settings
+    Add the following lines in the file ~/.curlrc file (create it if it does not exist, _curlrc on Windows) 
+    http_proxy=http://proxy.server.com:3128    
     
+------------------------------------------------- curl ----------------------------------------------------------    
+According to man of curl,
+    The environment variables can be sepcified in lower case or upper case.
+    The lower case has precedence.
+    http_proxy is an exception as it is only available in lower case.
+    Using an environment variable to set the proxy has the same effect as using the --proxy option.
     
+    http_proxy              : Only correct in lower case.
+    HTTPS_PROXY
+    [url-protocol]_PROXY    : url-protocol: FTP, FTPS, POP3, IMAP, SMTP, LDAP etc. which curl supports.
+    ALL_PROXY               : Sets the proxy server to use if no protocol-specific proxy is set.
+    NO_PROXY                : List of host names separated by comma. IF set to a asterisk '*' only, it matches all hosts.
+
+
+------------------------------------------------- SUSE ----------------------------------------------------------
 SUSE proxy settings
     Add or change the following lines in the file: /etc/sysconfig/proxy
     
@@ -100,7 +118,7 @@ SUSE proxy settings
     # wget www.google.com
     
     
---------------------------------- no_proxy -----------------------------------------------    
+---------------------------------------------- no_proxy -------------------------------------------------------    
 https://unix.stackexchange.com/questions/23452/set-a-network-range-in-the-no-proxy-environment-variable
 
 no_proxy: This variable should contain a comma-separated list of domain extensions proxy should not be used for.
