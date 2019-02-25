@@ -4,9 +4,17 @@ https://deliciousbrains.com/https-locally-without-browser-privacy-errors/
 https://en.wikipedia.org/wiki/Transport_Layer_Security
 https://www.jianshu.com/p/b0b6b88fe9fe        # Https process
 
+--------------------------------------------------- Definition -----------------------------------------------------------------
 CA:  Certificate Authorities 
 SSL: Secure Scoket Layer, SSL is the old name. It is called TLS these days.
 TSL: Transport Layer Security
+
+Base64: Base64 is a group of similar binary-to-text encoding schemes that represent binary data in an ASCII string format by
+translating it into a radix-64 representation. The term Base64 originates from a specific MIME content transfer encoding.
+Each Base64 digit represents exactly 6 bits of data. Three 8-bit bytes can therefore be represented by four 6-bit Base64 digits.
+
+X.509: In cryptography, X.509 is a standard defining the format of public key certificates. Many of the certificates that people
+refer to Secure Sockets Layer(SSL) certificates are in fact X.509 certificates.
 
 --------------------------------------------------- SSL vs TSL -----------------------------------------------------------------
 SSL was originally developed by Netscape and first came onto the scene way back in 1995 with SSL 2.0 
