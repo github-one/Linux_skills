@@ -37,3 +37,38 @@ openssl pkcs12 -export -out certificate.pfx -inkey privateKey.key -in certificat
 Convert DER to PEM
 openssl x509 -inform der -in certificate.cer -out certificate.pem
 
+------------------------------------------------ X.509 ----------------------------------------------------------------------
+In cryptography, X.509 is a standard defining the format of publice key certificates. 
+X.509 certificates are used in many Internet protocols, including TLS/SSL.
+An X.509 certificate contains a public key and and identity(a hostname, or an organization, or an individual), and is either
+signed yb a certificate authority or self-signed.
+
+In the X.509 system, an organization that wants a signed certificate requests one via a certificate signing request (CSR).
+
+To do this, it first generates a key pair, keeping the private key secret and using it to sign the CSR. 
+This contains information identifying the applicant and the applicant's public key that is used to verify the signature 
+of the CSR - and the Distinguished Name (DN) that the certificate is for. 
+The CSR may be accompanied by other credentials or proofs of identity required by the certificate authority.
+
+The certification authority issues a certificate binding a public key to a particular distinguished name.
+
+An organization's trusted root certificates can be distributed to all employees so that they can use the company PKI system.
+
+Browsers such as Internet Explorer, Firefox, Opera, Safari and Chrome come with a predetermined set of root certificates 
+pre-installed, so SSL certificates from major certificate authorities will work instantly.
+
+X.509 and RFC 5280 also include standards for certificate revocation list (CRL) implementations.
+
+
+----------------------------------------------- Certificate filename extensions -----------------------------------------------------
+There are several commonly used filename extensions for X.509 certificates. 
+Unfortunately, some of these extensions are also used for other data such as private keys.
+
+.pem – (Privacy-enhanced Electronic Mail) Base64 encoded DER certificate, 
+       enclosed between "-----BEGIN CERTIFICATE-----" and "-----END CERTIFICATE-----"
+.cer, .crt, .der – usually in binary DER form, but Base64-encoded certificates are common too (see .pem above)
+.p7b, .p7c – PKCS#7 SignedData structure without data, just certificate(s) or CRL(s)
+.p12 – PKCS#12, may contain certificate(s) (public) and private keys (password protected)
+.pfx – PFX, predecessor of PKCS#12 (usually contains data in PKCS#12 format, e.g., with PFX files generated in IIS)
+
+
