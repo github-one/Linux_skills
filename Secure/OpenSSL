@@ -1,6 +1,8 @@
 More information:
 https://www.openssl.org/
 https://blog.csdn.net/a4729821/article/details/81635069
+https://www.jianshu.com/p/56f7a350b0ab
+
 
 OpenSSL is a toolkit for the TLS/SSL protocols. It is also a general-purpose cryptography library.
 
@@ -8,7 +10,11 @@ OpenSSL is a toolkit for the TLS/SSL protocols. It is also a general-purpose cry
 OpenSSL是一个强大的安全套接字层密码库，囊括主要的密码算法、常用的密钥和证书封装管理功能及SSL协议，并提供丰富的应用程序供测试或其它目的使用。
 OpenSSL有两种运行模式：交互模式和批处理模式。
 
-OpenSSL整个软件包大概可以分成三个主要的功能部分：密码算法库、SSL协议库以及应用程序。
+OpenSSL整个软件包大概可以分成三个主要的功能部分：密码算法库、SSL协议库以及加密模块应用库。
+openssl: 多用途的命令行工具，包openssl
+libcrypto: 加密算法库，包openssl-libs
+libssl：加密模块应用库，实现了ssl及tls，包nss
+
 
 密码算法库
 2.1对称加密算法
