@@ -1,0 +1,55 @@
+More information:
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/deployment_guide/ch-configuring_ntp_using_ntpd
+
+
+
+NTP:  The Network Time Protocol
+NTP is a protocol for synchronizing the clocks of computer systems over packet-switched, variable-altency date networks.
+NTP uses UDP port 123 as its transport layer. It is designed particularly to resist the effects of vairable latency( Jitter ).
+
+RTC: Real Time Clock, It is the hardware time supported by the circuit of computer main board.
+System Clock: It is the kernel time supported by Operation System, just synced once with RTC when starting up.
+
+
+------------------------------------------ Sync Date Betwwen Machines ---------------------------------------------------------
+/etc/ntp.conf:      Server configuration file.
+/usr/sbin/ntpd:     NTP Server command.
+/usr/sbin/npdate:   Force the local host to sync date with server.
+
+
+Step 1: Install NTP tool
+        $ yum install ntp
+
+Step 2: For time server host
+        $ ntpd start
+        
+Step 3: For time client host, edit file /etc/ntp.conf, add the following line and delete/comment other servers
+        server [ time server ipaddress ] [prefer]
+        
+Step 4: Restart clinet ntp server
+        $ ntp restart
+        
+Step 5: Check log and server port
+        $ tail /var/log/messages
+        $ netstat -tlunp | grep ntp
+        
+Step 6: Check the handshakes betweeen server and client ( it may take 10 minutes to build the handshake )
+        $ ntpstat
+        or
+        $ ntpq -p
+        There is a '*' before the remote server ip when the hankshake is built.
+
+------------------------------------------- Sync Date Without Sever -----------------------------------------------------------
+
+Q:  How can I sync Date time in two computers without NTP server?
+A:  Try the following command:
+        $ remote_time=`ssh user@machine1 date` $$ date -s $remote_time
+        ( or $ date --set="$(ssh user@machine1 date)" 
+          or $ ssh user@machine2 "date --set\"$(date)\"" 
+        )
+    CAVEAT: The two commands will take some time to complete, such as 0.x seconds, depending the situation.
+    If you need millisecond accuracy, this will not work. The only thing that will work is syscing both machines 
+    to an NTP server.
+  
+
+
