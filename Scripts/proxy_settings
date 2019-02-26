@@ -68,7 +68,7 @@ CentOS curl proxy settings
     
 CentOS yum proxy settings
     Add the following lines in the file /etc/yum.conf
-    
+    epx
     proxy=http://myproxy.server.com:8080
     proxy=https://myproxy.server.com:8080
     proxy=ftp://myproxy.server.com:8080
