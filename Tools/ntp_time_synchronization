@@ -23,11 +23,15 @@ Step 1: Install NTP tool
 Step 2: For time server host
         $ ntpd start
         
+        Note: see "NTP Server Without External Clock Reference" if there is no external clock reference.
+        
 Step 3: For time client host, edit file /etc/ntp.conf, add the following line and delete/comment other servers
         server [ time server ipaddress ] [prefer]
         
-Step 4: Restart clinet ntp server
-        $ ntp restart
+Step 4: Start clinet ntp server
+        $ ntpd start
+        
+        Note: for debugging, use "$ ntpdate -buvd serverip"
         
 Step 5: Check log and server port
         $ tail /var/log/messages
@@ -72,6 +76,12 @@ A:  Reference clocks have addresses 127.127.x.y. The x encodes the type of clock
     erve time when it (temporarily or permanently) has no real reference clock available, and should always be fudged to 
     high stratum.
 
+    NTP increases the stratum for each level in the hierarchy - a NTP server pulling time from a "stratum 1" server would 
+    advertise itself as "stratum 2" to its clients.
+    
+    A stratum value of "16" is reserved for unsynchronized servers meaning that your internal NTP server at xx.xx.xx.xx 
+    thinks not to have a reliable timesource (i.e. not synchronizing to a higher-level stratum server).
+    
 
 ------------------------------------------- Sync Date Without Sever -----------------------------------------------------------
 
