@@ -39,6 +39,40 @@ Step 6: Check the handshakes betweeen server and client ( it may take 10 minutes
         $ ntpq -p
         There is a '*' before the remote server ip when the hankshake is built.
 
+
+--------------------------------------- NTP Server Without External Clock Reference --------------------------------------------
+Edit /etc/ntp.conf  (note: 127.127.1.0 is the local ntpd server address, not 127.0.0.1 !!!)
+
+server 127.127.1.0
+fudge 127.127.1.0 stratum 8
+
+Note:
+1. 127.127.1.0 is the local ntpd server address.
+2. If a client receives server ntp packets with stratum greater than 16, it will complains and fails syncing.
+
+
+Q: There is a private and secure network as so I'm trying to implement simply a peer to peer time syncing setup.
+   As I have no external clock to sync against I am trying to set one of the boxes as the reference clock but I always 
+   get the same error:
+   10.10.64.11 is inappropriate address for the fudge command, line ignored
+   
+   My ntp.conf file looks like this
+        server  10.10.64.11 # increase stratum
+        peer 10.10.64.10
+        fudge  10.10.64.11 stratum 10
+        driftfile /etc/ntp.drift
+        logfile /etc/ntp.log
+   
+A:  Reference clocks have addresses 127.127.x.y. The x encodes the type of clock, the y is simply a clock identifier.
+
+        server 127.127.1.0
+        fudge 127.127.1.0 stratum 10
+
+    Reference clock type 1 is a computer's internal clock. It should be sed only if an NTP server should (continue to) 
+    erve time when it (temporarily or permanently) has no real reference clock available, and should always be fudged to 
+    high stratum.
+
+
 ------------------------------------------- Sync Date Without Sever -----------------------------------------------------------
 
 Q:  How can I sync Date time in two computers without NTP server?
