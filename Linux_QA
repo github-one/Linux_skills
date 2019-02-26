@@ -1,3 +1,13 @@
+Q:  How do you free up TCP/UPD port?
+A:  You'll have to kill all processes that are listening on that port. 
+    The easiest way to do that would be to use the fuser(1) command. 
+    For example, to see all of the processes listening for http requests on port 80 (run as root or use sudo):
+        $ fuser 80/tcp
+        or
+        $ fuser 123/udp
+    If you want to kill them, then just add the -k option.
+
+
 Q:  The dash before the path?
     [Service]
     EnvironmentFile=-/etc/environment
