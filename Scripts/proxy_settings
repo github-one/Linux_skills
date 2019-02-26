@@ -58,7 +58,7 @@ Ubuntu curl proxy settings
     http_proxy=http://myname:mypassowrd@myproxy.server.com:8080
     
 ------------------------------------------------- CentOS ----------------------------------------------------------
-CentOS curl proxy settings
+CentOS proxy settings
     Add the following lines in the file: /etc/profile
     
     export http_proxy=http://myname:mypassword@myproxy.server.com:8080
