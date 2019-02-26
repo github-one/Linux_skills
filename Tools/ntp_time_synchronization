@@ -51,5 +51,11 @@ A:  Try the following command:
     If you need millisecond accuracy, this will not work. The only thing that will work is syscing both machines 
     to an NTP server.
   
+------------------------------------------- Others -----------------------------------------------------------
+ntpdate -buv 1.us.pool.ntp.org
+-b is for when your machine is out of sync for more than 1000s
+-u makes ntpdate use unprivileged ports
+-v is for verbosity.
+
 
 
