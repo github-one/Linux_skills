@@ -1,9 +1,23 @@
 ectd: A distributed, reliable key-value store for the most critical data of a distributed system.
 
 More information:
-https://coreos.com/etcd/
+https://github.com/etcd-io/etcd
+https://github.com/etcd-io/etcd/releases           # release pages
+
+https://coreos.com/etcd/                           # ! do not use, this is deprocated. 
+
+https://blog.csdn.net/kikajack/article/details/80377526     # for v3 version
 https://www.infoq.cn/article/etcd-interpretation-application-scenario-implement-principle           # in Chinese
-https://coreos.com/etcd/docs/latest/v2/clustering.html          # Clustering Guide
+
+
+Tips:
+1. V2, V3.x have different commands.
+2. The clock differences between etcd hosts will cause failure. (Use NTP to solve the problem)
+3. 新节点加入集群是作为一个全新的节点加入，如果data-dir有数据，etcd启动时会读取己经存在的数据，启动时仍然用的老member ID,也会造成，
+集群不无法加入，所以一定要清空新节点的data-dir.
+4. 新扩容的etcd机器的etcd.conf中配置修改为 ETCD_INITIAL_CLUSTER_STATE="existing"
+5. 通过查看ll /usr/bin/etcd  启动文件是存在的，后来发现etcd.service里面指定了WorkingDirectory=/var/lib/etcd/没有创建对应目录导致，
+创建了/var/lib/etcd/ 目录应用启动成功
 
 
 
@@ -27,7 +41,7 @@ etcd 作为一个受到 ZooKeeper 与 doozer 启发而催生的项目，除了�
 对于应用数据，只推荐数据量很小，但是更新访问频繁的情况。
 
 
----------------------------------------  Install and Examples for V2 -----------------------------------------------------------
+---------------------------------------  Install and Simple Examples for V2 -----------------------------------------------------------
 More information: https://coreos.com/etcd/docs/latest/getting-started-with-etcd.html
 
 $ apt-get install etcd
@@ -72,6 +86,10 @@ $ etcd
 $ export ETCDCTL_API=3
 $ etcdctl put foo "hello world"
 $ etcdctl get foo
+
+for multi members:
+$ etcdctl --endpoints=$ENDPOINTS put variable_1 value_1
+$ etcdctl --endpoints=$ENDPOINTS get variable_1
 
 
 --------------------------------------- Version Differences ------------------------------------------------------------------
