@@ -83,8 +83,6 @@ docker Commands:
     wait      Block until a container stops, then print its exit code   
                                                             # 截取容器停止时的退出状态值
 
-
-
 docker Running
     $ docker container start            # start the container that has already exists.
     $ docker container run              # create a new container every time.
@@ -105,6 +103,9 @@ docker attach vs exec
 
 
 docker Options
+    -it
+    这是两个参数，一个是 -i 表示交互式操作，一个是 -t 为终端。我们这里打算进入 bash 执行一些命令并查看返回结果，因此我们需要交互式终端。
+
     --rm
     Running containers with --rm flag is good for thoses containers that you use for very short while just to accomplish something, 
     e.g. , compile your application inside a container, or jsut testing something that it works, and then you know its a short lived
