@@ -4,4 +4,7 @@ https://github.com/coreos/flannel
 https://blog.51cto.com/lookingdream/2093101               # How does flannel work?
 https://www.cnblogs.com/kevingrace/p/6859114.html         # Setup configuration
 https://www.cnblogs.com/devilwind/p/8880677.html
+http://dockone.io/article/618               
 
+docker0:    docker创建的虚拟网卡
+flannel0:   Flannel创建的虚拟网卡
