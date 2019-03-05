@@ -2,3 +2,17 @@ Machine:    https://www.cnblogs.com/benjamin77/p/9501337.html
 Swarm:      https://blog.csdn.net/u012460749/article/details/78774756
 
 
+docker-compose：
+Docker镜像在创建之后，往往需要自己手动 pull来获取镜像，然后执行run命令来运行。当服务需要用到多种容器，容器之间又产生了各种依赖和连接的时候，
+部署一个服务的手动操作是令人感到十分厌烦的。dcoker-compose 技术，就是通过一个.yml配置文件，将所有的容器的部署方法、文件映射、容器连接等等
+一系列的配置写在一个配置文件里，最后只需要执行  docker-compose up  命令就会像执行脚本一样的去一个个安装容器并自动部署他们，极大的便利了
+复杂服务的部署。
+
+docker-machine：
+Docker技术是基于Linux 内核的cgroup 技术实现的，那么在非Linux平台上是否就不能使用 docker 技术了呢？答案是可以的，不过显然需要借助虚拟机去
+模拟出 Linux 环境来。docker-machine 就是docker公司官方提出的，用于在各种平台上快速创建具有 docker 服务的虚拟机的技术，甚至可以通过指定 
+driver来定制虚拟机的实现原理（一般是 virtualbox）。
+
+docker-swarm：
+swarm 是基于docker平台实现的集群技术，他可以通过几条简单的指令快速的创建一个docker集群，接着在集群的共享网络上部署应用，最终实现分布式的服务。
+
