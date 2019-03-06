@@ -8,7 +8,7 @@ A:  You'll have to kill all processes that are listening on that port.
     If you want to kill them, then just add the -k option.
 
 
-Q:  The dash before the path?
+Q:  What's the meaming of the dash before the path in service file?
     [Service]
     EnvironmentFile=-/etc/environment
 A:  The argument passed should be an absolute filename or wildcard expression, optionally prefixed with "-", 
