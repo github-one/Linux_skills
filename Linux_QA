@@ -24,6 +24,7 @@ A:  $ uname -a
     $ cat /proc/cupinfo
     $ lscpu
 
+
 Q:  How can I copy the contents of a folder to another folder in a different directory?
 A:  You can copy the content of a folder /source to another existing folder /dest with the command
     $ cp -a /source/. /dest/
@@ -109,9 +110,7 @@ A:  Use the command fg.
     Note: the % infront of the job number in the commands - this is what tells kill you're talking 
     about jobs and not processes.
 
-
-The command fg is what you want to use. You can also give it a job number if there are more than one stopped jobs.
-
+    The command fg is what you want to use. You can also give it a job number if there are more than one stopped jobs.
 
 
 Q:  How to get the current time?
@@ -140,8 +139,7 @@ A:  grep:   $ grep -Eo "[0-9]{1,4}" testfile
 
 
 Q:  How can I repeat a character in bash?
-        like: perl -E 'say '=' x 100'
-        
+        like: perl -E 'say '=' x 100'       
 A:  printf '=%.0s' {1..10}
     print -- '-%.0s' {1..10}
     
@@ -260,6 +258,7 @@ A:  File descriptor 1 is the standard output (stdout).
        you would redirect stderr to stdout before using the pipe:
            app 2>&1 | grep hello
     
+    
 Q:  What is the difference between: cmd 2>&1 > log vs cmd > log 2>&1
 A:  If you say 2>&1 then you are redirecting stderr to wherever stdout is currently redirected to. 
     If stdout is going to the console then stderr is, too. If stdout is going to a file then stderr is as well. 
@@ -290,7 +289,8 @@ A:   echo -n "something"
          printf "something"
          printf "something\n"
          printf '%s' "$x"
-          
+    
+    
 Q:  How to include dashes '--' in the format stirng of bash printf?
         $ printf "--files"
     It generates an error:
