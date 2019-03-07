@@ -11,6 +11,7 @@ Configuration:
 
 Color scheme:
     :color              # view current color scheme
+    :colorsch desert    # set colorscheme
     :hi                 # list all color groups
     :hi Statement       # view color definations for Statement.
     
