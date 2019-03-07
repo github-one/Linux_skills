@@ -1,6 +1,19 @@
 More information:
 https://yeasy.gitbooks.io/docker_practice/advanced_network/
+http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html                                         # simple introduction for newbie
+https://hijiangtao.github.io/2018/04/17/Docker-in-Action/                                           # simple introduction for newbie
 
+
+----------------------------------------------  docker installation  ----------------------------------------------------------------
+Docker CE: Community Edition, it's free.
+Dcoker EE: Enterprise Edition, it's not free.
+
+$ docker version
+$ docker info
+
+$ sudo service docker start
+or
+$ sudo systemctl start docker
 -----------------------------------------------  Proxy Configuration  ----------------------------------------------------------------
 
 Docker镜像库的代理配置（Docker daemon的的代理），官方地址：
