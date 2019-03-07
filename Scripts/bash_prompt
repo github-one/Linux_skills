@@ -31,6 +31,7 @@ $ PS1="\e[1;31m[\t SUSE-1:\w]\\$ \e[m"          # for SUSE
 
 $ export PS1="\[$(tput bold)$(tput setb 4)$(tput setaf 7)\]\u@\h:\w $ \[$(tput sgr0)\]"
 
+Note: You may save the configuration in the file '~/.bashrc' or '/etc/bashrc'.
 
 -------------------------------------------  Controling the Prompt  --------------------------------------------------------------
 \d              The date, in "Weekday Month Date" format (e.g., "Tue May 26").
