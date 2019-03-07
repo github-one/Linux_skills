@@ -28,20 +28,18 @@ Docker容器运行时的代理配置：
 中文版本，Docker镜像库的代理配置
 1、 创建docker代理文件夹
 $ mkdir -p /etc/systemd/system/docker.service.d
+
 2、 新增https-proxy.conf文件
 $ vi /etc/systemd/system/docker.service.d/https-proxy.conf
 增加内容并保存退出
 [Service]
 Environment="HTTPS_PROXY=http://域账号:密码@proxyhk.huawei.com:8080/"
-3、 新增http-proxy.conf文件
-$ vi /etc/systemd/system/docker.service.d/http-proxy.conf
-增加内容并保存退出
-[Service]
-Environment="HTTP_PROXY=http://域账号:密码@proxyhk.huawei.com:8080/"
-4、 重启docker
+
+3、 重启docker
 $ systemctl daemon-reload;
 $ service docker restart
-5、 测试docker pull拉取dockerhub镜像
+
+4、 测试docker pull拉取dockerhub镜像
 $ docker pull hello-world
 注意：因为网络问题，有时会失败
 注意：由于从Ubuntu 16.04开始，由于init系统采用systemctl，docker的proxy设置有变化
