@@ -5,6 +5,10 @@ https://blog.csdn.net/zmx729618/article/details/72930474                        
 https://www.infoq.cn/article/docker-network-and-pipework-open-source-explanation-practice           # docker network
 
 ----------------------------------------------  Docker Conceptions ----------------------------------------------------------------
+Container vs image
+    A container is a running instance of an image, which is why you cannot delete an image if there is a running
+    container from that image. You need to delete the container first.
+
 Images Default Command:
     Docker不是虚拟机，容器就是进程。既然是进程，那么在启动容器的时候，需要指定所运行的程序及参数。
     Dockerfile中的CMD 指令就是用于指定默认的容器主进程的启动命令的。
@@ -35,7 +39,15 @@ Running a Service in a Docker:
     说明：可以通过"$ docker history nginx"查看到官方nginx镜像的默认命令就是这个。
 
 
-----------------------------------------------  Docker Operations ----------------------------------------------------------------
+---------------------------------------------- [New] Docker Operations -------------------------------------------------------------
+In Docker 1.13, we regrouped every command to sit under the logical object it’s interacting with.
+
+$ docker container ls
+$ docker container rm <container_id>
+$ docker image ls
+$ docker image rm <image_id>
+
+---------------------------------------------- [Old] Docker Operations -------------------------------------------------------------
 docker Commands:
     attach    Attach to a running container                 # 当前 shell 下 attach 连接指定运行镜像
     build     Build an image from a Dockerfile              # 通过 Dockerfile 定制镜像
