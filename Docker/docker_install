@@ -1,8 +1,8 @@
 More information:
 https://yeasy.gitbooks.io/docker_practice/advanced_network/
-http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html                                         # simple introduction for newbie
-https://hijiangtao.github.io/2018/04/17/Docker-in-Action/                                           # simple introduction for newbie
-
+http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html                   # simple introduction for newbie
+https://hijiangtao.github.io/2018/04/17/Docker-in-Action/                     # simple introduction for newbie
+https://docs.docker.com/install/linux/docker-ce/centos/                       # install docker in centos
 
 ----------------------------------------------  docker installation  ----------------------------------------------------------------
 Docker CE: Community Edition, it's free.
