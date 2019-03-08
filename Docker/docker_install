@@ -8,12 +8,32 @@ https://docs.docker.com/install/linux/docker-ce/centos/                       # 
 Docker CE: Community Edition, it's free.
 Dcoker EE: Enterprise Edition, it's not free.
 
-$ docker version
-$ docker info
+Docker installation example for CentOS
 
+Uninstall old versions:
+$ yum erase docker docker-client docker-client-latest docker-common \
+            docker-latest docker-latest-logrotate docker-logrotate docker-engine
+
+Set up the repository
+$ yum install -y yum-utils device-mapper-persistent-data lvm2
+$ yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+Install docker CE:
+$ yum install docker-ce docker-ce-cli containerd.io
+
+Start docker service:
 $ sudo service docker start
 or
 $ sudo systemctl start docker
+$ docker version
+$ docker info
+
+Run an example:
+$ docker run hello-world
+or
+$ docker image pull hello-world
+$ docker container run hello-world
+
 -----------------------------------------------  Proxy Configuration  ----------------------------------------------------------------
 
 Docker镜像库的代理配置（Docker daemon的的代理），官方地址：
