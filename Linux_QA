@@ -1,3 +1,11 @@
+Q:  How do you find out the version of your linux kernel.
+A:  $ uname -r
+    3.10.0-229.e17.x86_64
+    If you see anything at all after dash, you are running a distribution kernel.
+    Many Linux distributions provide their own kernels that may or may not based on those maintained by kernel developers.
+    It is easy to tell if you are running a distribution kernel. Unless you downloaded, compiled and installed your own
+    version of kernel from kernel.org, you are running a distribution kernel.    
+
 Q:  How do you free up TCP/UPD port?
 A:  You'll have to kill all processes that are listening on that port. 
     The easiest way to do that would be to use the fuser(1) command. 
