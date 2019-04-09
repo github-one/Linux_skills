@@ -164,3 +164,13 @@ Comment out blocks/multiline:
     Shift + i (capital I)
     insert the text you want, i.e. %
     press Esc Esc.    
+
+Re-execute history command
+    :history is only for you to look at it.
+    To re-execute a previous command, you have two options:
+    -- use <up> and <down> at the command prompt:
+    -- use the "command-line windows": 
+    (1) call the winodow with q:
+    (2) position the cursor and hit <CR> to execute the command
+    (3) quit the window with :q
+    
