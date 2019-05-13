@@ -1,0 +1,60 @@
+:help digraphs         
+:digraphs                   # list the defined signs in your vim
+
+How do you enter digraphs?
+In insert mode, press Ctrl+K (which causes Vim to display a highlighted ?, waiting for further input),
+then the defined two characters of the digraph. Vim then replaces what you typed with the defined resulting
+character, e.g. Ctrl+K, !, = produces ‘≠’.
+
+
+Most useful digraphs
+±       +-      plus minus
+∑       +Z      summation (big, tall Sigma)
+√       RT      (square) root    
+∞       00      infinity
+
+←	    <-      left arrow*
+↑		-!      up arrow
+→	    ->      right arrow
+↓	    -v      down arrow
+		
+∧  	    AN      logical and
+∨	    OR	    logical or
+
+∈       (-      element of
+∩        (U      set intersect
+∪       U)      set union
+
+∫       In      integral S
+
+≈       ?2      almost equal to
+≠       !=      not equal to
+≤       =<      less than or equal to
+≥       >=      greater than or equal to
+
+------Greek Letters-----
+Gamma	Γ	G*
+Delta	Δ	D*
+Theta	Θ	H*
+Pi	    Π	P*
+Sigma	Σ	S*
+Phi	    Φ	F*
+Psi	    Ψ	Q*
+Omega	Ω	W*
+alpha	α	a*
+beta	β	b*
+gamma	γ	g*
+delta	δ	d*
+epsilon	ε	e*
+eta	    η	y*
+theta	θ	h*
+kappa	κ	k*
+lambda	λ	l*
+mu	    μ	m*
+pi	    π	p*
+rho	    ρ	r*
+sigma	σ	s*
+tau	    τ	t*
+phi*	φ	f*
+psi*	ψ	q*
+omega*	ω	w*
