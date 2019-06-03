@@ -1,0 +1,21 @@
+------------------- Fiddle -------------------
+
+XX没有限制Fiddler访问代理的权限，因此可以使用Fiddler作为本地代理。
+在cygwin里面配置http_proxy指向127.0.0.1:8888，Fiddler会直接将请求转发到windows的系统代理，即proxy.huawei.com。
+通信路径：git <--------->   Fiddler:127.0.0.1:8888 <-------------> proxy.huawei.com
+Fiddler在转发出去的时候，也会遵守系统代理“例外”配置，比如访问内网地址的时候，会直接访问，不走proxy.huawei.com。
+
+------------------- Netsh -------------------
+使用windows自身的机制做端口转发。
+只需打开cmd，运行下面3条命令:
+> netsh interface portproxy add v4tov4 listenport=8888 listenaddres=127.0.0.1 connectport=8080 connectaddress=proxy.huawei.com
+> sc config iphlpsvc start= auto
+> sc start iphlpsvc
+第1条配置端口转发，第2条配置iphlpsvc服务自动启动，第3条启动该服务。
+然后在cygwin里面配置代理为127.0.0.1:8888，注意加上用户名和密码。即
+> export https_proxy=https://username:password@localhost:8888
+> export http_proxy=http://username:******@localhost:8888
+> export no_proxy=".huawei.com"     #配置代理规则exceptions
+之后即可使用curl，wget，git等程序访问外网。
+PS: 如果发现不能使用，可能需要运行netsh int ipv4 install命令并重启系统。
+
