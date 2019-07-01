@@ -1,0 +1,12 @@
+## website
+https://www.thegeekstuff.com/2012/10/gcc-compiler-options/?utm_source=feedburner
+
+
+------------------------------------------------------------------------------------------------------
+$ gcc main.c                            # Default output a.out
+$ gcc main.c -o main.o
+$ gcc -Wall main.c -o main.o            # Enable all warnings set throught -Wall option
+$ gcc -E main.c > main.i                # Produce only the preprocessor output with -E option
+$ gcc -S main.c > main.s                # Produce only the assembly code using -S option
+
+
