@@ -1,0 +1,104 @@
+## website
+https://blog.csdn.net/xukai0110/article/details/80637902
+
+----------------------------------------- TODO LIST  -----------------------------------------------------
+$ mkdir ~/hello-world
+$ cd ~/hello-world
+$ git init
+
+$ touch README
+$ git add README
+$ git commit -m "first commit"
+
+$ git remote add origin git@github.test/hellotest.git
+$ git push -u origin master
+
+$ git config --global core.autocrfl false
+$ git config --global cor.safecrlf true
+----------------------------------------------------------------------------------------------------
+
+
+1.设置账户(需要和github账户设置一致)
+git config --global user.name xxx
+git config --global user.email xxx@foxmail.com
+ 
+2.查看设置
+git config --list
+user.name=xxx
+user.email=xxx@foxmail.com
+ 
+3.创建git本地仓库
+git init
+此时会出现提示 : inialized empty Git repository in d://com/liu/.git
+ 
+4.查看git状态
+git status
+一般来说会显示需要提交的文件（uncommited）和未追踪的文件（untracked）
+uncommited：已有的，刚被修改尚未提交的
+untracked：原先没有的，新建的 
+
+5.添加git文件到暂存区（需要和版本库区分） 
+git add <name>
+
+6.git提交文件
+git commit -m "add a function in test.java"
+-m表示注释，为提交时的说明，必须要有！
+
+7.git删除文件（夹）
+git rm test.txt          //删除文件
+git rm -r filebook     //删除文件夹
+git rm和直接删除的区别在于git rm会将此文件的操作记录删除，而直接删除仅仅是删除了物理文件，没有删除和此文件相关的记录。
+git rm后会在版本库产生区别（有操作日志），而直接删除没有。
+可以用下面两种操作在版本库中删除文件：
+git rm test.txt   =>    git commit -m 'delete a file'
+rm test.txt        =>    git commit -am 'delete a file'
+注意：命令git rm用于删除一个文件。如果一个文件已经被提交到版本库，那么你永远不用担心误删，
+但是要小心，你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容。
+
+8.git操作日志
+git log --decorate --graph --oneline --all       #显示当前及之前的版本号
+git log --pretty=oneline   #将版本历史显示为一行，历史版本号全部显示
+git log --pretty=oneline --abbrev-commit  #将版本历史显示为一行，历史版本号部分显示
+git log --graph      #查看分支合并图
+
+9.版本回退
+执行版本退回后，本地工作区的内容会自动和回退到的版本库版本的内容保持同步
+git reset --hard HEAD^   回退到上一个版本
+git reset --hard HEAD^^ 回退到上上个版本，以此类推，一次提交即为一个版本
+git reset --hard e9efa77  回退到 e9efa77  版本
+
+10.git还原操作
+丢弃工作区的操作，但不会丢失暂存区的操作(add操作能将更改添加到暂存区)，实际上就是用版本库里的版本替换工作区的版本，
+无论工作区是修改还是删除，都可以“一键还原”
+git checkout -- readme.txt
+
+11.git暂存区撤销操作
+工作区修改了文件，而且执行了add，但还没执行commit，暂存区还是可以撤销的
+git reset HEAD readme.txt
+备注：git reset命令既可以回退版本，也可以把暂存区的修改回退到工作区。当我们用HEAD时，表示最新的版本。
+
+
+-------------------------------------------------------------------------------------------------------------
+
+1.配置远程仓库免密登陆
+（1）在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，如果已经有了，
+可直接跳到下一步。如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key：ssh-keygen -t rsa -C "xxx@foxmail.com"    
+备注：一路回车，执行生成 id_rsa 私钥 和 id_rsa.pub 公钥，Windows用户在git bash中输入上述指令
+（2）获得key的内容，复制下来，添加到gitHub的SSH key中
+windows位置：‪C:\Users\用户名\.ssh\id_rsa.pub
+Linux位置：cat ~/.ssh/id_rsa.pub
+
+（3）ssh -T git@github.com   #验证key，根据提示输入yes，添加为信任主机
+或者ssh -T git@git.oschina.net
+
+2.添加远程仓库
+git remote add origin https://github.com/xxx/LearnGit.git（https方式）
+（ssh方式）
+此处可以为https地址也可以是ssh地址，orign为设置的远程仓库的别名，强烈建议使用ssh方式，因为https方式每次都要输入用户名和密码
+如果需要修改传输协议：
+（1）git remote rm <远程主机名>（删除远程仓库）
+（2）设置传输方式和目标远程仓库
+（3）git push -u <远程主机名> <本地分支名>
+
+
+
