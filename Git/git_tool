@@ -85,7 +85,7 @@ git reset HEAD readme.txt
 备注：git reset命令既可以回退版本，也可以把暂存区的修改回退到工作区。当我们用HEAD时，表示最新的版本。
 
 
--------------------------------------------------------------------------------------------------------------
+---------------------------------------- Remote Repository -------------------------------------------------
 
 1.配置远程仓库免密登陆
 （1）在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，如果已经有了，
@@ -107,5 +107,26 @@ git remote add origin https://github.com/xxx/LearnGit.git（https方式）
 （2）设置传输方式和目标远程仓库
 （3）git push -u <远程主机名> <本地分支名>
 
+
+---------------------------------------- Local Repository -------------------------------------------------
+Local directories work just like remote repository URLs.
+Just creating a normal local repository with git init gives you a complete Git repository 
+in which you can make commits and everything, and which you can clone and merge/pull from. 
+
+mkdir /c/git
+mkdir /c/git/testrepo.git
+cd /c/git/testrepo.git
+git init --bare
+cd $TEMP
+git clone /c/git/testrepo.git
+cd testrepo
+# hackety hack
+git add .
+git commit -m "I shouldn't be making commits like this but who's gonna sue me"
+git push origin master
+cd ..
+git clone /c/git/testrepo.git testrepo2
+cd testrepo2
+# wow, all my files are here
 
 
