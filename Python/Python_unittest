@@ -1,0 +1,11 @@
+Three most popular test runners:
+-- unittest          # Build into the Python standard lib 
+-- nose2             # Compatible with unittest and will discover all test scripts named with test*.py and testcases.  
+-- pytest            # Run all files with test_*.py or *_test.py
+
+
+Websites:
+https://realpython.com/python-testing/
+https://nose2.readthedocs.io/en/latest/usage.html
+https://pytest.readthedocs.io/en/latest/contents.html
+
