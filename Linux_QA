@@ -1,5 +1,6 @@
 Q:  How do you get a list of all services?
 A:  $ service --status-all
+    $ systemctl list-units -all --type=service --no-pager       # better
 
 Q:  How do you find the version of your Ubuntu?
 A:  $ lsb_release -a
