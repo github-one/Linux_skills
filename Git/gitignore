@@ -1,0 +1,87 @@
+Websites:
+https://www.atlassian.com/git/tutorials/saving-changes/gitignore
+
+
+------------------------------------------   Rules ------------------------------------------
+Git sees every file in your working copy as one of three things: tracked, untracked, ignored.
+There is no explicit git ignore command.
+The convention and the simplest approach is to define a single .gitignore file in the root. 
+You can define multiple .gitignore files in different directories in your repository. (But not suggested)
+The .gitignore file is versioned like any other file in your repository and shared with your teammates when you push.
+
+--------------------------------------  Methods for Ignoring ---------------------------------
+(1) Using the .gitignore file. --- Global way for the repository
+The .gitignore file will be shared and benefit other users of the repository.
+
+(2) Using the .git/info/exclude file.   --- Local way
+It is not distributed with your repository and only benefits you. 
+
+(3) Using "git config --global core.excludesFile" command     --- Global way for the yourself host
+$ touch ~/.gitignore
+$ git config --global core.excludesFile ~/.gitignore
+
+(4) Ignoring a previously committed file
+$ echo debug.log >> .gitignore
+$ git rm --cached debug.log
+rm 'debug.log'
+$ git commit -m "Start ignoring debug.log"
+
+Using the --cached option with git rm means that the file will be deleted from your repository, 
+but will remain in your working directory as an ignored file.
+You can omit the --cached option if you want to delete the file from both the repository and your local file system.
+
+------------------------------------------ Some Operations ------------------------------------------
+## Committing an ignored file
+It is possible to force an ignored file to be committed to the repository using the -f (or --force) option with git add.
+$ cat .gitignore
+*.log
+$ git add -f debug.log
+$ git commit -m "Force adding debug.log"
+
+However a better solution is to define an exception to the general rule:
+$ echo !debug.log >> .gitignore
+$ cat .gitignore
+*.log
+!debug.log
+$ git add debug.log
+$ git commit -m "Adding debug.log"
+This approach is more obvious, and less confusing, for your teammates.
+
+## Debugging .gitignore files
+You can use the git check-ignore command with the -v (or --verbose) option to determine 
+which pattern is causing a particular file to be ignored:
+
+$ git check-ignore -v debug.log
+.gitignore:3:*.log debug.log
+
+The output shows:
+<file containing the pattern> : <line number of the pattern> : <pattern> <file name>
+
+
+------------------------------------------ Some Operations ------------------------------------------
+**/logs
+**/logs/debug.log
+*.log
+!important.log
+!important/*.log
+debug.log
+debug?.log
+debug[0-9].log
+debug[01].log
+debug[!01].log
+debug[a-z].log
+logs
+logs/
+!logs/important.log
+logs/**/debug.log
+ogs/*day/debug.log
+logs/debug.log
+
+Rules:
+(1) By default, patterns match files in any directory.
+(2) Patterns specifying a file in a particular directory are relative to the repository root. 
+(3) Prepending a slash matches files only in the repository root, such as /debug.log.
+(4) If you don't append a slash, the pattern will match both files and the contents of directories with that name. 
+(5) Appending a slash indicates the pattern is a directory. 
+(6) You can prepend a pattern with a double asterisk to match directories anywhere in the repository.
+
