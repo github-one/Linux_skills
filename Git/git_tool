@@ -16,6 +16,12 @@ $ git push -u origin master
 
 $ git config --global core.autocrfl false
 $ git config --global cor.safecrlf true
+
+List all files currently under source control.
+git ls-tree -r master --name-only
+
+If you want to get a list of all files that ever existed
+git log --pretty=format: --name-only --diff-filter=A  | sort -u
 ----------------------------------------------------------------------------------------------------
 
 
