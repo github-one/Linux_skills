@@ -1,0 +1,16 @@
+## systemctl vs launchctl
+The equivalent to Linux systemctl on macOS would be launchctl. 
+Apache also has it's own HTTP Server Control Interface, apachectl.
+
+Systemd, which systemctl is a part of, is a service manager designed specifically for Linux 
+and uses interfaces and constructs specific to it such as cgroups. 
+There is no port of it to Mac OS.
+
+Start a service in mac:
+$ load System Libary
+
+Check services in mac:
+$ sudo launchctl list | grep sshd
+
+
+
