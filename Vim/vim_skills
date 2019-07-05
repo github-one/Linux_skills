@@ -59,6 +59,11 @@ Format
          gq
          Learn more, use :h gq         
 
+Open file
+    $ vim -R {file-name}     # Open a file in readonly mode
+    :view {file-name}
+    
+    
 Search
     Highlight all occurrence of a selected word
     :set hlsearch
