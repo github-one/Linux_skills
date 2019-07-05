@@ -1,0 +1,25 @@
+
+$ service --status-all                  # List all services
+
+$ sudo systemctl stop ufw
+$ sudo systemctl start ufw
+$ sudo systemctl restart ufw
+$ sudo systemctl status ufw
+
+$ sudo service ufw stop
+$ sudo service ufw start
+$ sudo service ufw restart
+$ sudo servcie ufw status
+
+$ /ect/init.d/ufw start
+$ /ect/init.d/ufw stop
+$ /ect/init.d/ufw restart
+$ /ect/init.d/ufw status
+$ cat /etc/init.d/ufw                   # show the source code of ufw service
+
+$ systemctl list-units -all --type=service --no-page
+
+$ ps -aux
+
+$ top
+$ htop
