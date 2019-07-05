@@ -1,0 +1,14 @@
+
+Check all users on the system:
+$ cat /etc/passwd
+
+一行代表一个用户，格式如下，每行分七个部分，用英文冒号“:”分开：
+account:password:UID:GID:GECOS:directory:shell
+此处：
+account：  用户名，不能为空，而且要符合标准的*NIX命名规则。
+password： 加密的密码，可以使用一个小写的"x"（不带括号）表示密码保存在/etc/shadow文件里。
+UID GID：  每个用户和组有一个对应的UID和GID（用户ID和组ID）。组的ID数值列在/etc/group文件里。
+GECOS：    可选的注释字段，通常记录用户全名
+directory：用于登录命令设置$HOME环境变量。某些服务的用户主目录设置为"/"是安全的，但不建议普通用户设置为此目录。
+shell：    是用户默认登录的shell，默认是"/bin/bash"（不带括号），还可选择其他的命令解释器，此部分是可选的，可留空。
+
