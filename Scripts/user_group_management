@@ -118,6 +118,15 @@ $ sudo usermod -a -G group1,group2,group3 username          # add a user to mult
 Example: Become a root user
 $ su -
 or $ sudo -i
+$ whoami
+user1
+$ su - user2
+Password:
+
+$ whoami
+user1
+$ su - user2 zsh
+$ whoami
 
 Example: add a new user called vivek and add it to group called developers.
 $ grep "^developers" /etc/group     # otherwise: sudo groupadd developers
