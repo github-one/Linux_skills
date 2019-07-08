@@ -11,3 +11,19 @@ Assuming that jenkins is running in Ubuntu.
 1. If the last task return value is 0, the pipleline will report success. Otherwise it will report failure.
 
 
+------------------- Pipeline Execution  -----------------
+Q: Waht is the default Jenkins passowrd?
+A1:
+   $ sudo passwd jenkins
+   
+A2:
+Stop Jenkins
+Go go edit /var/lib/jenkins/config.xml
+Change <useSecurity>true</useSecurity> to false
+Restart Jenkins: sudo service jenkins restart
+Navigate to the Jenkins dashboard to the "Configure Security" option you likely used before. 
+This time, setup security the same as before, BUT set it to allow anyone to do anything, and allow user signup.
+Go to www.yoursite.com/securityRealm/addUser and create a user
+Then go change allow anyone to do anything to whatever you actually want users to be able to do. 
+In my case, it is allow logged in users to do anything.
+
