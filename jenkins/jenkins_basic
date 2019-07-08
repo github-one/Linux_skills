@@ -1,0 +1,13 @@
+
+------------------- Execute privilege -----------------
+Assuming that jenkins is running in Ubuntu.
+
+1. Operation is running by the username of jenkins.
+2. The working diectory is /var/lib/jenkins/workspace/xxx, the xxx is the name of pipeline created.
+3. The usernmae of 'jenkins' has no right on '/root/xxx'
+
+
+------------------- Pipeline Execution  -----------------
+1. If the last task return value is 0, the pipleline will report success. Otherwise it will report failure.
+
+
