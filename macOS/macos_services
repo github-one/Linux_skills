@@ -1,0 +1,35 @@
+
+Q: How do I stop httpd running under Mac OS X (10.11) El Capitan Server?
+I am using OS X El Capitan with the Server (app) configured to allow me VPN access to my home network. 
+Unfortunately, the Server app has decided to start a bunch of httpd processes, which are now listening 
+on ports 80, 443 and others, even though the Server settings for Websites is OFF and no services should 
+be started on these ports.
+
+I do not want or need these services active and would like httpd to be shut down (or not start to begin with). 
+Unfortunately, I can neither kill those processes (they just restart straight away) nor can I control them 
+through launchctl.
+
+$ sudo lsof -i :80
+httpd   422 root    5u  IPv6 0x7...     0t0  TCP *:http (LISTEN)
+httpd   425 _www    5u  IPv6 0x7...     0t0  TCP *:http (LISTEN)
+
+$ ps u 422
+USER   PID  %CPU %MEM      VSZ    RSS   TT  STAT STARTED      TIME COMMAND
+root   422   0.0  0.0  2457156   6136   ??  Ss    5:55PM   0:00.07 /usr/sbin/httpd -D FOREGROUND -f 
+/Library/Server/Web/Config/Proxy/apache_serviceproxy.conf -E /private/var/log
+
+When trying:
+sudo launchctl unload -w /System/Library/LaunchDaemons/org.apache.httpd.plist
+/System/Library/LaunchDaemons/org.apache.httpd.plist: Could not find specified service
+
+So, how do I terminate those processes and free up those ports?
+
+I know there is a config file for the apache server here: /Library/Server/Web/Config/Proxy/apache_serviceproxy.conf
+I can remove the following lines to unblock those ports, but the httpd processes are still running.
+listen 80
+listen 443
+
+A: 
+The apple proxy service is the service that grabs ports 80 and 443, so you need to stop that one.
+$ sudo launchctl unload -w /Applications/Server.app/Contents/ServerRoot/System/Library/
+LaunchDaemons/com.apple.serviceproxy.plist
