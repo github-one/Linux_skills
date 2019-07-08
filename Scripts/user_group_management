@@ -1,4 +1,30 @@
+------------------------------------------------------------------------------------------------
+$ sudo passwd jenkins                # This will prompt for you to set a password.
 
+
+------------------------------------------------------------------------------------------------
+/etc/passwd – Contains one line for each user account.
+/etc/shadow – Contains the password information in encrypted formatfor the system’s accounts and optional account aging information.
+/etc/group – Defines the groups on the system.
+/etc/default/useradd – This file contains a value for the default group, if none is specified by the useradd command.
+/etc/login.defs – This file defines the site-specific configuration for the shadow password suite stored in /etc/shadow file.
+
+------------------------------------------------------------------------------------------------
+What do the filds in ls -l output mean?
+-rwxrw-r--    1    root   root 2048    Jan 13 07:11 afile.exe
+
+  - file permissions,
+  - number of links,
+  - owner name,
+  - owner group,
+  - file size,
+  - time of last modification, and
+  - file/directory name
+
+first character is - or l or d, 
+d indicates a directory, a line represents a file, l is a symlink (or soft link) - special type of file
+
+------------------------------------------------------------------------------------------------
 Check all users on the system:
 $ cat /etc/passwd
 
@@ -11,4 +37,98 @@ UID GID：  每个用户和组有一个对应的UID和GID（用户ID和组ID）�
 GECOS：    可选的注释字段，通常记录用户全名
 directory：用于登录命令设置$HOME环境变量。某些服务的用户主目录设置为"/"是安全的，但不建议普通用户设置为此目录。
 shell：    是用户默认登录的shell，默认是"/bin/bash"（不带括号），还可选择其他的命令解释器，此部分是可选的，可留空。
+
+------------------------------------------------------------------------------------------------
+Check all groups on the system
+$ cat /etc/group
+
+每个用户组一条记录，一行包括：用户组（Group）、用户组口令、GID及该用户组所包含的用户（User），格式如下：
+group_name:passwd:GID:user_list 
+在/etc/group 中的每条记录分四个字段： 
+第一字段：用户组名称； 
+第二字段：用户组密码； 
+第三字段：GID 
+第四字段：用户列表，每个用户之间用,号分割；本字段可以为空；如果字段为空表示用户组为GID的用户名；
+
+------------------------------------------------------------------------------------------------
+chmod (选项)(参数)
+u User，即文件或目录的拥有者；
+g Group，即文件或目录的所属群组；
+o Other，除了文件或目录拥有者或所属群组之外，其他用户皆属于这个范围；
+a All，即全部的用户，包含拥有者，所属群组以及其他用户；
+
+r 读取权限，数字代号为“4”;
+w 写入权限，数字代号为“2”；
+x 执行或切换权限，数字代号为“1”；
+- 不具任何权限，数字代号为“0”；
+s 特殊功能说明：变更文件或目录的权限。
+
+-c : 若该文件权限确实已经更改，才显示其更改动作
+-v : 显示权限变更的详细资料
+-R : 对目前目录下的所有文件与子目录进行相同的权限变更(即以递回的方式逐个变更)
+
+Examples:
+$ chmod a+x my.log                  # for all users
+$ chmod ug+w,o-x my.log             # for owner and group 
+
+
+
+------------------------------------------------------------------------------------------------
+Q:  Give specific user permission to write to a folder using +w notation.
+A:  If you want to change the user owning this file or directory (folder), you will have to use the command chown. 
+
+For instance, if you run
+$ sudo chown username: myfolder
+the user owning myfolder will be username. Then you can execute
+$ sudo chmod u+w myfolder
+to add the write permission to the username user.
+
+But if you want to add this user to the group associated with "myfolder", you can run
+$ sudo usermod -a -G groupname username
+$ sudo chmod g+w myfolder
+to add the write permission to the group.
+
+------------------------------------------------------------------------------------------------
+Add a user to a group on Linux
+
+## commmands
+$ sudo groupadd mynewgroup
+$ sudo usermod -a -G examplegroup exampleusername           # Add an existing user to a group
+$ sudo usermod -g groupname username                        # Chanage a user's primary group
+$ groups                                                    # View the groups for a user
+$ id                                                        # View the numberical ID associated
+$ groups exampleusername
+$ id exampleusername
+$ sudo useradd -G examplegroup exampleusername              # Create a new user and assign a group
+$ sudo passwd jsmith
+$ sudo usermod -a -G group1,group2,group3 username          # add a user to multiple groups
+
+## usermod command options summary
+-a --append	            : Add the user to the supplementary group(s). Use only with the -G option.
+-g GROUP or --gid GROUP	: Use this GROUP as the default group.
+-G GRP1,GRP2 or --groups GRP1,GRP2	    :Add the user to GRP1,GRP2 secondary group.
+
+
+Example: Become a root user
+$ su -
+or $ sudo -i
+
+Example: add a new user called vivek and add it to group called developers.
+$ grep "^developers" /etc/group     # otherwise: sudo groupadd developers
+$ grep "^vivek" /etc/passwd
+$ useradd -G developers vivek
+$ passwd vivek
+$ id vivek
+
+Example: add a new user to primary group using useradd
+$ useradd -g developers tony
+$ id tony
+
+Example: add a existing user to exiisting group using usermod
+$ usermod -a -G ftp tony
+$ usermod -g www tony          # change tony user's primary group to wwww
+
+
+
+
 
