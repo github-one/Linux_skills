@@ -69,9 +69,15 @@ s 特殊功能说明：变更文件或目录的权限。
 
 Examples:
 $ chmod a+x my.log                  # for all users
-$ chmod ug+w,o-x my.log             # for owner and group 
-
-
+$ chmod ug+w,o-x my.log             # +w for owner and group, -x for others
+$ chmod a-x my.log
+$ chmod u=x my.out
+$ chmod -R u+x test_dirtory         # recursively
+$ chmod 751 file
+$ chmod u=rwx,g=rx,o=x file
+$ chmod =r file                     # for all users
+$ chmod 444 file                    # only read permission for all users
+$ chmod a-wx,a+r file               # only read permission for all users 
 
 ------------------------------------------------------------------------------------------------
 Q:  Give specific user permission to write to a folder using +w notation.
@@ -127,8 +133,4 @@ $ id tony
 Example: add a existing user to exiisting group using usermod
 $ usermod -a -G ftp tony
 $ usermod -g www tony          # change tony user's primary group to wwww
-
-
-
-
 
