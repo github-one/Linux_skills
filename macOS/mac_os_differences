@@ -19,22 +19,49 @@ Achive Internet connections (including servers)
 Proto Recv-Q Send-Q  Local Address          Foreign Address        (state)   
 tcp4       0      0  localhost.25035        *.*                    LISTEN
 
+-a: all ports
+-p: port type, such as: TCP, tcp, UDP, udp
+-n: show network address as number
+-v: increase verbosity level
+
+
+### List open files ###
 $ sudo lsof -PiTCP -sTCP:LISTEN
 COMMAND     PID      USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
 GitHub      850 grgarside   6u   IPv4 0x23c345381d089301      0t0  TCP localhost:25035 (LISTEN)
 
-$lsof -nP +c 15 | grep LISTEN
+$ sudo lsof -nP +c 15   | grep LISTEN
+$ sudo lsof -Pn -i4     | grep -i "listen"
+$ sudo lsof -Pn -iTCP   | grep -i "listen"
+$ lsof -nP -i4TCP:$PORT | grep LISTEN           # for example: $PORT is 80
+$ lsof -nP -i:$PORT     | grep LISTEN
 
-PROTIP: If you’ll be using this often, create an alias such as of.
+“lsof” is a contraction for “list open files”. 
+Without any options specifications, lsof lists all open files belonging to all active processes.
 
-“lsof” is a contraction for “list open files”. Without any options specifications, 
-lsof lists all open files belonging to all active processes.
-
-“-nP” is a combination of “n” for no resolution of IPs to hostnames using DNS 
-and “P” for no resolution of Port names from numbers.
+"-i4" means only show ipv4 address and ports -P and -n fast output
+“-nP” is a combination of "-n" and "-P".
+“-n” for no resolution of IPs to hostnames using DNS 
+“-P” for no resolution of Port names from numbers.
 This is because the command already takes several seconds to run.
 
-“+c 15” specifies command width of 15.
+"-PiTCP -sTCP:LISTEN" means that listing only network files with TCP state LISTEN.
 
+“+c 15” specifies command width of 15 and the command example is "GitHub".
+
+
+On macOS High Sierra, use this command:  
+$ lsof -nP -i4TCP:$PORT | grep LISTEN
+On older versions, use one of the following forms:
+$ lsof -nP -iTCP:$PORT  | grep LISTEN
+$ lsof -nP -i:$PORT     | grep LISTEN
+Since Snow Leopard (10.6), up to Mojave (10.14), every version of macOS supports this:
+$ sudo lsof -iTCP -sTCP:LISTEN -n -P
+
+Substitute $PORT with the port number or a comma-separated list of port numbers.
+
+Prepend sudo (followed by a space) if you need information on ports below #1024.
+
+PROTIP: If you’ll be using this often, create an alias such as of.
 website:  https://wilsonmar.github.io/ports-open/
 
