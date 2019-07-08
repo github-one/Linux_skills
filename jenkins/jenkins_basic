@@ -27,3 +27,11 @@ Go to www.yoursite.com/securityRealm/addUser and create a user
 Then go change allow anyone to do anything to whatever you actually want users to be able to do. 
 In my case, it is allow logged in users to do anything.
 
+Q: How to restart Jenkins manually?
+A: 
+   (jenkins_url)/safeRestart      
+   - Allows all running jobs to complete. New jobs will remain in the queue to run after the restart is complete.
+  
+   (jenkins_url)/restart - Forces a restart without waiting for builds to complete.
+   Example: 100.100.245.9:8080/restart
+   
