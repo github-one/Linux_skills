@@ -1,3 +1,7 @@
+TODO:
+https://stackoverflow.com/questions/36944634/su-command-in-docker-returns-must-be-run-from-terminal
+
+
 
 ------------------- Execute privilege -----------------
 Assuming that jenkins is running in Ubuntu.
@@ -28,10 +32,18 @@ Then go change allow anyone to do anything to whatever you actually want users t
 In my case, it is allow logged in users to do anything.
 
 Q: How to restart Jenkins manually?
-A: 
+A1: (By the website) 
    (jenkins_url)/safeRestart      
    - Allows all running jobs to complete. New jobs will remain in the queue to run after the restart is complete.
   
    (jenkins_url)/restart - Forces a restart without waiting for builds to complete.
    Example: 100.100.245.9:8080/restart
    
+A2: (By the shell)   
+$ sudo service jenkins status
+$ sudo service jenkins start
+$ sudo service jenkins stop
+$ sudo service jenkins restart
+or
+$ sudo /etc/init.d/jenkins restart
+Usage: /etc/init.d/jenkins {start|stop|status|restart|force-reload}
