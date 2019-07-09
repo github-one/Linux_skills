@@ -1,21 +1,28 @@
-TODO:
-https://stackoverflow.com/questions/36944634/su-command-in-docker-returns-must-be-run-from-terminal
 
 
-
-------------------- Execute privilege -----------------
+------------------------------------------- Execute privilege -----------------------------------------
 Assuming that jenkins is running in Ubuntu.
 
-1. Operation is running by the username of jenkins.
+1. Operation is running by the username of 'jenkins'.
 2. The working diectory is /var/lib/jenkins/workspace/xxx, the xxx is the name of pipeline created.
 3. The usernmae of 'jenkins' has no right on '/root/xxx'
+4. If needed, put 'jenkins' int 'root' group and do not forget to restart the jenkins.
 
 
-------------------- Pipeline Execution  -----------------
+------------------------------------------- Pipeline Execution  -----------------------------------------
 1. If the last task return value is 0, the pipleline will report success. Otherwise it will report failure.
 
+2. The default shell is sh for the build's "Exectue shell", but this is configurable.
+3. The script will be run with the workspace as the current directory. 
+4. If your shell script has no header line like #!/bin/sh —, then the shell configured system-wide will be used, 
+5. The header line can like "#!/bin/perl"
+6. By default, the shell will be invoked with the "-ex" option. 
+So all of the commands are printed before being executed, and the build is considered a failure if any of the commands 
+exits with a non-zero exit code. Again, add the #!/bin/... line to change this behavior.
+7. As a best practice, try not to put a long shell script in here, but use "bash -ex myscript.sh" or something like that.
 
-------------------- Pipeline Execution  -----------------
+
+------------------------------------------- Pipeline Questions  -----------------------------------------
 Q: Waht is the default Jenkins passowrd?
 A1:
    $ sudo passwd jenkins
@@ -47,3 +54,7 @@ $ sudo service jenkins restart
 or
 $ sudo /etc/init.d/jenkins restart
 Usage: /etc/init.d/jenkins {start|stop|status|restart|force-reload}
+
+-------------------------------------------------- TODO List -------------------------------------------------------
+https://stackoverflow.com/questions/36944634/su-command-in-docker-returns-must-be-run-from-terminal
+
