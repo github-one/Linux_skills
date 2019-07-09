@@ -1,0 +1,8 @@
+$ brew update             # Fetch latest version of homebrew and formula.
+$ brew search maven       # Searches all known formulae for a partial or exact match.
+$ brew info maven         # Displays information about the given formulae.
+$ brew install maven      # Install the given formulae.
+$ brew cleanup            # Remove any older versions from the cellar.
+
+$ brew install https://raw.github.com/Homebrew/homebrew-versions/master/maven30.rb
+
