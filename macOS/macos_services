@@ -18,6 +18,21 @@ They show two completely different lists.
 When you run launchctl as a normal user, it shows/manages LaunchAgents running in your user session; 
 When you run as root, it shows/manages the system-wide LaunchDaemons. 
 
+---------------------------------------- Apache ------------------------------------------------------------------
+$ sudo apachectl stop
+$ sudo apachectl -k stop
+$ sudo apachectl start
+$ sudo apachectl -k start
+$ sudo apachectl restart
+$ sudo apachectl -k restart
+$ sudo apachectl configtest
+
+Editing the config file and reloading apache web server: 
+$ sudo vi /etc/apache2/httpd.conf
+$ sudo apachectl graceful
+or
+$ sudo apachectl -k graceful
+
 ------------------------------------------------------------------------------------------------------------------
 Q: How do I stop httpd running under Mac OS X (10.11) El Capitan Server?
 I am using OS X El Capitan with the Server (app) configured to allow me VPN access to my home network. 
