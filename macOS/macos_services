@@ -1,4 +1,24 @@
+------------------------------------------------------------------------------------------------------------------
+Q: How do I start/stop/restart launchctl services from the command line?
+A:
+$ sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist 
+$ sudo launchctl unload  /System/Library/LaunchDaemons/ssh.plist 
+$ sudo launchctl list
+or
+$ launchctl list
 
+Just keep in mind that some of the services (sshd for example) are disabled in the configuration file
+so you will need to use the -w switch when loading them. 
+
+------------------------------------------------------------------------------------------------------------------
+$ launchctl list
+$ sudo launchctl list
+
+They show two completely different lists. 
+When you run launchctl as a normal user, it shows/manages LaunchAgents running in your user session; 
+When you run as root, it shows/manages the system-wide LaunchDaemons. 
+
+------------------------------------------------------------------------------------------------------------------
 Q: How do I stop httpd running under Mac OS X (10.11) El Capitan Server?
 I am using OS X El Capitan with the Server (app) configured to allow me VPN access to my home network. 
 Unfortunately, the Server app has decided to start a bunch of httpd processes, which are now listening 
@@ -33,3 +53,5 @@ A:
 The apple proxy service is the service that grabs ports 80 and 443, so you need to stop that one.
 $ sudo launchctl unload -w /Applications/Server.app/Contents/ServerRoot/System/Library/
 LaunchDaemons/com.apple.serviceproxy.plist
+
+------------------------------------------------------------------------------------------------------------------
