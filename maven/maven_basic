@@ -1,0 +1,37 @@
+
+
+
+
+
+
+
+---------------------------------------------------- proxy ------------------------------------------------------------------
+
+修改maven的配置文件{maven_home}/conf/settings.xml, 在proxys节点下增加proxy设置
+<proxy>
+  <id>proxy</id>
+  <active>true</active>
+  <protocol>http</protocol>
+  <username>账号</username>
+  <password>明文密码</password>
+  <host>172.18.32.221</host>
+  <port>8080</port>
+  <nonProxyHosts>localhost|127.0.0.*|10.*|192.168.*|*.huawei.com</nonProxyHosts>
+</proxy>
+
+在mirrors几点下增加镜像设置，如下是阿里云镜像
+<mirror>
+  <id>alimaven</id>
+  <name>aliyun maven</name>
+  <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+  <mirrorOf>central</mirrorOf>       
+</mirror>
+
+如果依赖的下载地址是https协议，则仍无法下载成功，解决方法：Maven可以通过命令行参数忽略所有证书。
+-Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true
+D:\> mvn pakage -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true
+
+another solution: 
+https://maven.apache.org/guides/mini/guide-repository-ssl.html#
+https://stackoverflow.com/questions/25911623/problems-using-maven-and-ssl-behind-proxy
+https://blog.csdn.net/sd2131512/article/details/78855238
