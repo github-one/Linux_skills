@@ -6,3 +6,6 @@ $ brew cleanup            # Remove any older versions from the cellar.
 
 $ brew install https://raw.github.com/Homebrew/homebrew-versions/master/maven30.rb
 
+------------------------------------------------------------------------------------------------------------
+Formulae list
+https://formulae.brew.sh/formula/
