@@ -1,4 +1,4 @@
-
+--------------------------------------------------------------------------------------------------------------------------
 $ mvn -version
 $ mvn archetype:generate -DgroupId=com.mycompany.app 
                          -DartifactId=my-app 
@@ -12,5 +12,9 @@ $ cd my-app
 $ mvn package
 $ java -cp target/my-app-1.0-SNAPSHOT.jar com.mycompany.app.App
 Hello World!
-
 (suscess!)
+
+1. Maven will create a directory "my-app" in the current path.
+2. The jar file name will be "<DartifactId>-<DarchetypeVersion>", as "my-app-1.0-SNAPSHOT.jar" in this example.
+
+--------------------------------------------------------------------------------------------------------------------------
