@@ -6,6 +6,7 @@ $ brew cleanup            # Remove any older versions from the cellar.
 
 $ brew install https://raw.github.com/Homebrew/homebrew-versions/master/maven30.rb
 
+$ brew outdated           # Show outdated formula
 $ brew upgrade mongodb
 $ brew upgrade            # Update for all outdated formula
 
