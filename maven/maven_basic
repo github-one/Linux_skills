@@ -106,3 +106,12 @@ https://stackoverflow.com/questions/25911623/problems-using-maven-and-ssl-behind
 https://blog.csdn.net/sd2131512/article/details/78855238
 https://stackoverflow.com/questions/21252800/how-to-tell-maven-to-disregard-ssl-errors-and-trusting-all-certs
 
+---------------------------------------------------- repository ------------------------------------------------------------------
+https://repo.maven.apache.org/maven2            # Official website for maven repository, but needs https connnection  
+http://repo1.maven.org/maven2                   # For http type connnection
+
+https://mvnrepository.com/                      # You may search artifacts
+
+http://maven.aliyun.com/nexus/content/groups/public/        # Aliyun mirrors, seems http connnection but somehow needs https
+
+
