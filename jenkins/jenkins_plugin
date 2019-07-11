@@ -1,1 +1,26 @@
 https://wiki.jenkins.io/display/JENKINS/Plugin+tutorial#Plugintutorial-CreatingaNewPlugin
+
+----------------------------------------------------------------------------------------------------------------------------
+Q: How to install a plugin in Jenkins manually?
+A: There are two ways to install jenkins plugins.
+
+Way 1#: (installing from Jenkins front-end)
+1 Download the plugin.
+2 Inside Jenkins: Manage Jenkins -> Manage Plugin -> There is a tab called "Advanced" and on that page
+there is an option to upload a plugin (the extension of the file must be hpi).
+Sometimes, when you download plugins file with '*.zip', then you may rename it with '*.hpi'.
+
+Way 2#: (manually putinng the .hpi file in Jenkins home directory)
+Download the plugin (*.hpi file) and put it in the following directory: <jenkinsHome>/plugins/
+( <jenkinsHome> may be /var/lib/jenkins mostly)
+Afterwards you will need to restart Jenkins.
+
+There are many plugins files ending with .jpi instead of .hpi, because Jenkins renames the plugin files
+during the installation from .hpi to .jpi so it's able to detect a new plugin to install over an existing one.
+
+When you install the plugin manually (downloaded as .hpi file) it is installed with extension .hpi 
+and while installing the plugin through Jenkins front-end the plugin file will be changed as .jpi.
+
+when Jenkins boots up, the plugin "*.jpi" gets precedence over plugin "*.hpi" in case both are present. 
+
+
