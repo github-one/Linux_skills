@@ -1,6 +1,6 @@
 https://wiki.jenkins.io/display/JENKINS/Plugin+tutorial#Plugintutorial-CreatingaNewPlugin
 
-----------------------------------------------------------------------------------------------------------------------------
+------------------------------------------- Manually install a jenkins plugin  -----------------------------------------------
 Q: How to install a plugin in Jenkins manually?
 A: There are two ways to install jenkins plugins.
 
@@ -22,5 +22,46 @@ When you install the plugin manually (downloaded as .hpi file) it is installed w
 and while installing the plugin through Jenkins front-end the plugin file will be changed as .jpi.
 
 when Jenkins boots up, the plugin "*.jpi" gets precedence over plugin "*.hpi" in case both are present. 
+
+
+------------------------------------------- Develop a jenkins plugin ------------------------------------------------------
+Prepare:
+    Install a JDK
+    Install a Maven
+    $ mvn -version
+    
+Create a plugin:
+    $ mvn -U archetype:generate -Dfilter="io.jenkins.archetypes:"
+        ........
+        Confirm properties configuration:
+        groupId: unused
+        artifactId: demo
+        version: 1.0-SNAPSHOT
+        package: io.jenkins.plugins.sample
+        .......
+    $ mv demo demo-plugin 
+    $ cd demo-plugin
+    $ mvn verify
+
+Build and Run the plugin:
+    $ mvn hpi:run       # Note: this will set up a Jenkins instance on http://localhost:8080/jenkins/.    
+    Create a new freestyle project in Jenkins, and give it any name.
+    Then add the "Say hello world" build step. 
+    Enter a name, save the project, and start a new build. Navigate to the build on the UI, 
+    and click Console Output to view the build log. 
+    It will contain a message written by the build step that was just configured:
+        ......
+        Hello, Jenkins! 
+        Finished: SUCCESS
+
+Distributing a Plugin:
+    $ mvn package
+    This should create target/*.hpi file. 
+    Other users can use Jenkins' web UI to upload this plugin to Jenkins (or place it in $JENKINS_HOME/plugins.)
+
+Websites:    
+https://jenkins.io/doc/developer/tutorial/prepare/    
+https://wiki.jenkins.io/display/JENKINS/Plugin+tutorial#Plugintutorial-CreatingaNewPlugin  
+
 
 
