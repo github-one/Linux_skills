@@ -82,3 +82,8 @@ https://code.dblock.org/2011/09/07/implementing-my-first-jenkins-plugin-ansicolo
 
 Jenkins plugin examples:
 https://wiki.jenkins.io/display/JENKINS/testng-plugin
+https://github.com/envimate/golang-coverage-report
+
+https://github.com/jenkinsci/htmlpublisher-plugin
+https://blog.csdn.net/xu19950210rou/article/details/74729296         # User report for the HTMLpublisher plugin
+
