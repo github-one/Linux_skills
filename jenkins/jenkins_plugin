@@ -79,3 +79,6 @@ comments: English, step by step, intellij,
 
 How to change the result display?
 https://code.dblock.org/2011/09/07/implementing-my-first-jenkins-plugin-ansicolor.html
+
+Jenkins plugin examples:
+https://wiki.jenkins.io/display/JENKINS/testng-plugin
