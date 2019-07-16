@@ -72,7 +72,6 @@ https://wiki.jenkins.io/display/JENKINS/Plugin+Structure
 
 ## Advanced developer in Chinese
 https://blog.csdn.net/weixin_38652136/article/details/81116455
-https://blog.csdn.net/u014249394/article/details/89969385
 https://www.jianshu.com/p/8c05b6191d2f
 http://www.uml.org.cn/jchgj/201802073.asp
 
@@ -90,6 +89,8 @@ https://www.cnblogs.com/kingzzm/p/3321711.html
 -------------------------  Jenkins plugin examples  -------------------------
 How to change the result display?
 https://code.dblock.org/2011/09/07/implementing-my-first-jenkins-plugin-ansicolor.html
+
+https://blog.csdn.net/u014249394/article/details/89969385
 
 https://wiki.jenkins.io/display/JENKINS/testng-plugin
 https://github.com/envimate/golang-coverage-report
