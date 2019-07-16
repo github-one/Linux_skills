@@ -60,12 +60,17 @@ Distributing a Plugin:
     Other users can use Jenkins' web UI to upload this plugin to Jenkins (or place it in $JENKINS_HOME/plugins.)
 
 Websites:    
-https://jenkins.io/doc/developer/tutorial/prepare/    
+https://jenkins.io/doc/developer/tutorial/prepare/
+https://jenkins.io/doc/developer/tutorial/create/
+https://jenkins.io/doc/developer/tutorial/run/
+https://jenkins.io/doc/developer/tutorial/extend/
+https://www.cnblogs.com/hellohello/p/8727067.html           # In Chinese
+
+https://wiki.jenkins.io/display/JENKINS/Extend+Jenkins
 https://wiki.jenkins.io/display/JENKINS/Plugin+tutorial#Plugintutorial-CreatingaNewPlugin  
 https://wiki.jenkins.io/display/JENKINS/Plugin+Structure
 
-Advanced developer:
-https://www.cnblogs.com/hellohello/p/8727067.html
+## Advanced developer in Chinese
 https://blog.csdn.net/weixin_38652136/article/details/81116455
 https://blog.csdn.net/u014249394/article/details/89969385
 https://www.jianshu.com/p/8c05b6191d2f
