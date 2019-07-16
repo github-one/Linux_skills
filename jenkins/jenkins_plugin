@@ -82,8 +82,9 @@ https://dzone.com/articles/implementing-a-jenkins-plugin-from-scratch-in-5-st   
 https://github.com/virtualramblas/publishtokafka-plugin                                 # Complicated
 comments: English, step by step, intellij, 
 
-## Actions tutorial:
-https://www.cnblogs.com/kingzzm/archive/2013/09/14/3321712.html
+## Actions and Release tutorial:
+https://www.cnblogs.com/kingzzm/p/3321712.html
+https://www.cnblogs.com/kingzzm/p/3321711.html
 
 
 -------------------------  Jenkins plugin examples  -------------------------
