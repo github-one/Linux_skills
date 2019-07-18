@@ -1,0 +1,16 @@
+Q:  See the size of a github repo before cloning it?
+A:  
+If you own the respo, then:  your Account Settings > Repositories
+If you don't won the respo, then you may access this information through the GitHub API.
+For example:  https://github.com/jenkinsci/jenkins
+open a web browser, input: https://api.github.com/repos/jenkinsci/jenkins, then search for "size", you will get 
+ "size": 112047,
+ so the size of "jenkins" is 112047K. 
+ 
+There's a way to access this information through the GitHub API.
+syntax: /repos/:user/:repo [GET]
+example: https://api.github.com/repos/git/git
+When retrieving information about a repository, a property named size is valued with the size of the whole repository
+(including all of its history), in kilobytes.
+For instance, the Git repository weights around 40Mb. The size property of the returned JSON payload is valued to 40764.
+
