@@ -7,6 +7,9 @@ Activate the virtual enviroment:
 
 Once an environment is activated, all the install commands will apply only to the current environment. 
 By default, if you close your Terminal, the environment is deactivated.
+    (work_directory) $ pip install numpy
+    (work_directory) $ pip install scipy
+    (work_directory) $ pip install matplotlib
 
 Exit the virtual enviroment:
     (work_directory) $ deactivate
