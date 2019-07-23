@@ -15,4 +15,35 @@ Exit the virtual enviroment:
     (work_directory) $ deactivate
     
     
-    
+--------------------------  ## dir(),help(),type() and __doc__ ## ------------------------------------------    
+dir()	    Returns the attributes of the object or module.
+help()	    Returns the python built in documentation about the object.
+type()	    Returns the type of object.
+__doc__	    Returns the doc-string of object or module.
+
+>>> dir()
+>>> dir(__builtins__)
+>>> dir(int)
+>>> x = 5
+>>> dir(x)
+
+>>> help()
+help> int
+>>> help(str)
+>>> help(numpy.dtype)
+
+>>> x = 5
+>>> type(x)
+>>> y= "hello world"
+>>> type(y)
+
+>>> print int.__doc__
+>>> print list.__doc__
+>>> print dict.__doc__
+
+>>> import os
+>>> dir(os)
+>>> help(os)
+>>> type(os)
+>>> print os.__doc__
+
