@@ -47,3 +47,5 @@ help> int
 >>> type(os)
 >>> print os.__doc__
 
+From: https://www.linuxnix.com/python-builtin-helpdir-help-type-and-___doc_-functions/
+
