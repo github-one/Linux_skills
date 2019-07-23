@@ -1,0 +1,15 @@
+## venv ##
+$ python3 -m venv work_directory
+
+Activate the virtual enviroment:
+    Windows:      d:> work_directory\Scripts\activate.bat
+    Unix/MacOS:   $ source work_directory/bin/activate
+
+Once an environment is activated, all the install commands will apply only to the current environment. 
+By default, if you close your Terminal, the environment is deactivated.
+
+Exit the virtual enviroment:
+    (work_directory) $ deactivate
+    
+    
+    
