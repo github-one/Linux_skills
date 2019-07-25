@@ -49,3 +49,19 @@ help> int
 
 From: https://www.linuxnix.com/python-builtin-helpdir-help-type-and-___doc_-functions/
 
+-------------------------------------------  ## pip ## -----------------------------------------------------
+pip on Windows 
+
+通用方法：到python社区中下载安装包进行安装这种方法呢，对所有的第三方库安装都适用。
+社区：Python Extension Packages for Windows - Christoph Gohlke
+https://www.lfd.uci.edu/~gohlke/pythonlibs/
+
+Examples: wordcloud install
+1 download wordcloud lib
+2 select the right version
+wordcloud‑1.5.0‑cp36‑cp36m‑win_amd64.whl        --->  for python 3.6 version
+wordcloud‑1.5.0‑cp37‑cp37m‑win32.whl            --->  for python 3.7 version
+3 c:> pip install wordcloud‑1.5.0‑cp36‑cp36m‑win_amd64.whl
+4 pip list                  # confirm the download is successful
+5 >>> import wordcloud      # call the lib in the python commmand line
+
