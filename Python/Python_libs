@@ -1,0 +1,9 @@
+### wordcloud 单词频度图形化展示 ###
+
+wordcloud库是python非常优秀的词云展示第三方库，wordcloud把词云当作一个对象，它可以将文本中词语出现的频率作为一个参数绘制词云，
+而词云的大小、颜色、形状等都是可以设定的。
+
+https://www.jianshu.com/p/daa54db9045d
+https://github.com/amueller/word_cloud
+https://github.com/fyuanfen/wordcloud               # Example
+
