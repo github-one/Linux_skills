@@ -65,3 +65,18 @@ wordcloud‑1.5.0‑cp37‑cp37m‑win32.whl            --->  for python 3.7 ver
 4 pip list                  # confirm the download is successful
 5 >>> import wordcloud      # call the lib in the python commmand line
 
+
+-------------------------------------------  ## sys.path.append ## -----------------------------------------------------
+import  xxx
+默认情况下python解析器会搜索当前目录、已安装的内置模块和第三方模块，搜索路径存放在sys模块的path中。
+>>> sys.path
+此时sys.path 返回的是一个列表！
+
+该路径已经添加到系统的环境变量了，当我们要添加自己的搜索目录时，可以通过列表的append()方法
+1.对于模块和自己写的脚本不在同一个目录下，在脚本开头加sys.path.append('xxx')：
+import sys  
+sys.path.append(’引用模块的地址')  
+2.把路径添加到系统的环境变量，或把该路径的文件夹放进已经添加到系统环境变量的路径内。环境变量的内容会自动添加到模块搜索路径中。
+p.s.可以通过dir(sys)来查看他里面的方法和成员属性。
+
+
