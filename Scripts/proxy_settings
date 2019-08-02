@@ -118,6 +118,19 @@ SUSE proxy settings
     # wget www.google.com
     
     
+------------------------------------------------- GIT ----------------------------------------------------------
+Q:  RPC failed; curl 56 GnuTLS recv error (-110): The TLS connection was non-properly terminated    
+A:
+在命令行下输入：
+$ export GIT_SSL_NO_VERIFY=1
+
+这样就可以了，但是这样每次启动shell又失效了，不是永久性的，如果想永久有效，可以把命令加入bashrc中：
+vi ~/.bashrc
+# 在空白处添加
+export GIT_SSL_NO_VERIFY=1
+# 保存退出，重新加载
+source ~/.bashrc    
+    
 ---------------------------------------------- no_proxy -------------------------------------------------------    
 https://unix.stackexchange.com/questions/23452/set-a-network-range-in-the-no-proxy-environment-variable
 
