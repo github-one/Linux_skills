@@ -1,0 +1,26 @@
+Q: Use and meaning of “in” in an if statement?
+A:
+It depends on what next is.
+
+If it's a string (as in your example), then in checks for substrings.
+
+>>> "in" in "indigo"
+True
+>>> "in" in "violet"
+False
+>>> "0" in "10"
+True
+>>> "1" in "10"
+True
+If it's a different kind of iterable (list, tuple, set, dictionary...), then in checks for membership.
+
+>>> "in" in ["in", "out"]
+True
+>>> "in" in ["indigo", "violet"]
+False
+In a dictionary, membership is seen as "being one of the keys":
+
+>>> "in" in {"in": "out"}
+True
+>>> "in" in {"out": "in"}
+False
