@@ -131,6 +131,38 @@ export GIT_SSL_NO_VERIFY=1
 # 保存退出，重新加载
 source ~/.bashrc    
     
+------------------------------------------------- pip ----------------------------------------------------------    
+Method 1: commnad line
+$ sudo pip install numpy --proxy https://Username:Password@proxyhk.huawei.com:8080/ 
+$ python -m pip install numpy --proxy https://Username:Password@proxyhk.huawei.com:8080/ 
+
+Method 2: config file
+1. 创建pip文件夹
+进入C:/用户/w00123456目录后（个人工号），创建文件夹：pip
+
+2. 创建pip.ini文件   
+在第一步创建的文件内，创建一个新文件（比如pip.txt），然后修改后缀为ini即可。现在你有一个完整路径是C:/用户/l00123456/pip/pip.ini的文件。
+
+3. 修改pip.ini   
+编辑pip.ini，写入如下内容：
+[global]
+proxy=http://CHINA%5Cw00123456:password@proxyhk.huawei.com:8080
+trusted-host=pypi.python.org
+
+中间的内容很明确，依次是你的账号:密码（w3密码）。
+需要注意的是：与%5C（代表 \ ）类似，需要将密码中的特殊字符进行转义，
+https://meyerweb.com/eric/tools/dencoder/ ，在上述网站输入特殊字符，或直接键入完整密码，点击ENCODE进行转义，将转义后的文字写入到pip文件中。
+
+常见的特殊字符：
+ 字符	转义 
+ @	%40 
+ #	%23 
+ $	%24 
+ %	%25 
+ ^	%5E 
+ &	%26 
+ +	%2B 
+    
 ---------------------------------------------- no_proxy -------------------------------------------------------    
 https://unix.stackexchange.com/questions/23452/set-a-network-range-in-the-no-proxy-environment-variable
 
