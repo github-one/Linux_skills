@@ -78,6 +78,31 @@ $IFS is the (input) field separator. $IFS is always interpreted as a series of s
 $! is the PID of the most recent background command.
 
 
+-----------------------Recall the argument of the previous bash command----------------------------------------
+$ vi file.c
+$ gcc $_      # vi file.c
+
+$ vi file.c
+$ gcc !$      # vi file.c
+
+$ echo "one" "two" "three" "four"
+$ echo !$     # echo "four"
+
+$ echo "one" "two" "three" "four"
+$ echo !^     # echo "one"
+Similar to !$, you use !^ for the first argument. 
+
+$ echo "one" "two" "three" "four"
+$ echo !!:2     # echo "two"
+!!:n where n is the 0-based position of the argument you want.
+
+!$ - last argument from previous command
+!^ - first argument (after the program/built-in/script) from previous command
+!! - previous command (often pronounced "bang bang")
+!n - command number n from history
+!pattern - most recent command matching pattern
+!!:s/find/replace - last command, substitute find with replace
+
 ------------------------------------------- !$ vs $_ -----------------------------------------------------------
 Q:
         $ echo "hello" > /tmp/a.txt
@@ -97,11 +122,11 @@ but not in case of redirection. In:
 $ echo "hello" > /tmp/a.txt
 the whole command 'echo "hello" > /tmp/a.txt' appeared in history, and /tmp/a.txt is the last word of that command.
 
-_ is a shell parameter, it expands to last argument of previous command. 
+$_ is a shell parameter, it expands to last argument of previous command. 
 Here, the redirection is not a part of arguments passed to the command, so only hello is the argument passed to echo. 
 That's why $_ expanded to hello.
 
-_ is not one of shell standard special parameters anymore. It works in bash, zsh, mksh and dash only when interactive, 
+$_ is not one of shell standard special parameters anymore. It works in bash, zsh, mksh and dash only when interactive, 
 ksh93 only when two command are on separated lines:
 
 $ echo 1 && echo $_
