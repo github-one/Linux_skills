@@ -99,9 +99,14 @@ $ echo !!:2     # echo "two"
 !$ - last argument from previous command
 !^ - first argument (after the program/built-in/script) from previous command
 !! - previous command (often pronounced "bang bang")
-!n - command number n from history
 !pattern - most recent command matching pattern
 !!:s/find/replace - last command, substitute find with replace
+
+###################################################
+!n - command number n from history
+!-n - command number n from history bottom to up
+###################################################
+
 
 ------------------------------------------- !$ vs $_ -----------------------------------------------------------
 Q:
