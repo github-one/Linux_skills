@@ -13,7 +13,9 @@ ufw is just a frontend for iptables.
 --------------------------------- Ubuntu -------------------------------------------------
 
 Saving iptables and restore iptables
+
 $ iptables-save 
+
 $ iptables-restore
 
 
