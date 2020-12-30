@@ -8,7 +8,10 @@ Kubuntu, Xubuntu). When you install Ubuntu, iptables is there, but it allows all
 by default. 
 Ubuntu 8.04 Comes with ufw - a program for managing the iptables firewall easily.
 
+ufw is just a frontend for iptables.
+
 --------------------------------- Ubuntu -------------------------------------------------
+
 Saving iptables and restore iptables
 $ iptables-save 
 $ iptables-restore
