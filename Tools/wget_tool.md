@@ -1,4 +1,4 @@
-
+```
 # wget http://ftp.gnu.org/gnu/wget/wget-1.5.3.tar.gz
 # wget -O wget.zip http://ftp.gnu.org/gnu/wget/wget-1.5.3.tar.gz
 # wget http://ftp.gnu.org/gnu/wget/wget-1.5.3.tar.gz ftp://ftp.gnu.org/gnu/wget/wget-1.10.1.tar.gz.sig
@@ -21,7 +21,10 @@ in that case we can resume download the same file where it was left off with -c 
 But when you start download file without specifying -c option wget will add .1 extension 
 at the end of file, considering as a fresh download. 
 So, it’s good practice to add -c switch when you download big files.
+```
 
+
+```
 -a<日志文件>：在指定的日志文件中记录资料的执行过程；
 -A<后缀名>：指定要下载文件的后缀名，多个后缀名之间使用逗号进行分隔；
 -b：进行后台的方式运行wget；
@@ -44,9 +47,10 @@ So, it’s good practice to add -c switch when you download big files.
 -V：显示版本信息；
 --passive-ftp：使用被动模式PASV连接FTP服务器；
 --follow-ftp：从HTML文件中下载FTP连接文件。
+```
 
+```
 下载多个文件
-
 wget -i filelist.txt
 首先，保存一份下载链接文件：
 
@@ -80,4 +84,4 @@ wget -r -A.pdf url
 下载一个网站的所有图片。
 下载一个网站的所有视频。
 下载一个网站的所有PDF文件。
-
+```
