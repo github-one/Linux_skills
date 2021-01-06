@@ -1,3 +1,4 @@
+```
 ------------------------------------------------------------------------------------------
 Q: How can I reverse the order of lines in a file?
 A:
@@ -146,4 +147,4 @@ Use ‘-w’ to compare only N characters
 The ‘-w’ option allows us to specify an exact number of characters to use in our comparison.
 $ uniq -w 4 sample_log_file.txt 
 
-
+```
