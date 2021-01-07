@@ -1,11 +1,13 @@
-```
+
 iproute2 is the Linux networking toolkit that replaced net-tools (ifconfig, vconfig, route, arp etc.). 
+
 It has been a standard Linux tool since the early 2000's. It's been included in every distro by default.
+
 Old style network utilities like ifconfig and route are still there just for backwards compatibility.
 
 https://www.baturin.org/docs/iproute2/
 
-
+```
 iproute2 tools list:
  Address management
  Neighbor (ARP and NDP) table management
